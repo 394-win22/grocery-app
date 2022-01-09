@@ -1,3 +1,11 @@
+## Grocery item format
+
+1. Name
+2. dictionary of people to amount quantity
+3. number total quantity
+4. Boolean purchased
+5.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
