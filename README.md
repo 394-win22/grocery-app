@@ -4,7 +4,7 @@
 2. dictionary of people to amount quantity
 3. number total quantity
 4. Boolean purchased
-5.
+5. notes (for item unit, special instructions, etc..)
 
 # Getting Started with Create React App
 
