@@ -6,6 +6,8 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Checkbox from '@mui/material/Checkbox';
 import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+
 
 export default function GroceryList( {items} ) {
     const [checked, setChecked] = React.useState([1]);
@@ -47,12 +49,16 @@ export default function GroceryList( {items} ) {
                       src={`/static/images/avatar/${value + 1}.jpg`}
                     />
                   </ListItemAvatar>
-                  <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+                  <ListItemText id={labelId} primary={value.name} />
+                  <Button variant="contained">delete</Button>
                 </ListItemButton>
+                
               </ListItem>
+              
             );
           })}
         </List>
+        
       );
     }
 
