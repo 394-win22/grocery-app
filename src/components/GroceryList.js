@@ -7,6 +7,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Checkbox from '@mui/material/Checkbox';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import AddNewItem from './AddNewItem';
 
 
 export default function GroceryList( {items} ) {
@@ -51,6 +52,7 @@ export default function GroceryList( {items} ) {
                   </ListItemAvatar>
                   <ListItemText id={labelId} primary={value.name} />
                   <Button variant="contained">delete</Button>
+                  <AddNewItem />
                 </ListItemButton>
                 
               </ListItem>
