@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import { useData } from "./utilities/firebase.js";
-import GroceryList from './components/GroceryList.js' 
-
-
-
+import GroceryList from "./components/GroceryList.js";
+import AddNewItem from "./components/AddNewItem";
 
 const App = () => {
   const [groceryList, loading, error] = useData("/");
@@ -15,8 +13,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <GroceryList items = { groceryList.items } />
-      
+      <GroceryList items={groceryList.items} />
+      <AddNewItem />
     </div>
   );
 };
