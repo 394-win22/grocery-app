@@ -8,10 +8,10 @@ import Checkbox from "@mui/material/Checkbox";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import AddNewItem from "./AddNewItem";
+import {setData} from "../utilities/firebase";
 
 export default function GroceryList({ items }) {
   const [checked, setChecked] = React.useState([1]);
-
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
@@ -30,16 +30,16 @@ export default function GroceryList({ items }) {
       dense
       sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
     >
-      {items.map((value) => {
-        const labelId = `checkbox-list-secondary-label-${value.name}`;
+      {items.map((item, index) => {
+        const labelId = `checkbox-list-secondary-label-${item.name}`;
         return (
           <ListItem
-            key={value}
+            key={index}
             secondaryAction={
               <Checkbox
                 edge="end"
-                onChange={handleToggle(value)}
-                checked={checked.indexOf(value) !== -1}
+                onChange={handleToggle(item)}
+                checked={checked.indexOf(item) !== -1}
                 inputProps={{ "aria-labelledby": labelId }}
               />
             }
@@ -48,21 +48,28 @@ export default function GroceryList({ items }) {
             <ListItemButton>
               <ListItemAvatar>
                 <Avatar
-                  alt={`Avatar ${value.name}`}
-                  src={`/static/images/avatar/${value.name}.jpg`}
+                  alt={`Avatar ${item.name}`}
+                  src={`/static/images/avatar/${item.name}.jpg`}
                 />
               </ListItemAvatar>
               <ListItemText
                 id={labelId}
-                primary={value.name}
-                secondary={value.total_quantity}
+                primary={item.name}
               />
-              <Button variant="contained">+</Button>
-              <Button variant="contained">-</Button>
+              <Button variant="contained" onClick={()=>changeQuantity(index, item.total_quantity+1)}>+</Button>
+              <ListItemText
+                  id={labelId}
+                  secondary={item.total_quantity}
+              />
+              <Button variant="contained" onClick={()=>changeQuantity(index, item.total_quantity-1)}>-</Button>
             </ListItemButton>
           </ListItem>
         );
       })}
     </List>
   );
+}
+
+const changeQuantity = (index, value) => {
+  setData(`/items/${index}/total_quantity`, value)
 }
