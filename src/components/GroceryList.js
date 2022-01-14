@@ -9,6 +9,8 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import AddNewItem from "./AddNewItem";
 import {setData} from "../utilities/firebase";
+import "../utilities/removeByIndex";
+import removeByIndex from "../utilities/removeByIndex";
 
 export default function GroceryList({ items }) {
   const [checked, setChecked] = React.useState([1]);
@@ -56,12 +58,12 @@ export default function GroceryList({ items }) {
                 id={labelId}
                 primary={item.name}
               />
-              <Button variant="contained" onClick={()=>changeQuantity(index, item.total_quantity+1)}>+</Button>
+              <Button variant="contained" onClick={()=>changeQuantity(index, item.total_quantity+1, items)}>+</Button>
               <ListItemText
                   id={labelId}
                   secondary={item.total_quantity}
               />
-              <Button variant="contained" onClick={()=>changeQuantity(index, item.total_quantity-1)}>-</Button>
+              <Button variant="contained" onClick={()=>changeQuantity(index, item.total_quantity-1, items)}>-</Button>
             </ListItemButton>
           </ListItem>
         );
@@ -70,6 +72,10 @@ export default function GroceryList({ items }) {
   );
 }
 
-const changeQuantity = (index, value) => {
-  setData(`/items/${index}/total_quantity`, value)
+const changeQuantity = (index, value, items) => {
+  if (value <= 0) {
+    setData(`/items/`, removeByIndex(items, index));
+  } else {
+    setData(`/items/${index}/total_quantity`, value)
+  }
 }
