@@ -16,6 +16,7 @@ const AddNewItem = ({ items }) => {
         id="item-name-input"
         variant="outlined"
         onInput={(e) => setItemName(e.target.value)}
+        value={itemName}
       />
       <Button type="submit" variant="contained">
         Add
