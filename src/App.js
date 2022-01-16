@@ -14,7 +14,9 @@ const App = () => {
 	return (
 		<div className='App'>
 			<GroceryList items={groceryList.items} />
-			<AddNewItem items={groceryList.items} />
+			<div align='left' className='NewItem' >
+				<AddNewItem items={groceryList.items} />
+			</div>
 		</div>
 	);
 };

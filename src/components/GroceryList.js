@@ -4,6 +4,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
+import { Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -53,15 +54,25 @@ export default function GroceryList({ items }) {
                 />
               </ListItemAvatar>
               <ListItemText
+                disableTypography
                 id={labelId}
-                primary={item.name}
+                primary={
+                  <Typography type= 'body1' style={{ fontFamily: 'cursive'}} // font style
+                   align='center'> {item.name} </Typography>
+                  }
               />
-              <Button variant="contained" onClick={()=>changeQuantity(index, item.total_quantity+1)}>+</Button>
-              <ListItemText
+              <Button variant="contained" 
+              style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}} // Button size
+              onClick={()=>changeQuantity(index, item.total_quantity+1)}> + </Button>
+              <ListItemText 
+                  disableTypography
                   id={labelId}
-                  secondary={item.total_quantity}
+                  secondary= {
+                    <Typography variant='subtitle1' align='center'>{item.total_quantity}</Typography>}
               />
-              <Button variant="contained" onClick={()=>changeQuantity(index, item.total_quantity-1)}>-</Button>
+              <Button variant="contained" 
+              style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}} // Button size
+              onClick={()=>changeQuantity(index, item.total_quantity-1)}> - </Button>
             </ListItemButton>
           </ListItem>
         );
