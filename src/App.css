@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  /* border: 2px solid hotpink; */
 }
 
 .App-logo {
@@ -38,14 +37,21 @@
   }
 }
 
+@media only screen and (max-width: 600px) {
+  .grocery-list {
+    width: 90%;
+    margin: 0 5%;
+    padding: 0;
+  }
+}
+
 .grocery-list {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  border: 1px solid #9d9d9d;
-  margin: 0 40%;
+  /* border: 1px solid #9d9d9d; */
+  margin: 0 5%;
 }
 
 .item-list {
