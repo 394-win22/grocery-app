@@ -11,8 +11,8 @@ const AddNewItem = ({ items }) => {
     setItemName("");
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <TextField
+    <form className="new-item" onSubmit={handleSubmit}>
+      <TextField style={{ display: "block", padding: "10px"}}
         id="item-name-input"
         variant="outlined"
         onInput={(e) => setItemName(e.target.value)}

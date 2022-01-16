@@ -13,9 +13,13 @@ const App = () => {
 
 	return (
 		<div className='App'>
-			<GroceryList items={groceryList.items} />
-			<div align='left' className='NewItem' >
+			<div className='grocery-list'>
+				<p className="list-header"> Shared List </p>
+				<GroceryList items={groceryList.items} />
+
+				<div>
 				<AddNewItem items={groceryList.items} />
+				</div>
 			</div>
 		</div>
 	);
