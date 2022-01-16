@@ -65,7 +65,7 @@ export default function GroceryList({ items }) {
               />
               <Button variant="contained" 
               style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}} // Button size
-              onClick={()=>changeQuantity(index, item.total_quantity+1)}> + </Button>
+              onClick={()=>changeQuantity(index, item.total_quantity+1, items)}> + </Button>
               <ListItemText 
                   disableTypography
                   id={labelId}
@@ -74,7 +74,7 @@ export default function GroceryList({ items }) {
               />
               <Button variant="contained" 
               style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}} // Button size
-              onClick={()=>changeQuantity(index, item.total_quantity-1)}> - </Button>
+              onClick={()=>changeQuantity(index, item.total_quantity-1, items)}> - </Button>
             </ListItemButton>
           </ListItem>
         );
