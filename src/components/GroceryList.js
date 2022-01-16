@@ -12,6 +12,7 @@ import AddNewItem from "./AddNewItem";
 import {setData} from "../utilities/firebase";
 import "../utilities/removeByIndex";
 import removeByIndex from "../utilities/removeByIndex";
+import "../App.css"
 
 export default function GroceryList({ items }) {
   const [checked, setChecked] = React.useState([1]);
@@ -37,6 +38,7 @@ export default function GroceryList({ items }) {
         const labelId = `checkbox-list-secondary-label-${item.name}`;
         return (
           <ListItem
+            className="item-list"
             key={index}
             secondaryAction={
               <Checkbox
