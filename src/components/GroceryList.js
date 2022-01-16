@@ -4,7 +4,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-import { Typography } from "@mui/material";
+import {ButtonGroup, Typography} from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -63,18 +63,16 @@ export default function GroceryList({ items }) {
                    align='center'> {item.name} </Typography>
                   }
               />
-              <Button variant="contained" 
-              style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}} // Button size
-              onClick={()=>changeQuantity(index, item.total_quantity+1, items)}> + </Button>
-              <ListItemText 
-                  disableTypography
-                  id={labelId}
-                  secondary= {
-                    <Typography variant='subtitle1' align='center'>{item.total_quantity}</Typography>}
-              />
-              <Button variant="contained" 
-              style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}} // Button size
-              onClick={()=>changeQuantity(index, item.total_quantity-1, items)}> - </Button>
+              <ButtonGroup size="small" aria-label="small button group">
+                <Button variant="contained"
+                        style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}} // Button size
+                        onClick={()=>changeQuantity(index, item.total_quantity-1, items)}> - </Button>
+                <Button key="two" style={{ pointerEvents: 'none' }} >{item.total_quantity}</Button>
+                <Button variant="contained"
+                        style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}} // Button size
+                        onClick={()=>changeQuantity(index, item.total_quantity+1, items)}> + </Button>
+              </ButtonGroup>
+
             </ListItemButton>
           </ListItem>
         );
