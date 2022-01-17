@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
@@ -15,18 +15,21 @@ import removeByIndex from "../utilities/removeByIndex";
 import "../App.css";
 
 export default function GroceryList({ items }) {
-  const [checked, setChecked] = React.useState([1]);
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+  // const [checked, setChecked] = useState(
+  //   items
+  //     .map((item, index) => (item.purchased ? index : -1))
+  //     .filter((index) => index != -1)
+  // );
+  const checked = items
+    .map((item, index) => (item.purchased ? index : -1))
+    .filter((index) => index != -1);
 
-    if (currentIndex === -1) {
-      newChecked.push(value);
+  const handleToggle = (index) => () => {
+    if (items[index].purchased == false) {
+      setData(`/items/${index}/purchased`, true);
     } else {
-      newChecked.splice(currentIndex, 1);
+      setData(`/items/${index}/purchased`, false);
     }
-
-    setChecked(newChecked);
   };
 
   return (
@@ -43,8 +46,8 @@ export default function GroceryList({ items }) {
             secondaryAction={
               <Checkbox
                 edge="end"
-                onChange={handleToggle(item)}
-                checked={checked.indexOf(item) !== -1}
+                onChange={handleToggle(index)}
+                checked={checked.indexOf(index) !== -1}
                 inputProps={{ "aria-labelledby": labelId }}
               />
             }
