@@ -25,27 +25,16 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .grocery-list {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
+  /*
   border: 1px solid #9d9d9d;
   margin: 0 40%;
+  */
 }
 
 .item-list {

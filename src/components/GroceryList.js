@@ -4,15 +4,15 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
-import {ButtonGroup, Typography} from "@mui/material";
+import { ButtonGroup, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import AddNewItem from "./AddNewItem";
-import {setData} from "../utilities/firebase";
+import { setData } from "../utilities/firebase";
 import "../utilities/removeByIndex";
 import removeByIndex from "../utilities/removeByIndex";
-import "../App.css"
+import "../App.css";
 
 export default function GroceryList({ items }) {
   const [checked, setChecked] = React.useState([1]);
@@ -61,20 +61,55 @@ export default function GroceryList({ items }) {
                 disableTypography
                 id={labelId}
                 primary={
-                  <Typography type= 'body1' style={{ fontFamily: 'cursive'}} // font style
-                   align='center'> {item.name} </Typography>
-                  }
+                  <Typography
+                    type="body1"
+                    style={
+                      {
+                        /*fontFamily: 'cursive'*/
+                      }
+                    } // font style
+                    align="center"
+                  >
+                    {" "}
+                    {item.name}{" "}
+                  </Typography>
+                }
               />
               <ButtonGroup size="small" aria-label="small button group">
-                <Button variant="contained"
-                        style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}} // Button size
-                        onClick={()=>changeQuantity(index, item.total_quantity-1, items)}> - </Button>
-                <Button key="two" style={{ pointerEvents: 'none' }} >{item.total_quantity}</Button>
-                <Button variant="contained"
-                        style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}} // Button size
-                        onClick={()=>changeQuantity(index, item.total_quantity+1, items)}> + </Button>
+                <Button
+                  variant="contained"
+                  style={{
+                    maxWidth: "30px",
+                    maxHeight: "30px",
+                    minWidth: "30px",
+                    minHeight: "30px",
+                  }} // Button size
+                  onClick={() =>
+                    changeQuantity(index, item.total_quantity - 1, items)
+                  }
+                >
+                  {" "}
+                  -{" "}
+                </Button>
+                <Button key="two" style={{ pointerEvents: "none" }}>
+                  {item.total_quantity}
+                </Button>
+                <Button
+                  variant="contained"
+                  style={{
+                    maxWidth: "30px",
+                    maxHeight: "30px",
+                    minWidth: "30px",
+                    minHeight: "30px",
+                  }} // Button size
+                  onClick={() =>
+                    changeQuantity(index, item.total_quantity + 1, items)
+                  }
+                >
+                  {" "}
+                  +{" "}
+                </Button>
               </ButtonGroup>
-
             </ListItemButton>
           </ListItem>
         );
@@ -87,6 +122,6 @@ const changeQuantity = (index, value, items) => {
   if (value <= 0) {
     setData(`/items/`, removeByIndex(items, index));
   } else {
-    setData(`/items/${index}/total_quantity`, value)
+    setData(`/items/${index}/total_quantity`, value);
   }
-}
+};
