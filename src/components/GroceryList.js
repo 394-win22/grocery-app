@@ -67,9 +67,13 @@ export default function GroceryList({ items }) {
                   <Typography
                     type="body1"
                     style={
-                      {
-                        /*fontFamily: 'cursive'*/
-                      }
+                      item.purchased
+                        ? {
+                            /*fontFamily: 'cursive'*/
+                            textDecoration: "line-through",
+                            color: "lightgray",
+                          }
+                        : {}
                     } // font style
                     align="center"
                   >
