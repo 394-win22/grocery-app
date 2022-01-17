@@ -7,12 +7,15 @@ const AddNewItem = ({ items }) => {
   const [itemName, setItemName] = useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
-    addItem(items, itemName, "Alex", "Notes testing.");
-    setItemName("");
+    if (itemName) {
+      addItem(items, itemName, "Alex", "Notes testing.");
+      setItemName("");
+    }
   };
   return (
     <form className="new-item" onSubmit={handleSubmit}>
-      <TextField style={{ display: "block", padding: "10px"}}
+      <TextField
+        style={{ display: "block", padding: "10px" }}
         id="item-name-input"
         variant="outlined"
         onInput={(e) => setItemName(e.target.value)}
