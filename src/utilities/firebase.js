@@ -24,6 +24,8 @@ const database = getDatabase(firebase);
 
 export const setData = (path, value) => set(ref(database, path), value);
 
+export const delData = (path) => ref(database, path).remove();
+
 export const useData = (path, transform) => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);

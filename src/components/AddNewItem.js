@@ -36,7 +36,7 @@ const addItem = (items, itemName, userName, note) => {
     purchased: false,
     notes: note,
   };
-  setData(`/items/`, [...items, newItem]);
+  setData(`/items/${itemName}`, newItem);
 };
 
 export default AddNewItem;
