@@ -18,9 +18,9 @@ const App = () => {
         <ButtonAppBar />
       </div>
       <div className="grocery-list">
-        <GroceryList items={groceryList.items} />
+        {groceryList.items ? <GroceryList items={groceryList.items} /> : <></>}
         <div>
-          <AddNewItem items={groceryList.items} />
+          <AddNewItem />
         </div>
       </div>
     </div>

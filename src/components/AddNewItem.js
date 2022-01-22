@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { setData, useUserState } from "../utilities/firebase";
 
-const AddNewItem = ({ items }) => {
+const AddNewItem = () => {
   const [itemName, setItemName] = useState("");
   const [user] = useUserState();
   const handleSubmit = (event) => {
@@ -29,7 +29,7 @@ const AddNewItem = ({ items }) => {
   );
 };
 
-const addItem = (items, itemName, userName, note) => {
+const addItem = (itemName, userName, note) => {
   const newItem = {
     name: itemName,
     quantity: { userName: 1 },
