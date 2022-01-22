@@ -13,6 +13,7 @@ import { setData } from "../utilities/firebase";
 import "../utilities/removeByIndex";
 import removeByIndex from "../utilities/removeByIndex";
 import "../App.css";
+import { useUserState } from "../utilities/firebase.js";
 
 export default function GroceryList({ items }) {
   // const [checked, setChecked] = useState(
@@ -20,6 +21,8 @@ export default function GroceryList({ items }) {
   //     .map((item, index) => (item.purchased ? index : -1))
   //     .filter((index) => index != -1)
   // );
+  const [user] = useUserState();
+  
   const checked = items
     .map((item, index) => (item.purchased ? index : -1))
     .filter((index) => index != -1);
