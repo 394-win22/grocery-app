@@ -92,7 +92,7 @@ export default function GroceryList({ items }) {
                     minHeight: "30px",
                   }} // Button size
                   onClick={() =>
-                    changeQuantity(index, items[key].total_quantity - 1, items)
+                    changeQuantity(key, items[key].total_quantity - 1)
                   }
                 >
                   {" "}
@@ -110,7 +110,7 @@ export default function GroceryList({ items }) {
                     minHeight: "30px",
                   }} // Button size
                   onClick={() =>
-                    changeQuantity(index, items[key].total_quantity + 1, items)
+                    changeQuantity(key, items[key].total_quantity + 1)
                   }
                 >
                   {" "}
@@ -127,7 +127,7 @@ export default function GroceryList({ items }) {
 
 const changeQuantity = (key, value) => {
   if (value <= 0) {
-    delData(`/items/${key}`);
+    setData(`/items/${key}`, null);
   } else {
     setData(`/items/${key}/total_quantity`, value);
   }
