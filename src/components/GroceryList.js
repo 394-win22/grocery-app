@@ -13,6 +13,7 @@ import { setData, delData } from "../utilities/firebase";
 import "../utilities/removeByIndex";
 import removeByIndex from "../utilities/removeByIndex";
 import "../App.css";
+import { useUserState } from "../utilities/firebase.js";
 
 export default function GroceryList({ items }) {
   // const [checked, setChecked] = useState(
@@ -20,6 +21,7 @@ export default function GroceryList({ items }) {
   //     .map((item, index) => (item.purchased ? index : -1))
   //     .filter((index) => index != -1)
   // );
+  const [user] = useUserState();
   const checked = Object.keys(items)
     .map((key, index) => (items[key].purchased ? index : -1))
     .filter((index) => index != -1);
@@ -91,7 +93,7 @@ export default function GroceryList({ items }) {
                     minWidth: "30px",
                     minHeight: "30px",
                   }} // Button size
-                  onClick={() =>
+                  onClick={!user ? null : () =>
                     changeQuantity(key, items[key].total_quantity - 1)
                   }
                 >
@@ -109,7 +111,7 @@ export default function GroceryList({ items }) {
                     minWidth: "30px",
                     minHeight: "30px",
                   }} // Button size
-                  onClick={() =>
+                  onClick={!user ? null :() =>
                     changeQuantity(key, items[key].total_quantity + 1)
                   }
                 >

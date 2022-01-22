@@ -3,6 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { useData } from "./utilities/firebase.js";
 import GroceryList from "./components/GroceryList.js";
+import ButtonAppBar from "./components/AppBar.js";
 import AddNewItem from "./components/AddNewItem";
 
 const App = () => {
@@ -13,8 +14,10 @@ const App = () => {
 
   return (
     <div className="App">
+      <div>
+        <ButtonAppBar />
+      </div>
       <div className="grocery-list">
-        <p className="list-header"> Shared List </p>
         {groceryList.items ? <GroceryList items={groceryList.items} /> : <></>}
         <div>
           <AddNewItem />

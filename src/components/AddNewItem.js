@@ -1,19 +1,20 @@
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { setData } from "../utilities/firebase";
+import { setData, useUserState } from "../utilities/firebase";
 
 const AddNewItem = () => {
   const [itemName, setItemName] = useState("");
+  const [user] = useUserState();
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (itemName) {
+    if (itemName && user) {
       addItem(itemName, "Alex", "Notes testing.");
       setItemName("");
     }
   };
   return (
-    <form className="new-item" onSubmit={handleSubmit}>
+    <form className="new-item" onSubmit={ handleSubmit}>
       <TextField
         style={{ display: "block", padding: "10px" }}
         id="item-name-input"
