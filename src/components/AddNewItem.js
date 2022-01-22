@@ -9,12 +9,12 @@ const AddNewItem = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (itemName && user) {
-      addItem(items, itemName, "Alex", "Notes testing.");
+      addItem(itemName, "Alex", "Notes testing.");
       setItemName("");
     }
   };
   return (
-    <form className="new-item" onSubmit={handleSubmit}>
+    <form className="new-item" onSubmit={ handleSubmit}>
       <TextField
         style={{ display: "block", padding: "10px" }}
         id="item-name-input"
