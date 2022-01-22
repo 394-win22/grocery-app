@@ -9,7 +9,7 @@ import Checkbox from "@mui/material/Checkbox";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import AddNewItem from "./AddNewItem";
-import { setData } from "../utilities/firebase";
+import { setData, delData } from "../utilities/firebase";
 import "../utilities/removeByIndex";
 import removeByIndex from "../utilities/removeByIndex";
 import "../App.css";
@@ -21,17 +21,15 @@ export default function GroceryList({ items }) {
   //     .map((item, index) => (item.purchased ? index : -1))
   //     .filter((index) => index != -1)
   // );
-  const [user] = useUserState();
-  
-  const checked = items
-    .map((item, index) => (item.purchased ? index : -1))
+  const checked = Object.keys(items)
+    .map((key, index) => (items[key].purchased ? index : -1))
     .filter((index) => index != -1);
 
-  const handleToggle = (index) => () => {
-    if (items[index].purchased == false) {
-      setData(`/items/${index}/purchased`, true);
+  const handleToggle = (key) => () => {
+    if (items[key].purchased == false) {
+      setData(`/items/${key}/purchased`, true);
     } else {
-      setData(`/items/${index}/purchased`, false);
+      setData(`/items/${key}/purchased`, false);
     }
   };
 
@@ -40,8 +38,8 @@ export default function GroceryList({ items }) {
       dense
       sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
     >
-      {items.map((item, index) => {
-        const labelId = `checkbox-list-secondary-label-${item.name}`;
+      {Object.keys(items).map((key, index) => {
+        const labelId = `checkbox-list-secondary-label-${items[key].name}`;
         return (
           <ListItem
             className="item-list"
@@ -49,7 +47,7 @@ export default function GroceryList({ items }) {
             secondaryAction={
               <Checkbox
                 edge="end"
-                onChange={handleToggle(index)}
+                onChange={handleToggle(key)}
                 checked={checked.indexOf(index) !== -1}
                 inputProps={{ "aria-labelledby": labelId }}
               />
@@ -59,8 +57,8 @@ export default function GroceryList({ items }) {
             <ListItemButton>
               <ListItemAvatar>
                 <Avatar
-                  alt={`Avatar ${item.name}`}
-                  src={`/static/images/avatar/${item.name}.jpg`}
+                  alt={`Avatar ${items[key].name}`}
+                  src={`/static/images/avatar/${items[key].name}.jpg`}
                 />
               </ListItemAvatar>
               <ListItemText
@@ -70,7 +68,7 @@ export default function GroceryList({ items }) {
                   <Typography
                     type="body1"
                     style={
-                      item.purchased
+                      items[key].purchased
                         ? {
                             /*fontFamily: 'cursive'*/
                             textDecoration: "line-through",
@@ -81,7 +79,7 @@ export default function GroceryList({ items }) {
                     align="center"
                   >
                     {" "}
-                    {item.name}{" "}
+                    {items[key].name}{" "}
                   </Typography>
                 }
               />
@@ -95,14 +93,14 @@ export default function GroceryList({ items }) {
                     minHeight: "30px",
                   }} // Button size
                   onClick={() =>
-                    changeQuantity(index, item.total_quantity - 1, items)
+                    changeQuantity(key, items[key].total_quantity - 1)
                   }
                 >
                   {" "}
                   -{" "}
                 </Button>
                 <Button key="two" style={{ pointerEvents: "none" }}>
-                  {item.total_quantity}
+                  {items[key].total_quantity}
                 </Button>
                 <Button
                   variant="contained"
@@ -113,7 +111,7 @@ export default function GroceryList({ items }) {
                     minHeight: "30px",
                   }} // Button size
                   onClick={() =>
-                    changeQuantity(index, item.total_quantity + 1, items)
+                    changeQuantity(key, items[key].total_quantity + 1)
                   }
                 >
                   {" "}
@@ -128,10 +126,10 @@ export default function GroceryList({ items }) {
   );
 }
 
-const changeQuantity = (index, value, items) => {
+const changeQuantity = (key, value) => {
   if (value <= 0) {
-    setData(`/items/`, removeByIndex(items, index));
+    setData(`/items/${key}`, null);
   } else {
-    setData(`/items/${index}/total_quantity`, value);
+    setData(`/items/${key}/total_quantity`, value);
   }
 };

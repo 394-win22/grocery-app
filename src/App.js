@@ -12,13 +12,11 @@ const App = () => {
   if (error) return <h1>{error}</h1>;
   if (loading) return <h1>Loading the grocery list...</h1>;
 
-
   return (
     <div className="App">
-
-	  <div>
-		  <ButtonAppBar />
-	  </div>
+      <div>
+        <ButtonAppBar />
+      </div>
       <div className="grocery-list">
         <GroceryList items={groceryList.items} />
         <div>
