@@ -34,7 +34,7 @@ export default function GroceryList({ items }) {
     }
   };
 
-  return (
+  return !user ? <></> : (
     <List
       dense
       sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
@@ -74,13 +74,14 @@ export default function GroceryList({ items }) {
                             /*fontFamily: 'cursive'*/
                             textDecoration: "line-through",
                             color: "lightgray",
+                            minWidth: "100px"
                           }
-                        : {}
+                        : { minWidth: "100px" }
                     } // font style
                     align="center"
                   >
                     {" "}
-                    {items[key].name}{" "}
+                    {items[key].name.length > 10 ? items[key].name.substring(0, 7) + "..." : items[key].name}{" "}
                   </Typography>
                 }
               />
@@ -110,7 +111,7 @@ export default function GroceryList({ items }) {
                   -{" "}
                 </Button>
                 <Button key="two" style={{ pointerEvents: "none" }}>
-                  {items[key].total_quantity}
+                  {!items[key].quantity[user.uid] ? 0 : items[key].quantity[user.uid]}
                 </Button>
                 <Button
                   variant="contained"
@@ -137,6 +138,29 @@ export default function GroceryList({ items }) {
                   +{" "}
                 </Button>
               </ButtonGroup>
+
+              <ListItemText
+                disableTypography
+                className="item-total-quantity"
+                primary={
+                  <Typography
+                    type="body1"
+                    style={
+                      items[key].purchased
+                        ? {
+                            /*fontFamily: 'cursive'*/
+                            textDecoration: "line-through",
+                            color: "lightgray",
+                          }
+                        : {}
+                    } // font style
+                    align="center"
+                  >
+                    {" "}
+                    {items[key].total_quantity}{" "}
+                  </Typography>
+                }
+              />
             </ListItemButton>
           </ListItem>
         );
