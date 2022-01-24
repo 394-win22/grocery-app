@@ -9,7 +9,7 @@ const AddNewItem = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (itemName && user) {
-      addItem(itemName, "Alex", "Notes testing.");
+      addItem(itemName, user.uid, "Notes testing.");
       setItemName("");
     }
   };
@@ -29,14 +29,15 @@ const AddNewItem = () => {
   );
 };
 
-const addItem = (itemName, userName, note) => {
+const addItem = (itemName, uid, note) => {
   const newItem = {
     name: itemName,
-    quantity: { userName: 1 },
+    quantity: {},
     total_quantity: 1,
     purchased: false,
     notes: note,
   };
+  newItem["quantity"][uid] = 1;
   setData(`/items/${itemName}`, newItem);
 };
 
