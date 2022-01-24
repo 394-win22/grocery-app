@@ -93,8 +93,17 @@ export default function GroceryList({ items }) {
                     minWidth: "30px",
                     minHeight: "30px",
                   }} // Button size
-                  onClick={!user ? null : () =>
-                    changeQuantity(key, items[key].total_quantity - 1)
+                  onClick={!user ? null : () =>{
+                      const itemName = key;
+                      const total_quantity = items[key].total_quantity;
+                      const uid = user.uid;
+                      const user_quantity = items[key].quantity[user.uid];
+                      if (!user_quantity) {
+                        return null;
+                      } else {
+                        return changeQuantity(itemName, total_quantity - 1, uid, user_quantity - 1);
+                      }
+                    }
                   }
                 >
                   {" "}
@@ -111,8 +120,17 @@ export default function GroceryList({ items }) {
                     minWidth: "30px",
                     minHeight: "30px",
                   }} // Button size
-                  onClick={!user ? null :() =>
-                    changeQuantity(key, items[key].total_quantity + 1)
+                  onClick={!user ? null :() =>{
+                      const itemName = key;
+                      const total_quantity = items[key].total_quantity;
+                      const uid = user.uid;
+                      const user_quantity = items[key].quantity[user.uid];
+                      if (!user_quantity) {
+                        return changeQuantity(itemName, total_quantity + 1, uid, 1);
+                      } else {
+                        return changeQuantity(itemName, total_quantity + 1, uid, user_quantity + 1);
+                      }
+                    }
                   }
                 >
                   {" "}
@@ -127,10 +145,14 @@ export default function GroceryList({ items }) {
   );
 }
 
-const changeQuantity = (key, value) => {
-  if (value <= 0) {
-    setData(`/items/${key}`, null);
+const changeQuantity = (itemName, total_quantity, uid, user_quantity) => {
+  if (total_quantity <= 0) {
+    setData(`/items/${itemName}`, null);
+  } else if (user_quantity <= 0){
+    setData(`/items/${itemName}/total_quantity`, total_quantity);
+    setData(`/items/${itemName}/quantity/${uid}`, null);
   } else {
-    setData(`/items/${key}/total_quantity`, value);
+    setData(`/items/${itemName}/total_quantity`, total_quantity);
+    setData(`/items/${itemName}/quantity/${uid}`, user_quantity);
   }
 };
