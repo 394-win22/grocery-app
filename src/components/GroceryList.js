@@ -34,6 +34,11 @@ export default function GroceryList({ items }) {
     }
   };
 
+  const deleteListItem = (itemName) => {
+    delete items[itemName];
+    setData(`/items/${itemName}`, null);
+  };
+
   return !user ? (
     <></>
   ) : (
@@ -109,13 +114,12 @@ export default function GroceryList({ items }) {
                           if (items[itemName].quantity[user.uid] > 0) {
                             items[itemName].quantity[user.uid] -= 1;
                             setData(
-                              `/items/${itemName}/total_quantity`,
-                              sumDict(items[itemName].quantity)
-                            );
-                            setData(
                               `/items/${itemName}/quantity/${user.uid}`,
                               items[itemName].quantity[user.uid]
                             );
+                          }
+                          if (sumDict(items[itemName].quantity) <= 0) {
+                            deleteListItem(itemName);
                           }
                         }
                   }
@@ -146,10 +150,6 @@ export default function GroceryList({ items }) {
                           }
                           items[itemName].quantity[user.uid] += 1;
                           setData(
-                            `/items/${itemName}/total_quantity`,
-                            sumDict(items[itemName].quantity)
-                          );
-                          setData(
                             `/items/${itemName}/quantity/${user.uid}`,
                             items[itemName].quantity[user.uid]
                           );
@@ -179,7 +179,7 @@ export default function GroceryList({ items }) {
                     align="center"
                   >
                     {" "}
-                    {items[key].total_quantity}{" "}
+                    {sumDict(items[key].quantity)}{" "}
                   </Typography>
                 }
               />
