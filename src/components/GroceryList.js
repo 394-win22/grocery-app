@@ -103,18 +103,19 @@ export default function GroceryList({ items }) {
                       ? null
                       : () => {
                           const itemName = key;
-
+                          
                           // initialize quantity to zero for new user
                           if (!items[itemName].quantity[user.uid]) {
                             items[itemName].quantity[user.uid] = 0;
                           }
 
                           // either remove one quantity from user
-                          if (items[itemName].quantity[user.uid] > 1) {
+                          if (items[itemName].quantity[user.uid] >= 1) {
                             items[itemName].quantity[user.uid] -= 1;
                           } else {
                             // or delete user from dictionary if quantity becomes zero
-                            delete items[itemName].quantity[user.uid];
+                            if (items[itemName].quantity[user.uid])
+                              delete items[itemName].quantity[user.uid];
                           }
 
                           // check if quantity dictionay is empty, i.e. nobody wants the item
