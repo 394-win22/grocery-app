@@ -103,19 +103,33 @@ export default function GroceryList({ items }) {
                       ? null
                       : () => {
                           const itemName = key;
+
+                          // initialize quantity to zero for new user
                           if (!items[itemName].quantity[user.uid]) {
                             items[itemName].quantity[user.uid] = 0;
                           }
-                          if (items[itemName].quantity[user.uid] > 0) {
+
+                          // either remove one quantity from user
+                          if (items[itemName].quantity[user.uid] > 1) {
                             items[itemName].quantity[user.uid] -= 1;
-                            setData(
-                              `/items/${itemName}/total_quantity`,
-                              sumDict(items[itemName].quantity)
-                            );
+                          } else {
+                            // or delete user from dictionary if quantity becomes zero
+                            delete items[itemName].quantity[user.uid];
+                          }
+
+                          // check if quantity dictionay is empty, i.e. nobody wants the item
+                          if (
+                            Object.keys(items[itemName].quantity).length > 0
+                          ) {
+                            // update quantity
                             setData(
                               `/items/${itemName}/quantity/${user.uid}`,
                               items[itemName].quantity[user.uid]
                             );
+                          } else {
+                            // remove item
+                            setData(`/items/${itemName}`, null);
+                            delete items[itemName]; // is this redundant/unneccessary
                           }
                         }
                   }
@@ -146,10 +160,6 @@ export default function GroceryList({ items }) {
                           }
                           items[itemName].quantity[user.uid] += 1;
                           setData(
-                            `/items/${itemName}/total_quantity`,
-                            sumDict(items[itemName].quantity)
-                          );
-                          setData(
                             `/items/${itemName}/quantity/${user.uid}`,
                             items[itemName].quantity[user.uid]
                           );
@@ -158,6 +168,22 @@ export default function GroceryList({ items }) {
                 >
                   {" "}
                   +{" "}
+                </Button>
+                <Button
+                  variant="contained"
+                  style={{
+                    maxWidth: "30px",
+                    maxHeight: "30px",
+                    minWidth: "30px",
+                    minHeight: "30px",
+                  }} // Button size
+                  onClick={() => {
+                    setData(`/items/${key}`, null);
+                    delete items[key];
+                  }}
+                >
+                  {" "}
+                  Del{" "}
                 </Button>
               </ButtonGroup>
 
@@ -179,7 +205,7 @@ export default function GroceryList({ items }) {
                     align="center"
                   >
                     {" "}
-                    {items[key].total_quantity}{" "}
+                    {sumDict(items[key].quantity)}{" "}
                   </Typography>
                 }
               />
