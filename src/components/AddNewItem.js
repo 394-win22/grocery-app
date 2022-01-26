@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { setData, useUserState } from "../utilities/firebase";
+import '../App.css'
 
 const AddNewItem = () => {
   const [itemName, setItemName] = useState("");
@@ -13,7 +14,7 @@ const AddNewItem = () => {
       setItemName("");
     }
   };
-  return (
+  return !user ? <p className="sign-in-remind">Please sign in first</p> :(
     <form className="new-item" onSubmit={ handleSubmit}>
       <TextField
         style={{ display: "block", padding: "10px" }}
