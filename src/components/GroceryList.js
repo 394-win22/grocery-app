@@ -18,11 +18,16 @@ import Popup from "./Popup"
 
 export default function GroceryList({ items }) {
 
+  if (!items) {
+    items = {};
+  }
+
   const [isOpen, setIsOpen] = useState(false);
+  const [activeKey, setActiveKey] = useState(-1);
  
   const togglePopup = () => {
     setIsOpen(!isOpen);
-  } 
+  }
 
   const [user] = useUserState();
   const checked = Object.keys(items)
@@ -61,7 +66,11 @@ export default function GroceryList({ items }) {
             }
             disablePadding
           >
-            <ListItemButton onClick={togglePopup}>
+            <ListItemButton onClick={() => {
+                togglePopup();
+                setActiveKey(key);
+              }}
+            >
               <ListItemAvatar>
                 <Avatar
                   alt={`Avatar ${items[key].name}`}
@@ -93,103 +102,6 @@ export default function GroceryList({ items }) {
                   </Typography>
                 }
               />
-              <ButtonGroup size="small" aria-label="small button group">
-                <Button
-                  variant="contained"
-                  style={{
-                    maxWidth: "30px",
-                    maxHeight: "30px",
-                    minWidth: "30px",
-                    minHeight: "30px",
-                  }} // Button size
-                  onClick={
-                    !user
-                      ? null
-                      : () => {
-                          const itemName = key;
-
-                          // initialize quantity to zero for new user
-                          if (!items[itemName].quantity[user.uid]) {
-                            items[itemName].quantity[user.uid] = 0;
-                          }
-
-                          // either remove one quantity from user
-                          if (items[itemName].quantity[user.uid] > 1) {
-                            items[itemName].quantity[user.uid] -= 1;
-                          } else {
-                            // or delete user from dictionary if quantity becomes zero
-                            delete items[itemName].quantity[user.uid];
-                          }
-
-                          // check if quantity dictionay is empty, i.e. nobody wants the item
-                          if (
-                            Object.keys(items[itemName].quantity).length > 0
-                          ) {
-                            // update quantity
-                            setData(
-                              `/items/${itemName}/quantity/${user.uid}`,
-                              items[itemName].quantity[user.uid]
-                            );
-                          } else {
-                            // remove item
-                            setData(`/items/${itemName}`, null);
-                            delete items[itemName]; // is this redundant/unneccessary
-                          }
-                        }
-                  }
-                >
-                  {" "}
-                  -{" "}
-                </Button>
-                <Button key="two" style={{ pointerEvents: "none" }}>
-                  {!items[key].quantity[user.uid]
-                    ? 0
-                    : items[key].quantity[user.uid]}
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{
-                    maxWidth: "30px",
-                    maxHeight: "30px",
-                    minWidth: "30px",
-                    minHeight: "30px",
-                  }} // Button size
-                  onClick={
-                    !user
-                      ? null
-                      : () => {
-                          const itemName = key;
-                          if (!items[itemName].quantity[user.uid]) {
-                            items[itemName].quantity[user.uid] = 0;
-                          }
-                          items[itemName].quantity[user.uid] += 1;
-                          setData(
-                            `/items/${itemName}/quantity/${user.uid}`,
-                            items[itemName].quantity[user.uid]
-                          );
-                        }
-                  }
-                >
-                  {" "}
-                  +{" "}
-                </Button>
-                <Button
-                  variant="contained"
-                  style={{
-                    maxWidth: "30px",
-                    maxHeight: "30px",
-                    minWidth: "30px",
-                    minHeight: "30px",
-                  }} // Button size
-                  onClick={() => {
-                    setData(`/items/${key}`, null);
-                    delete items[key];
-                  }}
-                >
-                  {" "}
-                  Del{" "}
-                </Button>
-              </ButtonGroup>
 
               <ListItemText
                 disableTypography
@@ -219,12 +131,9 @@ export default function GroceryList({ items }) {
       })}
     </List>
     {isOpen && <Popup
-      content={<>
-        <b>Design your Popup</b>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <button>Test button</button>
-      </>}
+      item={items[activeKey]}
       handleClose={togglePopup}
+      user={user}
     />}
     
     </div>

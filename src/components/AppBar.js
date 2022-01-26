@@ -7,7 +7,8 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { signInWithGoogle, useUserState, signOut } from "../utilities/firebase.js";
-
+import { setData } from "../utilities/firebase";
+import { set } from '@firebase/database';
 
 const SignInButton = () => (
     <Button color="inherit"
@@ -28,6 +29,12 @@ const SignInButton = () => (
 
 export default function ButtonAppBar() {
   const [user] = useUserState();
+  React.useEffect(() => {
+    if (user) {
+      storeUserInfo(user);
+    }
+  }, [user]);
+  
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -50,4 +57,14 @@ export default function ButtonAppBar() {
       </AppBar>
     </Box>
   );
+}
+
+const storeUserInfo = user => {
+  const userInfo = {
+    "email": user.email,
+    "display_name": user.displayName,
+    "photo_url": user.photoURL
+  }
+
+  setData(`users/${user.uid}`, userInfo);
 }
