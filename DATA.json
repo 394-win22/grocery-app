@@ -3,21 +3,21 @@
   "items": {
     "Cheez-It": {
       "name": "Cheez-It",
-      "quantity": {},
+      "quantity": { "Yvan": 2, "Alex": 1 },
       "total_quantity": 3,
       "purchased": false,
       "notes": "for the partyyy"
     },
     "Apple ea": {
       "name": "Apples ea",
-      "quantity": {},
+      "quantity": { "Hui": 6, "Andrew": 1 },
       "total_quantity": 7,
       "purchased": false,
       "notes": ""
     },
     "Artichoke Dip": {
       "name": "Artichoke Dip",
-      "quantity": {},
+      "quantity": { "Qing": 1, "Kevin": 1 },
       "total_quantity": 2,
       "purchased": false,
       "notes": "just get one if it's big"
