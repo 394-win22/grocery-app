@@ -125,7 +125,7 @@ const Popup = ({ handleClose, item, user, usersInfo }) => {
                     Del{" "}
                   </Button>
             </ButtonGroup>
-            <span>`total_quantity: ${item.total_quantity}`</span>
+            <span>total_quantity: {item.total_quantity}</span>
           </div>
           
           <div className="owners show">
