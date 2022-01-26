@@ -10,8 +10,8 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import AddNewItem from "./AddNewItem";
 import { setData, delData } from "../utilities/firebase";
-import "../utilities/removeByIndex";
-import removeByIndex from "../utilities/removeByIndex";
+import "../utilities/helperFunctions";
+import { sumDict } from "../utilities/helperFunctions";
 import "../App.css";
 import { useUserState } from "../utilities/firebase.js";
 
@@ -34,7 +34,9 @@ export default function GroceryList({ items }) {
     }
   };
 
-  return !user ? <></> : (
+  return !user ? (
+    <></>
+  ) : (
     <List
       dense
       sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
@@ -74,14 +76,16 @@ export default function GroceryList({ items }) {
                             /*fontFamily: 'cursive'*/
                             textDecoration: "line-through",
                             color: "lightgray",
-                            minWidth: "100px"
+                            minWidth: "100px",
                           }
                         : { minWidth: "100px" }
                     } // font style
                     align="center"
                   >
                     {" "}
-                    {items[key].name.length > 10 ? items[key].name.substring(0, 7) + "..." : items[key].name}{" "}
+                    {items[key].name.length > 10
+                      ? items[key].name.substring(0, 7) + "..."
+                      : items[key].name}{" "}
                   </Typography>
                 }
               />
@@ -94,24 +98,35 @@ export default function GroceryList({ items }) {
                     minWidth: "30px",
                     minHeight: "30px",
                   }} // Button size
-                  onClick={!user ? null : () =>{
-                      const itemName = key;
-                      const total_quantity = items[key].total_quantity;
-                      const uid = user.uid;
-                      const user_quantity = items[key].quantity[user.uid];
-                      if (!user_quantity) {
-                        return null;
-                      } else {
-                        return changeQuantity(itemName, total_quantity - 1, uid, user_quantity - 1);
-                      }
-                    }
+                  onClick={
+                    !user
+                      ? null
+                      : () => {
+                          const itemName = key;
+                          if (!items[itemName].quantity[user.uid]) {
+                            items[itemName].quantity[user.uid] = 0;
+                          }
+                          if (items[itemName].quantity[user.uid] > 0) {
+                            items[itemName].quantity[user.uid] -= 1;
+                            setData(
+                              `/items/${itemName}/total_quantity`,
+                              sumDict(items[itemName].quantity)
+                            );
+                            setData(
+                              `/items/${itemName}/quantity/${user.uid}`,
+                              items[itemName].quantity[user.uid]
+                            );
+                          }
+                        }
                   }
                 >
                   {" "}
                   -{" "}
                 </Button>
                 <Button key="two" style={{ pointerEvents: "none" }}>
-                  {!items[key].quantity[user.uid] ? 0 : items[key].quantity[user.uid]}
+                  {!items[key].quantity[user.uid]
+                    ? 0
+                    : items[key].quantity[user.uid]}
                 </Button>
                 <Button
                   variant="contained"
@@ -121,17 +136,24 @@ export default function GroceryList({ items }) {
                     minWidth: "30px",
                     minHeight: "30px",
                   }} // Button size
-                  onClick={!user ? null :() =>{
-                      const itemName = key;
-                      const total_quantity = items[key].total_quantity;
-                      const uid = user.uid;
-                      const user_quantity = items[key].quantity[user.uid];
-                      if (!user_quantity) {
-                        return changeQuantity(itemName, total_quantity + 1, uid, 1);
-                      } else {
-                        return changeQuantity(itemName, total_quantity + 1, uid, user_quantity + 1);
-                      }
-                    }
+                  onClick={
+                    !user
+                      ? null
+                      : () => {
+                          const itemName = key;
+                          if (!items[itemName].quantity[user.uid]) {
+                            items[itemName].quantity[user.uid] = 0;
+                          }
+                          items[itemName].quantity[user.uid] += 1;
+                          setData(
+                            `/items/${itemName}/total_quantity`,
+                            sumDict(items[itemName].quantity)
+                          );
+                          setData(
+                            `/items/${itemName}/quantity/${user.uid}`,
+                            items[itemName].quantity[user.uid]
+                          );
+                        }
                   }
                 >
                   {" "}
@@ -168,15 +190,3 @@ export default function GroceryList({ items }) {
     </List>
   );
 }
-
-const changeQuantity = (itemName, total_quantity, uid, user_quantity) => {
-  if (total_quantity <= 0) {
-    setData(`/items/${itemName}`, null);
-  } else if (user_quantity <= 0){
-    setData(`/items/${itemName}/total_quantity`, total_quantity);
-    setData(`/items/${itemName}/quantity/${uid}`, null);
-  } else {
-    setData(`/items/${itemName}/total_quantity`, total_quantity);
-    setData(`/items/${itemName}/quantity/${uid}`, user_quantity);
-  }
-};
