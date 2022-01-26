@@ -14,13 +14,16 @@ import "../utilities/helperFunctions";
 import { sumDict } from "../utilities/helperFunctions";
 import "../App.css";
 import { useUserState } from "../utilities/firebase.js";
+import Popup from "./Popup"
 
 export default function GroceryList({ items }) {
-  // const [checked, setChecked] = useState(
-  //   items
-  //     .map((item, index) => (item.purchased ? index : -1))
-  //     .filter((index) => index != -1)
-  // );
+
+  const [isOpen, setIsOpen] = useState(false);
+ 
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  } 
+
   const [user] = useUserState();
   const checked = Object.keys(items)
     .map((key, index) => (items[key].purchased ? index : -1))
@@ -37,6 +40,7 @@ export default function GroceryList({ items }) {
   return !user ? (
     <></>
   ) : (
+    <div>
     <List
       dense
       sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
@@ -57,7 +61,7 @@ export default function GroceryList({ items }) {
             }
             disablePadding
           >
-            <ListItemButton>
+            <ListItemButton onClick={togglePopup}>
               <ListItemAvatar>
                 <Avatar
                   alt={`Avatar ${items[key].name}`}
@@ -188,5 +192,15 @@ export default function GroceryList({ items }) {
         );
       })}
     </List>
+    {isOpen && <Popup
+      content={<>
+        <b>Design your Popup</b>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <button>Test button</button>
+      </>}
+      handleClose={togglePopup}
+    />}
+    
+    </div>
   );
 }

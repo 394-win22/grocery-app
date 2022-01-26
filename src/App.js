@@ -23,6 +23,7 @@ const App = () => {
           <AddNewItem />
         </div>
       </div>
+      
     </div>
   );
 };
