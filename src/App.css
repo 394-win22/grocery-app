@@ -100,3 +100,12 @@
   border: 1px solid #999;
   font-size: 20px;
 }
+
+.item-name {
+  font-family: 'Roboto', sans-serif;
+}
+
+.edit-note {
+  cursor: pointer;
+  color: #1976d1;
+}

@@ -16,7 +16,7 @@ import "../App.css";
 import { useUserState } from "../utilities/firebase.js";
 import Popup from "./Popup"
 
-export default function GroceryList({ items }) {
+export default function GroceryList({ items, users }) {
 
   if (!items) {
     items = {};
@@ -134,6 +134,7 @@ export default function GroceryList({ items }) {
       item={items[activeKey]}
       handleClose={togglePopup}
       user={user}
+      usersInfo={users}
     />}
     
     </div>
