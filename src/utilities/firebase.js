@@ -9,7 +9,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import {wait} from "@testing-library/user-event/dist/utils";
+import { wait } from "@testing-library/user-event/dist/utils";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -51,9 +51,9 @@ export const useUserState = () => {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    onIdTokenChanged(getAuth(firebase), (user) =>{
+    onIdTokenChanged(getAuth(firebase), (user) => {
       setUser(user);
-      wait(100).then(r => storeUserInfo(user));
+      wait(100).then((r) => storeUserInfo(user));
     });
   }, []);
   return [user];
@@ -64,8 +64,6 @@ const firebase = initializeApp(firebaseConfig);
 const database = getDatabase(firebase);
 
 export const setData = (path, value) => set(ref(database, path), value);
-
-export const delData = (path) => ref(database, path).remove();
 
 export const useData = (path, transform) => {
   const [data, setData] = useState();

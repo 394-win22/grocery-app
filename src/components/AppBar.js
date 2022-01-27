@@ -13,7 +13,6 @@ import {
   signOut,
 } from "../utilities/firebase.js";
 import { setData } from "../utilities/firebase";
-import { set } from "@firebase/database";
 
 const SignInButton = () => (
   <Button
