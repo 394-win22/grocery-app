@@ -9,6 +9,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
+import {wait} from "@testing-library/user-event/dist/utils";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -50,10 +51,11 @@ export const useUserState = () => {
   const [user, setUser] = useState();
 
   useEffect(() => {
-    onIdTokenChanged(getAuth(firebase), setUser);
+    onIdTokenChanged(getAuth(firebase), (user) =>{
+      setUser(user);
+      wait(100).then(r => storeUserInfo(user));
+    });
   }, []);
-
-  storeUserInfo(user);
   return [user];
 };
 
