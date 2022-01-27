@@ -6,9 +6,7 @@ import {
   List,
   ListItem,
   ListItemButton,
-  FormGroup,
 } from "@mui/material";
-import FormControlLabel from '@mui/material/FormControlLabel';
 import { setData } from "../utilities/firebase";
 import "../utilities/helperFunctions";
 import "../App.css";
@@ -17,18 +15,17 @@ import FocusView from "./FocusView";
 import AddSubtractButtons from "./focusView/AddSubtractButtons";
 import GroceryListItemText from "./groceryList/GroceryListItemText";
 
-export default function GroceryList({ items, users }) {
+export default function OwnFilteredGroceryList({ items, users }) {
   if (!items) {
     items = {};
   }
-  
+
   const [user] = useUserState();
   const [expanded, setExpanded] = React.useState(false);
-  const [filtered, setFiltered] = React.useState(false);
   const checked = Object.keys(items)
     .map((key, index) => (items[key].purchased ? index : -1))
     .filter((index) => index != -1);
-  
+
   const handleToggle = (key) => () => {
     if (items[key].purchased == false) {
       setData(`/items/${key}/purchased`, true);
@@ -37,24 +34,9 @@ export default function GroceryList({ items, users }) {
     }
   };
 
-  const handleFilterToggle = () => () => {
-    if (filtered == false) {
-      setFiltered(true);
-    } else {
-      setFiltered(false);
-    }
-  };
-  
   const handleAccordionChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-  
-  console.log(user)
-  //console.log(user['uid'])
-  var filtered_items = filtered ? Object.keys(items).filter(key => items[key].quantity[user['uid']] >= 0) : Object.keys(items);
-
-
-  //var filtered_items = Object.keys(items);
 
   return !user ? (
     <></>
@@ -64,7 +46,7 @@ export default function GroceryList({ items, users }) {
         dense
         sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
       >
-        {filtered_items.map((key, index) => {
+        {Object.keys(items).map((key, index) => {
           const labelId = `checkbox-list-secondary-label-${items[key].name}`;
           return (
             <ListItem
@@ -119,15 +101,6 @@ export default function GroceryList({ items, users }) {
           );
         })}
       </List>
-      
-
-<FormGroup>
-      <FormControlLabel control={<Checkbox
-                    edge="end"
-                    onChange={handleFilterToggle()}
-                    checked={filtered}
-                  />} label="     Filter by user items" />
-    </FormGroup>
     </div>
   );
 }
