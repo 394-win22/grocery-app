@@ -6,8 +6,6 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemText,
-  Typography,
 } from "@mui/material";
 import { setData } from "../utilities/firebase";
 import "../utilities/helperFunctions";
@@ -15,6 +13,7 @@ import "../App.css";
 import { useUserState } from "../utilities/firebase.js";
 import FocusView from "./FocusView";
 import AddSubtractButtons from "./focusView/AddSubtractButtons";
+import GroceryListItemText from "./groceryList/GroceryListItemText";
 
 export default function GroceryList({ items, users }) {
   if (!items) {
@@ -65,29 +64,10 @@ export default function GroceryList({ items, users }) {
                   }}
                 >
                   <AccordionSummary>
-                    <ListItemText
-                      disableTypography
-                      id={labelId}
-                      primary={
-                        <Typography
-                          type="body1"
-                          style={
-                            items[key].purchased
-                              ? {
-                                  textDecoration: "line-through",
-                                  color: "lightgray",
-                                  minWidth: "100px",
-                                }
-                              : { minWidth: "100px" }
-                          } // font style
-                          align="center"
-                        >
-                          {" "}
-                          {items[key].name.length > 10
-                            ? items[key].name.substring(0, 7) + "..."
-                            : items[key].name}{" "}
-                        </Typography>
-                      }
+                    <GroceryListItemText
+                      text={items[key].name}
+                      labelId={labelId}
+                      purchased={items[key].purchased}
                     />
                   </AccordionSummary>
                   <FocusView item={items[key]} user={user} usersInfo={users} />
