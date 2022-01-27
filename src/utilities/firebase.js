@@ -33,6 +33,19 @@ const firebaseSignOut = () => signOut(getAuth(firebase));
 
 export { firebaseSignOut as signOut };
 
+const storeUserInfo = (user) => {
+  if (!user) {
+    return;
+  }
+  const userInfo = {
+    email: user.email,
+    display_name: user.displayName,
+    photo_url: user.photoURL,
+  };
+
+  setData(`users/${user.uid}`, userInfo);
+};
+
 export const useUserState = () => {
   const [user, setUser] = useState();
 
@@ -40,6 +53,7 @@ export const useUserState = () => {
     onIdTokenChanged(getAuth(firebase), setUser);
   }, []);
 
+  storeUserInfo(user);
   return [user];
 };
 
