@@ -1,26 +1,68 @@
 {
-  "title": "Red Shopping Cart",
-  "items": {
-    "Cheez-It": {
-      "name": "Cheez-It",
-      "quantity": { "Yvan": 2, "Alex": 1 },
-      "total_quantity": 3,
-      "purchased": false,
-      "notes": "for the partyyy"
+  "items" : {
+    "Apples" : {
+      "name" : "Apples",
+      "notes" : "Notes testing.",
+      "purchased" : false,
+      "quantity" : {
+        "LNE3osfVFza0rfYiUCcPG7lZN9J3" : 1,
+        "rw0J1FAozldoB4DrtQXxpZe5ILg1" : 2
+      },
+      "total_quantity" : 1
     },
-    "Apple ea": {
-      "name": "Apples ea",
-      "quantity": { "Hui": 6, "Andrew": 1 },
-      "total_quantity": 7,
-      "purchased": false,
-      "notes": ""
+    "Oranges" : {
+      "name" : "Oranges",
+      "notes" : "Notes testing.",
+      "purchased" : false,
+      "quantity" : {
+        "GJtl0UqkiuUhaZywBDZGH6A9RSH2" : 3,
+        "LNE3osfVFza0rfYiUCcPG7lZN9J3" : 1,
+        "rw0J1FAozldoB4DrtQXxpZe5ILg1" : 7
+      },
+      "total_quantity" : 1
+    }
+  },
+  "title" : "Red Shopping Cart",
+  "users" : {
+    "7DUvQqtxPkdY2FlB2NcPyv8uVA42" : {
+      "display_name" : "Hui Ye",
+      "email" : "huiye2023@u.northwestern.edu",
+      "photo_url" : "https://lh3.googleusercontent.com/a/AATXAJwHYJqNadtJsmkm6PzkbvhauurQMIhEADCtqJx-=s96-c"
     },
-    "Artichoke Dip": {
-      "name": "Artichoke Dip",
-      "quantity": { "Qing": 1, "Kevin": 1 },
-      "total_quantity": 2,
-      "purchased": false,
-      "notes": "just get one if it's big"
+    "GJtl0UqkiuUhaZywBDZGH6A9RSH2" : {
+      "display_name" : "Alejandro Malavet",
+      "email" : "alejandromalavet2022@u.northwestern.edu",
+      "photo_url" : "https://lh3.googleusercontent.com/a-/AOh14GhO2wXxw1V_wmi-jVfRT_U7icu1jswT-r6SD98nsQ=s96-c"
+    },
+    "IgEj8NmQr2PGw4UdLTQc4dmFWHx1" : {
+      "display_name" : "Hailey Ye",
+      "email" : "haileyye1998@gmail.com",
+      "photo_url" : "https://lh3.googleusercontent.com/a/AATXAJwkIf_jgEWJGs4MPIh3iaDuzWgLguFtL_asaPaC=s96-c"
+    },
+    "LNE3osfVFza0rfYiUCcPG7lZN9J3" : {
+      "display_name" : "Alejandro Malavet",
+      "email" : "alexxmalavet@gmail.com",
+      "photo_url" : "https://lh3.googleusercontent.com/a-/AOh14GhxeXpmHkHv6-sxAxfCqPgxttllmsinijGEkOqR1A=s96-c"
+    },
+    "OudF9ApqdSPMGP6LIxJUDWQCjJG3" : {
+      "display_name" : "Yvan Chu",
+      "email" : "yvanchu2023@u.northwestern.edu",
+      "photo_url" : "https://lh3.googleusercontent.com/a-/AOh14GiOjtJcTMIgKvyaV9FisMX649vuJmd4xlt1t9D7=s96-c"
+    },
+    "Xrw4ZHeTNaUwxPvKOcz9ytfVOtL2" : {
+      "display_name" : "Qing Lin",
+      "email" : "lin1129009@gmail.com",
+      "photo_url" : "https://lh3.googleusercontent.com/a/AATXAJy4wM5YEeWySjY153LbtGR_dhZzBloevpISJyu8=s96-c"
+    },
+    "rw0J1FAozldoB4DrtQXxpZe5ILg1" : {
+      "display_name" : "Kevin Su",
+      "email" : "kevinsu2024@u.northwestern.edu",
+      "photo_url" : "https://lh3.googleusercontent.com/a/AATXAJwF5X1l18-MXrndCURXq2L3JLyUrSVHtKkayfYZ=s96-c"
+    },
+    "xg3Vccmbx5TNdl9fGa0AnMJJvF73" : {
+      "display_name" : "Qing Lin",
+      "email" : "qinglin2022@u.northwestern.edu",
+      "photo_url" : "https://lh3.googleusercontent.com/a/AATXAJyQ8fB8KCSG-l6Zv_qYx51E-Co5ya242_WLJvuU=s96-c"
     }
   }
 }
