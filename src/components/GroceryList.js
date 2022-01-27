@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Accordion,
   AccordionSummary,
@@ -21,6 +21,7 @@ export default function GroceryList({ items, users }) {
   }
 
   const [user] = useUserState();
+  const [expanded, setExpanded] = React.useState(false);
   const checked = Object.keys(items)
     .map((key, index) => (items[key].purchased ? index : -1))
     .filter((index) => index != -1);
@@ -31,6 +32,10 @@ export default function GroceryList({ items, users }) {
     } else {
       setData(`/items/${key}/purchased`, false);
     }
+  };
+
+  const handleAccordionChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
   };
 
   return !user ? (
@@ -55,6 +60,8 @@ export default function GroceryList({ items, users }) {
             >
               <ListItemButton>
                 <Accordion
+                  expanded={expanded === index}
+                  onChange={handleAccordionChange(index)}
                   sx={{
                     boxShadow: "none",
                     bgcolor: "rgba(255, 0, 0, 0);",
