@@ -1,8 +1,7 @@
 import React from "react";
-import Button from "@mui/material/Button";
 import { sumDict } from "../../utilities/helperFunctions.js";
 import { setData } from "../../utilities/firebase";
-import { ButtonGroup, Typography } from "@mui/material";
+import { Button, ButtonGroup, Typography } from "@mui/material";
 
 const AddSubtractButtons = ({ user, item }) => {
   return (

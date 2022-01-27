@@ -1,5 +1,5 @@
 export default function removeByIndex(array, index) {
-  return array.filter(function (el, i) {
+  return array.filter(function (element, i) {
     return index !== i;
   });
 }

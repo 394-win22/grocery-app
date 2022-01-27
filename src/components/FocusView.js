@@ -1,17 +1,8 @@
 import React from "react";
-import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
-import Button from "@mui/material/Button";
-import { ButtonGroup, Typography } from "@mui/material";
-import { setData, delData } from "../utilities/firebase";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import Avatar from "@mui/material/Avatar";
-import ImageIcon from "@mui/icons-material/Image";
-import ListItemText from "@mui/material/ListItemText";
+import { AccordionDetails, ListItemText, IconButton } from "@mui/material";
+import { setData } from "../utilities/firebase";
 import QuantityByPerson from "./focusView/QuantityByPerson";
 import AddSubtractButtons from "./focusView/AddSubtractButtons";
-import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 const FocusView = ({ item, user, usersInfo }) => {

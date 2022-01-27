@@ -1,18 +1,16 @@
 import React, { useState } from "react";
-import { Accordion, AccordionSummary } from "@mui/material";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import { ButtonGroup, Typography } from "@mui/material";
-import Checkbox from "@mui/material/Checkbox";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import AddNewItem from "./AddNewItem";
-import { setData, delData } from "../utilities/firebase";
+import {
+  Accordion,
+  AccordionSummary,
+  Checkbox,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from "@mui/material";
+import { setData } from "../utilities/firebase";
 import "../utilities/helperFunctions";
-import { sumDict } from "../utilities/helperFunctions";
 import "../App.css";
 import { useUserState } from "../utilities/firebase.js";
 import FocusView from "./FocusView";
