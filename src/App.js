@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
+import React from "react";
 import "./App.css";
 import { useData } from "./utilities/firebase.js";
 import GroceryList from "./components/GroceryList.js";
@@ -18,12 +17,11 @@ const App = () => {
         <ButtonAppBar />
       </div>
       <div className="grocery-list">
-        {groceryList.items ? <GroceryList items={groceryList.items} /> : <></>}
+        <GroceryList items={groceryList.items} users={groceryList.users} />
         <div>
           <AddNewItem />
         </div>
       </div>
-      
     </div>
   );
 };
