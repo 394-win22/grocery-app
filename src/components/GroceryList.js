@@ -21,9 +21,6 @@ export default function GroceryList({ items, users }) {
     items = {};
   }
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeKey, setActiveKey] = useState(-1);
-
   const [user] = useUserState();
   const checked = Object.keys(items)
     .map((key, index) => (items[key].purchased ? index : -1))
@@ -48,27 +45,26 @@ export default function GroceryList({ items, users }) {
         {Object.keys(items).map((key, index) => {
           const labelId = `checkbox-list-secondary-label-${items[key].name}`;
           return (
-            <Accordion>
-              <AccordionSummary>
-                <ListItem
-                  className="item-list"
-                  key={index}
-                  secondaryAction={
-                    <Checkbox
-                      edge="end"
-                      onChange={handleToggle(key)}
-                      checked={checked.indexOf(index) !== -1}
-                      inputProps={{ "aria-labelledby": labelId }}
-                    />
-                  }
-                  disablePadding
+            <ListItem
+              className="item-list"
+              key={index}
+              disablePadding
+              sx={{
+                alignItems: "space-between",
+                padding: 0,
+              }}
+            >
+              <ListItemButton>
+                <Accordion
+                  sx={{
+                    boxShadow: "none",
+                    bgcolor: "rgba(255, 0, 0, 0);",
+                    "&:hover": {
+                      bgcolor: "rgba(255, 0, 0, 0);",
+                    },
+                  }}
                 >
-                  <ListItemButton
-                    onClick={() => {
-                      // togglePopup();
-                      setActiveKey(key);
-                    }}
-                  >
+                  <AccordionSummary>
                     <ListItemText
                       disableTypography
                       id={labelId}
@@ -78,7 +74,6 @@ export default function GroceryList({ items, users }) {
                           style={
                             items[key].purchased
                               ? {
-                                  /*fontFamily: 'cursive'*/
                                   textDecoration: "line-through",
                                   color: "lightgray",
                                   minWidth: "100px",
@@ -94,23 +89,31 @@ export default function GroceryList({ items, users }) {
                         </Typography>
                       }
                     />
-                    <AddSubtractButtons user={user} item={items[key]} />
-                  </ListItemButton>
-                </ListItem>
-              </AccordionSummary>
-              <FocusView item={items[key]} user={user} usersInfo={users} />
-            </Accordion>
+                  </AccordionSummary>
+                  <FocusView item={items[key]} user={user} usersInfo={users} />
+                </Accordion>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    alignSelf: "flex-start",
+                  }}
+                >
+                  <AddSubtractButtons user={user} item={items[key]} />
+                  <Checkbox
+                    edge="end"
+                    onChange={handleToggle(key)}
+                    checked={checked.indexOf(index) !== -1}
+                    inputProps={{ "aria-labelledby": labelId }}
+                  />
+                </div>
+              </ListItemButton>
+            </ListItem>
           );
         })}
       </List>
-      {/* {isOpen && (
-        <Popup
-          item={items[activeKey]}
-          handleClose={togglePopup}
-          user={user}
-          usersInfo={users}
-        />
-      )} */}
     </div>
   );
 }
