@@ -139,26 +139,7 @@ const Popup = ({ handleClose, item, user, usersInfo }) => {
                   maxWidth: 360,
                   bgcolor: "background.paper",
                 }}
-              >
-                {Object.entries(itemOwners).map((owner) => {
-                  const uid = owner[0];
-                  const individual_quantity = owner[1];
-                  return (
-                    <ListItem key={uid}>
-                      <ListItemAvatar>
-                        <Avatar
-                          alt={`Avatar from ${uid}`}
-                          src={`${usersInfo[uid].photo_url}`}
-                        ></Avatar>
-                      </ListItemAvatar>
-                      <ListItemText
-                        primary={usersInfo[uid].display_name}
-                        secondary={`quantity: ${individual_quantity}`}
-                      />
-                    </ListItem>
-                  );
-                })}
-              </List>
+              ></List>
             </div>
           </>
         ) : (
