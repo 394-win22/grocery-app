@@ -30,7 +30,7 @@ const QuantityByPerson = ({ quantityDict, usersInfo }) => {
             </ListItemAvatar>
             <ListItemText
               primary={usersInfo[uid].display_name}
-              secondary={`quantity: ${individual_quantity}`}
+              secondary={`Wants ${individual_quantity}`}
             />
           </ListItem>
         );

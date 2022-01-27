@@ -15,8 +15,8 @@ import "../utilities/helperFunctions";
 import { sumDict } from "../utilities/helperFunctions";
 import "../App.css";
 import { useUserState } from "../utilities/firebase.js";
-import Popup from "./Popup";
 import FocusView from "./FocusView";
+import AddSubtractButtons from "./focusView/AddSubtractButtons";
 
 export default function GroceryList({ items, users }) {
   if (!items) {
@@ -25,10 +25,6 @@ export default function GroceryList({ items, users }) {
 
   const [isOpen, setIsOpen] = useState(false);
   const [activeKey, setActiveKey] = useState(-1);
-
-  const togglePopup = () => {
-    setIsOpen(!isOpen);
-  };
 
   const [user] = useUserState();
   const checked = Object.keys(items)
@@ -100,29 +96,7 @@ export default function GroceryList({ items, users }) {
                         </Typography>
                       }
                     />
-
-                    <ListItemText
-                      disableTypography
-                      className="item-total-quantity"
-                      primary={
-                        <Typography
-                          type="body1"
-                          style={
-                            items[key].purchased
-                              ? {
-                                  /*fontFamily: 'cursive'*/
-                                  textDecoration: "line-through",
-                                  color: "lightgray",
-                                }
-                              : {}
-                          } // font style
-                          align="center"
-                        >
-                          {" "}
-                          {sumDict(items[key].quantity)}{" "}
-                        </Typography>
-                      }
-                    />
+                    <AddSubtractButtons user={user} item={items[key]} />
                   </ListItemButton>
                 </ListItem>
               </AccordionSummary>
