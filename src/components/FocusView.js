@@ -31,4 +31,5 @@ const FocusView = ({ item, user, usersInfo }) => {
 const editNote = () => {
   // TODO: edit note
 };
+
 export default FocusView;

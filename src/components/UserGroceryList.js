@@ -27,7 +27,10 @@ export default function UserGroceryList({ items, users }) {
       setData(`/items/${key}/purchased`, false);
     }
   };
+  
   console.log(user)
+
+  // Need to toggle lines 34 and 33 for uid issue
   var filtered_items = Object.keys(items).filter(key => items[key].quantity[user['uid']] > 0);
   // var filtered_items  = Object.keys(items)
 

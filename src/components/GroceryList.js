@@ -49,12 +49,7 @@ export default function GroceryList({ items, users }) {
     setExpanded(isExpanded ? panel : false);
   };
   
-  console.log(user)
-  //console.log(user['uid'])
   var filtered_items = filtered ? Object.keys(items).filter(key => items[key].quantity[user['uid']] >= 0) : Object.keys(items);
-
-
-  //var filtered_items = Object.keys(items);
 
   return !user ? (
     <></>
