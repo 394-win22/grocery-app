@@ -95,7 +95,7 @@ export default function GroceryList({ items, users }) {
                       purchased={items[key].purchased}
                     />
                   </AccordionSummary>
-                  <FocusView item={items[key]} user={user} usersInfo={users} />
+                  <FocusView item={items[key]} user={user} usersInfo={users} isSharedList = {true} />
                 </Accordion>
                 <div
                   style={{
