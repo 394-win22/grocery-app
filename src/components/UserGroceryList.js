@@ -28,11 +28,7 @@ export default function UserGroceryList({ items, users }) {
     }
   };
   
-  console.log(user)
-
-  // Need to toggle lines 34 and 33 for uid issue
-  var filtered_items = Object.keys(items).filter(key => items[key].quantity[user['uid']] > 0);
-  // var filtered_items  = Object.keys(items)
+  var filtered_items = user ? Object.keys(items).filter(key => items[key].quantity[user['uid']] > 0) : Object.keys(items) ;
 
   const handleAccordionChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
