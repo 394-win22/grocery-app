@@ -116,13 +116,13 @@ export default function GroceryList({ items, users }) {
       </List>
       
 
-<FormGroup>
-      <FormControlLabel control={<Checkbox
-                    edge="end"
-                    onChange={handleFilterToggle()}
-                    checked={filtered}
-                  />} label="     Filter by user items" />
-    </FormGroup>
+      <FormGroup style={{ alignItems: 'center'}}>
+            <FormControlLabel control={<Checkbox
+                          onChange={handleFilterToggle()}
+                          checked={filtered}
+                        />} label="Filter by user items" />
+      </FormGroup>
+
     </div>
   );
 }
