@@ -1,0 +1,24 @@
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+
+export default function SimpleBottomNavigation({value, setValue}) {
+
+  return (
+    <Box sx={{ width: 500 }}>
+      <BottomNavigation
+        showLabels
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+      >
+        <BottomNavigationAction label="Plan" icon={<PlaylistAddIcon />} />
+        <BottomNavigationAction label="Shop" icon={<ShoppingCartCheckoutIcon />} />
+      </BottomNavigation>
+    </Box>
+  );
+}

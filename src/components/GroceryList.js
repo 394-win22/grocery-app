@@ -17,7 +17,7 @@ import FocusView from "./FocusView";
 import AddSubtractButtons from "./focusView/AddSubtractButtons";
 import GroceryListItemText from "./groceryList/GroceryListItemText";
 
-export default function GroceryList({ items, users }) {
+export default function GroceryList({ items, users, navValue }) {
   if (!items) {
     items = {};
   }
@@ -101,13 +101,15 @@ export default function GroceryList({ items, users }) {
                     alignSelf: "flex-start",
                   }}
                 >
-                  <AddSubtractButtons user={user} item={items[key]} />
+                  {navValue === 0 ? 
+                  <AddSubtractButtons user={user} item={items[key]} /> : 
                   <Checkbox
                     edge="end"
                     onChange={handleToggle(key)}
                     checked={checked.indexOf(index) !== -1}
                     inputProps={{ "aria-labelledby": labelId }}
-                  />
+                  />}
+                  
                 </div>
               </ListItemButton>
             </ListItem>
