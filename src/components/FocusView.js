@@ -11,9 +11,7 @@ const FocusView = ({item, user, usersInfo}) => {
   const dialogRef = useRef();
 
   const openDialog = () => {
-    if (item.quantity[user['uid']]) {
-      dialogRef.current.handleClickOpen();
-    }
+    dialogRef.current.handleClickOpen();
   }
 
   return (
