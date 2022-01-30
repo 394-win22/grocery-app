@@ -1,28 +1,43 @@
-import React from "react";
-import { AccordionDetails, ListItemText, IconButton } from "@mui/material";
-import { setData } from "../utilities/firebase";
+import React, {useRef} from "react";
+import {AccordionDetails, ListItemText, IconButton, Button, DialogActions, DialogContent, DialogContentText, DialogTitle, Dialog} from "@mui/material";
+import {setData} from "../utilities/firebase";
 import QuantityByPerson from "./focusView/QuantityByPerson";
 import AddSubtractButtons from "./focusView/AddSubtractButtons";
 import DeleteIcon from "@mui/icons-material/Delete";
+import {ConfirmDialog} from "./ConfirmDialog";
 
-const FocusView = ({ item, user, usersInfo }) => {
+const FocusView = ({item, user, usersInfo}) => {
+
+  const dialogRef = useRef();
+
+  const openDialog = () => {
+    dialogRef.current.handleClickOpen();
+  }
+
   return (
     <AccordionDetails>
       {/* //notes */}
       <ListItemText>{item.notes}</ListItemText>
       {/* //add and subtract quantity //delete button */}
       {/* //who want what */}
-      <QuantityByPerson quantityDict={item.quantity} usersInfo={usersInfo} />
+      <QuantityByPerson quantityDict={item.quantity} usersInfo={usersInfo}/>
       <IconButton
         aria-label="delete"
         size="small"
-        onClick={() => {
+        onClick={openDialog}
+      >
+        <DeleteIcon fontSize="small"/>
+      </IconButton>
+      <ConfirmDialog
+        title={"Delete this item?"}
+        content={"If you delete this item, other friends will not be able to purchase it."}
+        func={() => {
           setData(`/items/${item.name}`, null);
           // delete item;
         }}
-      >
-        <DeleteIcon fontSize="small" />
-      </IconButton>
+        props={dialogRef}
+      />
+
     </AccordionDetails>
   );
 };
