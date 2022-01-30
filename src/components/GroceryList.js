@@ -6,9 +6,10 @@ import {
   List,
   ListItem,
   ListItemButton,
+  ListItemText,
   FormGroup,
 } from "@mui/material";
-import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControlLabel from "@mui/material/FormControlLabel";
 import { setData } from "../utilities/firebase";
 import "../utilities/helperFunctions";
 import "../App.css";
@@ -21,14 +22,14 @@ export default function GroceryList({ items, users, navValue }) {
   if (!items) {
     items = {};
   }
-  
+
   const [user] = useUserState();
   const [expanded, setExpanded] = React.useState(false);
   const [filtered, setFiltered] = React.useState(false);
   const checked = Object.keys(items)
     .map((key, index) => (items[key].purchased ? index : -1))
     .filter((index) => index != -1);
-  
+
   const handleToggle = (key) => () => {
     if (items[key].purchased == false) {
       setData(`/items/${key}/purchased`, true);
@@ -44,12 +45,14 @@ export default function GroceryList({ items, users, navValue }) {
       setFiltered(false);
     }
   };
-  
+
   const handleAccordionChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
-  
-  var filtered_items = filtered ? Object.keys(items).filter(key => items[key].quantity[user['uid']] >= 0) : Object.keys(items);
+
+  var filtered_items = filtered
+    ? Object.keys(items).filter((key) => items[key].quantity[user["uid"]] >= 0)
+    : Object.keys(items);
 
   return !user ? (
     <></>
@@ -84,13 +87,23 @@ export default function GroceryList({ items, users, navValue }) {
                   }}
                 >
                   <AccordionSummary>
-                    <GroceryListItemText
-                      text={items[key].name}
-                      labelId={labelId}
-                      purchased={items[key].purchased}
-                    />
+                    <div>
+                      <GroceryListItemText
+                        text={items[key].name}
+                        labelId={labelId}
+                        purchased={items[key].purchased}
+                      />
+                      <ListItemText style={{ color: "grey" }}>
+                        {items[key].notes}
+                      </ListItemText>
+                    </div>
                   </AccordionSummary>
-                  <FocusView item={items[key]} user={user} usersInfo={users} isSharedList = {true} />
+                  <FocusView
+                    item={items[key]}
+                    user={user}
+                    usersInfo={users}
+                    isSharedList={true}
+                  />
                 </Accordion>
                 <div
                   style={{
@@ -101,30 +114,31 @@ export default function GroceryList({ items, users, navValue }) {
                     alignSelf: "flex-start",
                   }}
                 >
-                  {navValue === 0 ? 
-                  <AddSubtractButtons user={user} item={items[key]} /> : 
-                  <Checkbox
-                    edge="end"
-                    onChange={handleToggle(key)}
-                    checked={checked.indexOf(index) !== -1}
-                    inputProps={{ "aria-labelledby": labelId }}
-                  />}
-                  
+                  {navValue === 0 ? (
+                    <AddSubtractButtons user={user} item={items[key]} />
+                  ) : (
+                    <Checkbox
+                      edge="end"
+                      onChange={handleToggle(key)}
+                      checked={checked.indexOf(index) !== -1}
+                      inputProps={{ "aria-labelledby": labelId }}
+                    />
+                  )}
                 </div>
               </ListItemButton>
             </ListItem>
           );
         })}
       </List>
-      
 
-      <FormGroup style={{ alignItems: 'center'}}>
-            <FormControlLabel control={<Checkbox
-                          onChange={handleFilterToggle()}
-                          checked={filtered}
-                        />} label="Filter by user items" />
+      <FormGroup style={{ alignItems: "center" }}>
+        <FormControlLabel
+          control={
+            <Checkbox onChange={handleFilterToggle()} checked={filtered} />
+          }
+          label="Filter by user items"
+        />
       </FormGroup>
-
     </div>
   );
 }
