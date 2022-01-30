@@ -16,7 +16,9 @@ export default function SimpleBottomNavigation({value, setValue}) {
           setValue(newValue);
         }}
       >
+        {/* Plan button */}
         <BottomNavigationAction label="Plan" icon={<PlaylistAddIcon />} />
+        {/* Shop button */}
         <BottomNavigationAction label="Shop" icon={<ShoppingCartCheckoutIcon />} />
       </BottomNavigation>
     </Box>
