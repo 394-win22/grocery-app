@@ -16,7 +16,8 @@ const FocusView = ({ item, user, usersInfo }) => {
       <IconButton
         aria-label="delete"
         size="small"
-        onClick={() => {
+        onClick={!item.quantity[user['uid']]
+          ? null : () => {
           setData(`/items/${item.name}`, null);
           // delete item;
         }}
@@ -30,4 +31,5 @@ const FocusView = ({ item, user, usersInfo }) => {
 const editNote = () => {
   // TODO: edit note
 };
+
 export default FocusView;

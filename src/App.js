@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import { useData } from "./utilities/firebase.js";
 import GroceryList from "./components/GroceryList.js";
+import UserGroceryList from "./components/UserGroceryList.js";
 import ButtonAppBar from "./components/AppBar.js";
 import AddNewItem from "./components/AddNewItem";
 
@@ -21,6 +22,10 @@ const App = () => {
         <div>
           <AddNewItem />
         </div>
+        {/* My Own List
+        <div className="grocery-list">
+        <UserGroceryList items={groceryList.items} users={groceryList.users} />
+        </div> */}
       </div>
     </div>
   );

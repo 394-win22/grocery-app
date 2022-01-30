@@ -4,6 +4,7 @@ import { setData } from "../../utilities/firebase";
 import { Button, ButtonGroup } from "@mui/material";
 
 const AddSubtractButtons = ({ user, item }) => {
+
   return (
     <div className="show quantity">
       <ButtonGroup size="small" aria-label="small button group">
@@ -15,6 +16,7 @@ const AddSubtractButtons = ({ user, item }) => {
             minWidth: "30px",
             minHeight: "30px",
           }} // Button size
+          disabled = {item.purchased}
           onClick={
             !user
               ? null
@@ -58,6 +60,7 @@ const AddSubtractButtons = ({ user, item }) => {
             minWidth: "30px",
             minHeight: "30px",
           }} // Button size
+          disabled = {item.purchased}
           onClick={
             !user
               ? null
