@@ -11,7 +11,9 @@ const FocusView = ({item, user, usersInfo}) => {
   const dialogRef = useRef();
 
   const openDialog = () => {
-    dialogRef.current.handleClickOpen();
+    if (item.quantity[user['uid']]) {
+      dialogRef.current.handleClickOpen();
+    }
   }
 
   return (
@@ -32,9 +34,9 @@ const FocusView = ({item, user, usersInfo}) => {
         title={"Delete this item?"}
         content={"If you delete this item, other friends will not be able to purchase it."}
         func={() => {
-          setData(`/items/${item.name}`, null);
-          // delete item;
-        }}
+            setData(`/items/${item.name}`, null);
+            // delete item;
+          }}
         props={dialogRef}
       />
 
@@ -45,4 +47,5 @@ const FocusView = ({item, user, usersInfo}) => {
 const editNote = () => {
   // TODO: edit note
 };
+
 export default FocusView;
