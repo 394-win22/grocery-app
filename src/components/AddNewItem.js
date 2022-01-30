@@ -9,7 +9,7 @@ const AddNewItem = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (itemName && user) {
-      addItem(itemName, user.uid, "Notes testing.");
+      addItem(itemName, user.uid, "");
       setItemName("");
     }
   };
