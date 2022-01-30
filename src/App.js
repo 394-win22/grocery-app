@@ -22,10 +22,10 @@ const App = () => {
         <div>
           <AddNewItem />
         </div>
-        My Own List
+        {/* My Own List
         <div className="grocery-list">
         <UserGroceryList items={groceryList.items} users={groceryList.users} />
-        </div>
+        </div> */}
       </div>
     </div>
   );
