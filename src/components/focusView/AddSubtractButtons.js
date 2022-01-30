@@ -1,9 +1,16 @@
-import React from "react";
+import React, {useRef} from "react";
 import { sumDict } from "../../utilities/helperFunctions.js";
 import { setData } from "../../utilities/firebase";
 import { Button, ButtonGroup } from "@mui/material";
+import {ConfirmDialog} from "../ConfirmDialog";
 
 const AddSubtractButtons = ({ user, item }) => {
+
+  const dialogRef = useRef();
+
+  const openDialog = () => {
+    dialogRef.current.handleClickOpen();
+  }
 
   return (
     <div className="show quantity">
@@ -40,8 +47,7 @@ const AddSubtractButtons = ({ user, item }) => {
                     setData(`/items/${itemName}/quantity/`, item.quantity);
                   } else {
                     // remove item
-                    setData(`/items/${itemName}`, null);
-                    delete items[itemName]; // is this redundant/unneccessary
+                    openDialog();
                   }
                 }
           }
@@ -81,6 +87,15 @@ const AddSubtractButtons = ({ user, item }) => {
           +{" "}
         </Button>
       </ButtonGroup>
+      <ConfirmDialog
+        title={"Subtract to zero?"}
+        content={"If you do that, this item will be deleted."}
+        func={() => {
+          setData(`/items/${item.name}`, null);
+          // delete item;
+        }}
+        props={dialogRef}
+      />
     </div>
   );
 };
