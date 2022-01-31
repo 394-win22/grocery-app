@@ -53,19 +53,24 @@ export default function GroceryList({ items, users, navValue }) {
 
   //Conditional for whether user is in shop view. If so, never filter
 
-
-  var filtered_items = (filtered && navValue === 0)
-    ? Object.keys(items).filter((key) => items[key].quantity[user["uid"]] >= 0)
-    : Object.keys(items);
+  var filtered_items =
+    filtered && navValue === 0
+      ? Object.keys(items).filter(
+          (key) => items[key].quantity[user["uid"]] >= 0
+        )
+      : Object.keys(items);
 
   return !user ? (
     <></>
   ) : (
-    <div style={{ marginBottom: "50px", marginTop: "8px", width: "100%"}}>
-      <List
-        dense
-        sx={{ width: "100%", bgcolor: "background.paper" }}
-      >
+    <div
+      style={{
+        marginBottom: "50px",
+        marginTop: "8px",
+        width: "100%",
+      }}
+    >
+      <List dense sx={{ width: "100%", bgcolor: "background.paper" }}>
         {filtered_items.map((key, index) => {
           const labelId = `checkbox-list-secondary-label-${items[key].name}`;
           return (
@@ -78,74 +83,95 @@ export default function GroceryList({ items, users, navValue }) {
                 padding: 0,
               }}
             >
-              <ListItemButton sx={{ justifyContent: "center"}}>
-                <Accordion
-                  expanded={expanded === index}
-                  onChange={handleAccordionChange(index)}
-                  sx={{
-                    boxShadow: "none",
-                    bgcolor: "rgba(255, 0, 0, 0);",
-                    "&:hover": {
-                      bgcolor: "rgba(255, 0, 0, 0);",
-                    },
-                  }}
-                  style={{ width: "200px" }}
-                >
-                  <AccordionSummary sx={{padding: "0"}}>
-                    <div>
-                      <GroceryListItemText
-                        text={items[key].name}
-                        labelId={labelId}
-                        purchased={items[key].purchased}
+              <div style={{ width: "100%" }}>
+                <div>
+                  <ListItemButton sx={{ justifyContent: "center" }}>
+                    <Accordion
+                      expanded={expanded === index}
+                      onChange={handleAccordionChange(index)}
+                      sx={{
+                        boxShadow: "none",
+                        bgcolor: "rgba(255, 0, 0, 0);",
+                        "&:hover": {
+                          bgcolor: "rgba(255, 0, 0, 0);",
+                        },
+                      }}
+                      style={{ width: "200px" }}
+                    >
+                      <AccordionSummary sx={{ padding: "0" }}>
+                        <div>
+                          <GroceryListItemText
+                            text={items[key].name}
+                            labelId={labelId}
+                            purchased={items[key].purchased}
+                            style={{ width: "100%" }}
+                          />
+                          <ListItemText
+                            style={{ color: "grey", align: "left" }}
+                          >
+                            {items[key].notes}
+                          </ListItemText>
+                        </div>
+                      </AccordionSummary>
+                      <FocusView
+                        item={items[key]}
+                        user={user}
+                        usersInfo={users}
+                        isSharedList={true}
                       />
-                      <ListItemText style={{ color: "grey" }}>
-                        {items[key].notes}
-                      </ListItemText>
+                    </Accordion>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        alignSelf: "flex-start",
+                        marginTop: "13px",
+                        width: "98px",
+                      }}
+                    >
+                      {navValue === 0 ? (
+                        <AddSubtractButtons user={user} item={items[key]} />
+                      ) : (
+                        <div>
+                          {sumDict(items[key].quantity)}
+                          <Checkbox
+                            edge="end"
+                            onChange={handleToggle(key)}
+                            checked={checked.indexOf(index) !== -1}
+                            inputProps={{ "aria-labelledby": labelId }}
+                          />
+                        </div>
+                      )}
                     </div>
-                  </AccordionSummary>
-                  <FocusView
-                    item={items[key]}
-                    user={user}
-                    usersInfo={users}
-                    isSharedList={true}
-                  />
-                </Accordion>
+                  </ListItemButton>
+                </div>
                 <div
                   style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    alignSelf: "flex-start",
-                    marginTop: "13px",
-                    width: "98px"
+                    borderBottom: "1px solid #d3d3d3",
+                    width: "80%",
+                    margin: "auto",
                   }}
-                >
-                  {navValue === 0 ? 
-                  <AddSubtractButtons user={user} item={items[key]} /> : 
-                  <div>
-                    {sumDict(items[key].quantity)}
-                    <Checkbox
-                  edge="end"
-                  onChange={handleToggle(key)}
-                  checked={checked.indexOf(index) !== -1}
-                  inputProps={{ "aria-labelledby": labelId }}
-                /></div>}
-                </div>
-              </ListItemButton>
+                ></div>
+              </div>
             </ListItem>
           );
         })}
       </List>
-      
-      {navValue === 0 ? <FormGroup style={{ alignItems: 'center'}}>
-            <FormControlLabel control={<Checkbox
-                          onChange={handleFilterToggle()}
-                          checked={filtered}
-                        />} label="Filter by user items" />
-      </FormGroup> : <></>}
-      
 
+      {navValue === 0 ? (
+        <FormGroup style={{ alignItems: "center" }}>
+          <FormControlLabel
+            control={
+              <Checkbox onChange={handleFilterToggle()} checked={filtered} />
+            }
+            label="Filter by user items"
+          />
+        </FormGroup>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

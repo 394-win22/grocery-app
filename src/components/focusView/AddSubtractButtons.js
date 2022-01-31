@@ -1,16 +1,15 @@
-import React, {useRef} from "react";
+import React, { useRef } from "react";
 import { sumDict } from "../../utilities/helperFunctions.js";
 import { setData } from "../../utilities/firebase";
 import { Button, ButtonGroup } from "@mui/material";
-import {ConfirmDialog} from "../ConfirmDialog";
+import { ConfirmDialog } from "../ConfirmDialog";
 
 const AddSubtractButtons = ({ user, item }) => {
-
   const dialogRef = useRef();
 
   const openDialog = () => {
     dialogRef.current.handleClickOpen();
-  }
+  };
 
   return (
     <div className="show quantity">
@@ -23,7 +22,7 @@ const AddSubtractButtons = ({ user, item }) => {
             minWidth: "30px",
             minHeight: "30px",
           }} // Button size
-          disabled = {item.purchased}
+          disabled={item.purchased}
           onClick={
             !user
               ? null
@@ -55,8 +54,9 @@ const AddSubtractButtons = ({ user, item }) => {
           {" "}
           -{" "}
         </Button>
-        <Button key="two" style={{ pointerEvents: "none" }}>
-          {sumDict(item.quantity)}
+        <Button disabled={item.purchased} style={{ border: "0px" }}>
+          {" "}
+          {sumDict(item.quantity)}{" "}
         </Button>
         <Button
           variant="contained"
@@ -66,7 +66,7 @@ const AddSubtractButtons = ({ user, item }) => {
             minWidth: "30px",
             minHeight: "30px",
           }} // Button size
-          disabled = {item.purchased}
+          disabled={item.purchased}
           onClick={
             !user
               ? null
