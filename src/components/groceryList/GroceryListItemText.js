@@ -19,7 +19,7 @@ const GroceryListItemText = ({ text, labelId, purchased }) => (
         } // font style
         align="left"
       >
-        {text.length > 10 ? text.substring(0, 7) + "..." : text}
+        {text}
       </Typography>
     }
   />

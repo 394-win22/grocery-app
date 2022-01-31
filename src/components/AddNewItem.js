@@ -16,13 +16,14 @@ const AddNewItem = () => {
   return !user ? (
     <p className="sign-in-remind">Please sign in first</p>
   ) : (
-    <form  className="new-item" onSubmit={handleSubmit}>
+    <form className="new-item" onSubmit={handleSubmit}>
       <TextField
         style={{ display: "block", padding: "10px" }}
         id="item-name-input"
         variant="outlined"
         onInput={(e) => setItemName(e.target.value)}
         value={itemName}
+        inputProps={{ maxLength: 20 }}
       />
       <Button type="submit" variant="contained">
         Add
