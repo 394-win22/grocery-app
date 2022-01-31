@@ -35,9 +35,10 @@ const FocusView = ({ item, user, usersInfo }) => {
     return (
       <form className="edit-note" onSubmit={handleSubmit}>
         <TextField
-          style={{ display: "block", margin: "0px", padding: "0px" }}
+          style={{ display: "block", margin: "0px", padding: "0px", width: "80%"}}
           id="note-edit"
-          variant="outlined"
+          variant="standard"
+          fullWidth
           onInput={(e) => setNewNote(e.target.value)}
           value={newNote}
         />
@@ -52,28 +53,26 @@ const FocusView = ({ item, user, usersInfo }) => {
     );
   };
   return (
-    <AccordionDetails>
+    <AccordionDetails style={{ width: "298px", padding: "0"}}>
       {/* //notes */}
       {editMode ? (
         <EditNote />
       ) : (
-        <>
-          <Button
-            variant="text"
-            style={{ display: "block", margin: "0px", padding: "0px" }}
-            onClick={() => {
-              setEditMode(true);
-            }}
-          >
-            Edit Note
-          </Button>
-        </>
+        <Button
+          variant="text"
+          style={{ display: "block", margin: "0px", padding: "0px" }}
+          onClick={() => {
+            setEditMode(true);
+          }}
+        >
+          Edit Note
+        </Button>
       )}
 
       {/* //add and subtract quantity //delete button */}
       {/* //who want what */}
       <QuantityByPerson quantityDict={item.quantity} usersInfo={usersInfo} />
-      <IconButton aria-label="delete" size="small" onClick={openDialog}>
+      <IconButton className="delete-icon" aria-label="delete" size="small" onClick={openDialog}>
         <DeleteIcon fontSize="small" />
       </IconButton>
       <ConfirmDialog

@@ -58,10 +58,10 @@ export default function GroceryList({ items, users, navValue }) {
   return !user ? (
     <></>
   ) : (
-    <div>
+    <div style={{ marginBottom: "50px", marginTop: "8px", width: "100%"}}>
       <List
         dense
-        sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+        sx={{ width: "100%", bgcolor: "background.paper" }}
       >
         {filtered_items.map((key, index) => {
           const labelId = `checkbox-list-secondary-label-${items[key].name}`;
@@ -75,7 +75,7 @@ export default function GroceryList({ items, users, navValue }) {
                 padding: 0,
               }}
             >
-              <ListItemButton>
+              <ListItemButton sx={{ justifyContent: "center"}}>
                 <Accordion
                   expanded={expanded === index}
                   onChange={handleAccordionChange(index)}
@@ -86,8 +86,9 @@ export default function GroceryList({ items, users, navValue }) {
                       bgcolor: "rgba(255, 0, 0, 0);",
                     },
                   }}
+                  style={{ width: "200px" }}
                 >
-                  <AccordionSummary>
+                  <AccordionSummary sx={{padding: "0"}}>
                     <div>
                       <GroceryListItemText
                         text={items[key].name}
@@ -111,8 +112,10 @@ export default function GroceryList({ items, users, navValue }) {
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
-                    justifyContent: "space-between",
+                    justifyContent: "center",
                     alignSelf: "flex-start",
+                    marginTop: "13px",
+                    width: "98px"
                   }}
                 >
                   {navValue === 0 ? 
@@ -125,8 +128,6 @@ export default function GroceryList({ items, users, navValue }) {
                   checked={checked.indexOf(index) !== -1}
                   inputProps={{ "aria-labelledby": labelId }}
                 /></div>}
-                  
-                  
                 </div>
               </ListItemButton>
             </ListItem>

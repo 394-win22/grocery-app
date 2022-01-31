@@ -8,7 +8,7 @@ import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 export default function SimpleBottomNavigation({value, setValue}) {
 
   return (
-    <Box sx={{ width: 500 }}>
+    <Box sx={{ position: 'fixed', bottom: 0, top: "auto", width: 500 }}>
       <BottomNavigation
         showLabels
         value={value}
