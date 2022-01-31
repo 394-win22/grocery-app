@@ -40,7 +40,7 @@ export default function GroceryList({ items, users, navValue }) {
   };
 
   const handleFilterToggle = () => () => {
-    if (filtered == false) {
+    if (filtered === false) {
       setFiltered(true);
     } else {
       setFiltered(false);
@@ -51,7 +51,10 @@ export default function GroceryList({ items, users, navValue }) {
     setExpanded(isExpanded ? panel : false);
   };
 
-  var filtered_items = filtered
+  //Conditional for whether user is in shop view. If so, never filter
+
+
+  var filtered_items = (filtered && navValue === 0)
     ? Object.keys(items).filter((key) => items[key].quantity[user["uid"]] >= 0)
     : Object.keys(items);
 
@@ -118,7 +121,6 @@ export default function GroceryList({ items, users, navValue }) {
                     width: "98px"
                   }}
                 >
-
                   {navValue === 0 ? 
                   <AddSubtractButtons user={user} item={items[key]} /> : 
                   <div>
@@ -129,7 +131,6 @@ export default function GroceryList({ items, users, navValue }) {
                   checked={checked.indexOf(index) !== -1}
                   inputProps={{ "aria-labelledby": labelId }}
                 /></div>}
-
                 </div>
               </ListItemButton>
             </ListItem>
