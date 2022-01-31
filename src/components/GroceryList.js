@@ -40,7 +40,7 @@ export default function GroceryList({ items, users, navValue }) {
   };
 
   const handleFilterToggle = () => () => {
-    if (filtered == false) {
+    if (filtered === false) {
       setFiltered(true);
     } else {
       setFiltered(false);
@@ -51,7 +51,10 @@ export default function GroceryList({ items, users, navValue }) {
     setExpanded(isExpanded ? panel : false);
   };
 
-  var filtered_items = filtered
+  //Conditional for whether user is in shop view. If so, never filter
+
+  
+  var filtered_items = (filtered && navValue === 0)
     ? Object.keys(items).filter((key) => items[key].quantity[user["uid"]] >= 0)
     : Object.keys(items);
 
@@ -138,7 +141,7 @@ export default function GroceryList({ items, users, navValue }) {
       {navValue === 0 ? <FormGroup style={{ alignItems: 'center'}}>
             <FormControlLabel control={<Checkbox
                           onChange={handleFilterToggle()}
-                          checked={filtered}
+                          checked={filtered} 
                         />} label="Filter by user items" />
       </FormGroup> : <></>}
       
