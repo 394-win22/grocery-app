@@ -86,9 +86,9 @@ export default function GroceryList({ items, users, navValue }) {
                       bgcolor: "rgba(255, 0, 0, 0);",
                     },
                   }}
-                  style={{ width: "250px" }}
+                  style={{ width: "200px" }}
                 >
-                  <AccordionSummary>
+                  <AccordionSummary sx={{padding: "0"}}>
                     <div>
                       <GroceryListItemText
                         text={items[key].name}
@@ -112,9 +112,10 @@ export default function GroceryList({ items, users, navValue }) {
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
-                    justifyContent: "space-between",
+                    justifyContent: "center",
                     alignSelf: "flex-start",
-                    marginTop: "13px"
+                    marginTop: "13px",
+                    width: "98px"
                   }}
                 >
 
