@@ -53,7 +53,7 @@ export default function GroceryList({ items, users, navValue }) {
 
   //Conditional for whether user is in shop view. If so, never filter
 
-  
+
   var filtered_items = (filtered && navValue === 0)
     ? Object.keys(items).filter((key) => items[key].quantity[user["uid"]] >= 0)
     : Object.keys(items);
