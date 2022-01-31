@@ -3,6 +3,10 @@
   /* border: 2px solid hotpink; */
 }
 
+body {
+  overflow: hidden;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -71,7 +75,7 @@
   left: 0;
   z-index: 100;
 }
- 
+
 .box {
   position: relative;
   width: 70%;
@@ -85,9 +89,9 @@
   border: 1px solid #999;
   overflow: auto;
 }
- 
+
 .close-icon {
-  content: 'x';
+  content: "x";
   cursor: pointer;
   position: fixed;
   right: calc(15% - 30px);
@@ -103,7 +107,7 @@
 }
 
 .item-name {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .edit-note {
