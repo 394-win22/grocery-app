@@ -13,13 +13,13 @@ const GroceryListItemText = ({ text, labelId, purchased }) => (
             ? {
                 textDecoration: "line-through",
                 color: "lightgray",
-                width: "100px"
+                width: "100px",
               }
             : { width: "100px" }
         } // font style
-        align="center"
+        align="left"
       >
-        {text.length > 10 ? text.substring(0, 7) + "..." : text}
+        {text}
       </Typography>
     }
   />

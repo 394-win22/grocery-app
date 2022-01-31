@@ -44,12 +44,11 @@ export default function ButtonAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar>
         <Toolbar>
-
           {/* Menu button below */}
 
-{/* 
+          {/* 
            <IconButton
             size="large"
             edge="start"
@@ -60,9 +59,9 @@ export default function ButtonAppBar() {
             <MenuIcon />
           </IconButton>  */}
 
-      {/* Remove ml later */}
+          {/* Remove ml later */}
 
-          <Typography variant="h6" component="div" sx={{flexGrow: 1}}> 
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Shared List
           </Typography>
           {/* <Button color="inherit">Login</Button> */}
