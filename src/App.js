@@ -20,7 +20,6 @@ const App = () => {
 
   return (
     <div className="App">
-      x
       <div style={{ height: "36px" }}>
         <ButtonAppBar />
       </div>
