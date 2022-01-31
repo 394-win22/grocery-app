@@ -58,7 +58,7 @@ export default function GroceryList({ items, users, navValue }) {
   return !user ? (
     <></>
   ) : (
-    <div>
+    <div style={{ marginBottom: "50px" }}>
       <List
         dense
         sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}

@@ -16,7 +16,7 @@ const AddNewItem = () => {
   return !user ? (
     <p className="sign-in-remind">Please sign in first</p>
   ) : (
-    <form className="new-item" onSubmit={handleSubmit}>
+    <form  className="new-item" onSubmit={handleSubmit}>
       <TextField
         style={{ display: "block", padding: "10px" }}
         id="item-name-input"

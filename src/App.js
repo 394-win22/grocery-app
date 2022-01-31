@@ -25,7 +25,7 @@ const App = () => {
       </div>
       <div className="grocery-list">
         <GroceryList items={groceryList.items} users={groceryList.users} navValue={navValue} />
-        <div>
+        <div style={{ position: "sticky", bottom: "50px", width: "100%" }}>
           {navValue === 0 
           ? <AddNewItem />
           : <></> /*<CheckoutButton items={groceryList.items}></CheckoutButton>*/}
