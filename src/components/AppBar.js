@@ -62,7 +62,7 @@ export default function ButtonAppBar() {
 
       {/* Remove ml later */}
 
-          <Typography variant="h6" component="div" sx={{ ml: 10, flexGrow: 1}}> 
+          <Typography variant="h6" component="div" sx={{ ml: "7.2%", flexGrow: 1}}> 
             Shared List
           </Typography>
           {/* <Button color="inherit">Login</Button> */}
