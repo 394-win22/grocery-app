@@ -121,6 +121,7 @@ export default function GroceryList({ items, users, navValue }) {
                     width: "98px"
                   }}
                 >
+
                   {navValue === 0 ? 
                   <AddSubtractButtons user={user} item={items[key]} /> : 
                   <div>
@@ -131,6 +132,7 @@ export default function GroceryList({ items, users, navValue }) {
                   checked={checked.indexOf(index) !== -1}
                   inputProps={{ "aria-labelledby": labelId }}
                 /></div>}
+
                 </div>
               </ListItemButton>
             </ListItem>
@@ -141,7 +143,7 @@ export default function GroceryList({ items, users, navValue }) {
       {navValue === 0 ? <FormGroup style={{ alignItems: 'center'}}>
             <FormControlLabel control={<Checkbox
                           onChange={handleFilterToggle()}
-                          checked={filtered} 
+                          checked={filtered}
                         />} label="Filter by user items" />
       </FormGroup> : <></>}
       
