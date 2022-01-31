@@ -50,6 +50,8 @@ export default function UserGroceryList({ items, users }) {
               key={index}
               disablePadding
               sx={{
+                display: "flex",
+                justifyContent: "center",
                 alignItems: "space-between",
                 padding: 0,
               }}

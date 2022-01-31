@@ -47,6 +47,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  background: white;
 }
 
 .list-header {
@@ -108,4 +109,8 @@
 .edit-note {
   cursor: pointer;
   color: #1976d1;
+}
+
+.delete-icon:hover {
+  color: rgb(172, 41, 41);
 }
