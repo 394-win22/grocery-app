@@ -17,6 +17,7 @@ import { useUserState } from "../utilities/firebase.js";
 import FocusView from "./FocusView";
 import AddSubtractButtons from "./focusView/AddSubtractButtons";
 import GroceryListItemText from "./groceryList/GroceryListItemText";
+import { sumDict } from "../utilities/helperFunctions.js";
 
 export default function GroceryList({ items, users, navValue }) {
   if (!items) {
@@ -114,31 +115,33 @@ export default function GroceryList({ items, users, navValue }) {
                     alignSelf: "flex-start",
                   }}
                 >
-                  {navValue === 0 ? (
-                    <AddSubtractButtons user={user} item={items[key]} />
-                  ) : (
+
+                  {navValue === 0 ? 
+                  <AddSubtractButtons user={user} item={items[key]} /> : 
+                  <div>
+                    {sumDict(items[key].quantity)}
                     <Checkbox
-                      edge="end"
-                      onChange={handleToggle(key)}
-                      checked={checked.indexOf(index) !== -1}
-                      inputProps={{ "aria-labelledby": labelId }}
-                    />
-                  )}
+                  edge="end"
+                  onChange={handleToggle(key)}
+                  checked={checked.indexOf(index) !== -1}
+                  inputProps={{ "aria-labelledby": labelId }}
+                /></div>}
+
                 </div>
               </ListItemButton>
             </ListItem>
           );
         })}
       </List>
+      
+      {navValue === 0 ? <FormGroup style={{ alignItems: 'center'}}>
+            <FormControlLabel control={<Checkbox
+                          onChange={handleFilterToggle()}
+                          checked={filtered}
+                        />} label="Filter by user items" />
+      </FormGroup> : <></>}
+      
 
-      <FormGroup style={{ alignItems: "center" }}>
-        <FormControlLabel
-          control={
-            <Checkbox onChange={handleFilterToggle()} checked={filtered} />
-          }
-          label="Filter by user items"
-        />
-      </FormGroup>
     </div>
   );
 }
