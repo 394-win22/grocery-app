@@ -5,7 +5,7 @@ import { Button} from "@mui/material";
 
 export default function CheckoutButton({items}) {
     const handleClick = () => {
-        
+        Object.values()
     }
   return (
       <Button variant="contained"
