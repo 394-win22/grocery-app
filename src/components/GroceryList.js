@@ -64,6 +64,7 @@ export default function GroceryList({ items, users, navValue }) {
     <></>
   ) : (
     <div
+      className="inner-list"
       style={{
         marginBottom: "50px",
         marginTop: "8px",
