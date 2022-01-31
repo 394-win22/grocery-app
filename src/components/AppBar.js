@@ -49,8 +49,8 @@ export default function ButtonAppBar() {
 
           {/* Menu button below */}
 
-
-          {/* <IconButton
+{/* 
+           <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -58,11 +58,11 @@ export default function ButtonAppBar() {
             sx={{ mr: 2 }}
           >
             <MenuIcon />
-          </IconButton> */}
+          </IconButton>  */}
 
       {/* Remove ml later */}
 
-          <Typography variant="h6" component="div" sx={{ ml: "7.2%", flexGrow: 1}}> 
+          <Typography variant="h6" component="div" sx={{flexGrow: 1}}> 
             Shared List
           </Typography>
           {/* <Button color="inherit">Login</Button> */}
