@@ -20,24 +20,32 @@ const App = () => {
 
   return (
     <div className="App">
-      <div>
+      x
+      <div style={{ height: "36px" }}>
         <ButtonAppBar />
       </div>
       <div className="grocery-list">
-        <GroceryList items={groceryList.items} users={groceryList.users} navValue={navValue} />
+        <GroceryList
+          items={groceryList.items}
+          users={groceryList.users}
+          navValue={navValue}
+        />
         <div style={{ position: "sticky", bottom: "50px", width: "100%" }}>
-          {navValue === 0 
-          ? <AddNewItem />
-          : <></> /*<CheckoutButton items={groceryList.items}></CheckoutButton>*/}
-          
+          {
+            navValue === 0 ? (
+              <AddNewItem />
+            ) : (
+              <></>
+            ) /*<CheckoutButton items={groceryList.items}></CheckoutButton>*/
+          }
         </div>
-		
+
         {/* <div className="grocery-list">
         <UserGroceryList items={groceryList.items} users={groceryList.users} /> */}
         {/* </div> */}
 
-{/* Botton nav component */}
-		<SimpleBottomNavigation value={navValue} setValue={setNavValue}/>
+        {/* Botton nav component */}
+        <SimpleBottomNavigation value={navValue} setValue={setNavValue} />
       </div>
     </div>
   );
