@@ -13,9 +13,9 @@ const GroceryListItemText = ({ text, labelId, purchased }) => (
             ? {
                 textDecoration: "line-through",
                 color: "lightgray",
-                minWidth: "100px",
+                width: "100px"
               }
-            : { minWidth: "100px" }
+            : { width: "100px" }
         } // font style
         align="center"
       >

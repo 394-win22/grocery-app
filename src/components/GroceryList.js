@@ -58,10 +58,10 @@ export default function GroceryList({ items, users, navValue }) {
   return !user ? (
     <></>
   ) : (
-    <div style={{ marginBottom: "50px" }}>
+    <div style={{ marginBottom: "50px", marginTop: "8px", width: "100%"}}>
       <List
         dense
-        sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+        sx={{ width: "100%", bgcolor: "background.paper" }}
       >
         {filtered_items.map((key, index) => {
           const labelId = `checkbox-list-secondary-label-${items[key].name}`;
@@ -75,7 +75,7 @@ export default function GroceryList({ items, users, navValue }) {
                 padding: 0,
               }}
             >
-              <ListItemButton>
+              <ListItemButton sx={{ justifyContent: "center"}}>
                 <Accordion
                   expanded={expanded === index}
                   onChange={handleAccordionChange(index)}
@@ -86,6 +86,7 @@ export default function GroceryList({ items, users, navValue }) {
                       bgcolor: "rgba(255, 0, 0, 0);",
                     },
                   }}
+                  style={{ width: "250px" }}
                 >
                   <AccordionSummary>
                     <div>
@@ -113,6 +114,7 @@ export default function GroceryList({ items, users, navValue }) {
                     alignItems: "center",
                     justifyContent: "space-between",
                     alignSelf: "flex-start",
+                    marginTop: "13px"
                   }}
                 >
 

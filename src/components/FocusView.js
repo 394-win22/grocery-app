@@ -57,17 +57,15 @@ const FocusView = ({ item, user, usersInfo }) => {
       {editMode ? (
         <EditNote />
       ) : (
-        <>
-          <Button
-            variant="text"
-            style={{ display: "block", margin: "0px", padding: "0px" }}
-            onClick={() => {
-              setEditMode(true);
-            }}
-          >
-            Edit Note
-          </Button>
-        </>
+        <Button
+          variant="text"
+          style={{ display: "block", margin: "0px", padding: "0px" }}
+          onClick={() => {
+            setEditMode(true);
+          }}
+        >
+          Edit Note
+        </Button>
       )}
 
       {/* //add and subtract quantity //delete button */}
