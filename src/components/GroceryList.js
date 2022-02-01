@@ -55,10 +55,20 @@ export default function GroceryList({ items, users, navValue }) {
 
   var filtered_items =
     filtered && navValue === 0
-      ? Object.keys(items).filter(
-          (key) => items[key].quantity[user["uid"]] >= 0
-        )
-      : Object.keys(items);
+      ? Object.keys(items)
+          .filter((key) => items[key].quantity[user["uid"]] >= 0)
+          .sort(function (a, b) {
+            a = a.toLowerCase();
+            b = b.toLowerCase();
+            if (a == b) return 0;
+            return a < b ? -1 : 1;
+          })
+      : Object.keys(items).sort(function (a, b) {
+          a = a.toLowerCase();
+          b = b.toLowerCase();
+          if (a == b) return 0;
+          return a < b ? -1 : 1;
+        });
 
   return !user ? (
     <></>
