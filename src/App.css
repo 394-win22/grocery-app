@@ -106,7 +106,7 @@ body {
   border-radius: 4px;
   padding: 20px;
   border: 1px solid #999;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .close-icon {
