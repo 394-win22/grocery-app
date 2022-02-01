@@ -1,30 +1,81 @@
 import React, { useState } from "react";
-import { Button, TextField } from "@mui/material";
+import { IconButton, Button, TextField } from "@mui/material";
 import { setData, useUserState } from "../utilities/firebase";
+import AddIcon from "@mui/icons-material/Add";
 import "../App.css";
 
 const AddNewItem = () => {
   const [itemName, setItemName] = useState("");
+  const [itemNote, setItemNote] = useState("");
+  const [expandedView, setExpandedView] = useState(false);
   const [user] = useUserState();
   const handleSubmit = (event) => {
     event.preventDefault();
     if (itemName && user) {
-      addItem(itemName, user.uid, "");
+      addItem(itemName, user.uid, itemNote);
       setItemName("");
+      setItemNote("");
+      setExpandedView(false);
+      console.log(expandedView);
     }
+  };
+  const handleExpand = (event) => {
+    event.preventDefault();
+    setExpandedView(true);
   };
   return !user ? (
     <p className="sign-in-remind">Please sign in first</p>
+  ) : !expandedView ? (
+    <IconButton
+      style={{
+        display: "flex",
+        justifySelf: "left",
+        borderRadius: "100%",
+        height: "50px",
+        width: "50px",
+        backgroundColor: "#1976d2",
+        marginRight: "20px",
+        marginBottom: "20px",
+      }}
+      onClick={handleExpand}
+    >
+      <AddIcon style={{ color: "white" }} />
+    </IconButton>
   ) : (
-    <form className="new-item" onSubmit={handleSubmit}>
-      <TextField
-        style={{ display: "block", padding: "10px" }}
-        id="item-name-input"
-        variant="outlined"
-        onInput={(e) => setItemName(e.target.value)}
-        value={itemName}
-        inputProps={{ maxLength: 20 }}
-      />
+    <form
+      className="new-item"
+      onSubmit={handleSubmit}
+      style={{
+        display: "flex",
+        justifyContent: "space-around",
+        // backgroundColor: "#F0F0F0",
+        padding: "10px",
+        margin: "auto",
+      }}
+    >
+      <div style={{ width: "60%" }}>
+        <TextField
+          size="small"
+          style={{ padding: "1", width: "100%" }}
+          id="item-name-input"
+          variant="outlined"
+          onInput={(e) => setItemName(e.target.value)}
+          value={itemName}
+          placeholder="Item"
+          inputProps={{ maxLength: 20 }}
+          variant="standard"
+        />
+        <TextField
+          size="small"
+          style={{ padding: "1", width: "100%" }}
+          id="item-note-input"
+          variant="standard"
+          placeholder="Notes (optional)"
+          onInput={(e) => setItemNote(e.target.value)}
+          value={itemNote}
+          inputProps={{ maxLength: 40 }}
+        />
+      </div>
       <Button type="submit" variant="contained">
         Add
       </Button>

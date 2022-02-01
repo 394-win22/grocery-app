@@ -29,7 +29,16 @@ const App = () => {
           users={groceryList.users}
           navValue={navValue}
         />
-        <div style={{ position: "sticky", bottom: "75px", width: "100%" }}>
+        <div
+          style={{
+            position: "sticky",
+            bottom: "80px",
+            width: "90%",
+            display: "flex",
+            justifyContent: "right",
+            maxWidth: "600px",
+          }}
+        >
           {
             navValue === 0 ? (
               <AddNewItem />
