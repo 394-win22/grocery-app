@@ -20,7 +20,7 @@ const App = () => {
 
   return (
     <div className="App">
-      <div style={{ height: "36px" }}>
+      <div>
         <ButtonAppBar />
       </div>
       <div className="grocery-list">
@@ -32,7 +32,7 @@ const App = () => {
         <div
           style={{
             position: "sticky",
-            bottom: "80px",
+            bottom: "120px",
             width: "90%",
             display: "flex",
             justifyContent: "right",
