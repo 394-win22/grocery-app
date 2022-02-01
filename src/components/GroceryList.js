@@ -81,7 +81,10 @@ export default function GroceryList({ items, users, navValue }) {
         width: "100%",
       }}
     >
-      <List dense sx={{ width: "100%", bgcolor: "background.paper" }}>
+      <List
+        dense
+        sx={{ width: "100%", bgcolor: "background.paper", overflow: "hidden" }}
+      >
         {filtered_items.map((key, index) => {
           const labelId = `checkbox-list-secondary-label-${items[key].name}`;
           return (
