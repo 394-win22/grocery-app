@@ -43,14 +43,10 @@ const App = () => {
             navValue === 0 ? (
               <AddNewItem />
             ) : (
-              <></>
-            ) /*<CheckoutButton items={groceryList.items}></CheckoutButton>*/
+			  <CheckoutButton items={groceryList.items}></CheckoutButton>
+            ) 
           }
         </div>
-
-        {/* <div className="grocery-list">
-        <UserGroceryList items={groceryList.items} users={groceryList.users} /> */}
-        {/* </div> */}
 
         {/* Botton nav component */}
         <SimpleBottomNavigation value={navValue} setValue={setNavValue} />
