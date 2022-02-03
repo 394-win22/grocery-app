@@ -4,7 +4,6 @@ import { setData } from "../utilities/firebase";
 
 export default function CheckoutButton({items}) {
     const handleClick = () => {
-      console.log("here")
       var filtered_items = Object.keys(items).filter(key => items[key].purchased === true)
       
       for (let i = 0; i < filtered_items.length; i++) {

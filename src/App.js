@@ -48,10 +48,6 @@ const App = () => {
           }
         </div>
 
-        {/* <div className="grocery-list">
-        <UserGroceryList items={groceryList.items} users={groceryList.users} /> */}
-        {/* </div> */}
-
         {/* Botton nav component */}
         <SimpleBottomNavigation value={navValue} setValue={setNavValue} />
       </div>
