@@ -12,7 +12,6 @@ import {
   useUserState,
   signOut,
 } from "../utilities/firebase.js";
-import { setData } from "../utilities/firebase";
 
 const SignInButton = () => (
   <Button
@@ -34,13 +33,8 @@ const SignOutButton = () => (
   </Button>
 );
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar(JoinCode) {
   const [user] = useUserState();
-  React.useEffect(() => {
-    if (user) {
-      storeUserInfo(user);
-    }
-  }, [user]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -60,10 +54,11 @@ export default function ButtonAppBar() {
           </IconButton>  */}
 
           {/* Remove ml later */}
-
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Shared List
-          </Typography>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1 }}
+          ></Typography>
           {/* <Button color="inherit">Login</Button> */}
           {user ? <SignOutButton /> : <SignInButton />}
         </Toolbar>
@@ -71,13 +66,3 @@ export default function ButtonAppBar() {
     </Box>
   );
 }
-
-const storeUserInfo = (user) => {
-  const userInfo = {
-    email: user.email,
-    display_name: user.displayName,
-    photo_url: user.photoURL,
-  };
-
-  setData(`users/${user.uid}`, userInfo);
-};

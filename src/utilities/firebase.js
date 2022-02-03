@@ -35,15 +35,28 @@ const firebaseSignOut = () => signOut(getAuth(firebase));
 export { firebaseSignOut as signOut };
 
 export const useUserState = () => {
+  const [users, loading, error] = useData("/users");
   const [user, setUser] = useState();
 
   useEffect(() => {
-    onIdTokenChanged(getAuth(firebase), (user) => {
-      setUser(user);
-      // wait(100).then((r) => storeUserInfo(user));
-    });
-  }, []);
+    onIdTokenChanged(getAuth(firebase), setUser);
+    storeUserInfo(user, users);
+  }, [users]);
+
   return [user];
+};
+
+const storeUserInfo = (user, users) => {
+  if (user && !users[user.uid]) {
+    const userInfo = {
+      group_id: "unassigned",
+      email: user.email,
+      display_name: user.displayName,
+      photo_url: user.photoURL,
+      group_id: "unassigned",
+    };
+    setData(`users/${user.uid}`, userInfo);
+  }
 };
 
 // Initialize Firebase

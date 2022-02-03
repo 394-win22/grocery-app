@@ -4,7 +4,7 @@ import { setData } from "../../utilities/firebase";
 import { Button, ButtonGroup } from "@mui/material";
 import { ConfirmDialog } from "../ConfirmDialog";
 
-const AddSubtractButtons = ({ user, item }) => {
+const AddSubtractButtons = ({ user, item, groupId }) => {
   const dialogRef = useRef();
 
   const openDialog = () => {
@@ -43,7 +43,10 @@ const AddSubtractButtons = ({ user, item }) => {
                   // check if quantity dictionay is empty, i.e. nobody wants the item
                   if (Object.keys(item.quantity).length > 0) {
                     // update quantity
-                    setData(`/items/${itemName}/quantity/`, item.quantity);
+                    setData(
+                      `/groups/${groupId}/items/${itemName}/quantity/`,
+                      item.quantity
+                    );
                   } else {
                     // remove item
                     openDialog();
@@ -77,7 +80,7 @@ const AddSubtractButtons = ({ user, item }) => {
                   }
                   item.quantity[user.uid] += 1;
                   setData(
-                    `/items/${itemName}/quantity/${user.uid}`,
+                    `/groups/${groupId}/items/${itemName}/quantity/${user.uid}`,
                     item.quantity[user.uid]
                   );
                 }
@@ -91,7 +94,7 @@ const AddSubtractButtons = ({ user, item }) => {
         title={"Subtract to zero?"}
         content={"If you do that, this item will be deleted."}
         func={() => {
-          setData(`/items/${item.name}`, null);
+          setData(`/groups/${groupId}/items/${item.name}`, null);
           // delete item;
         }}
         props={dialogRef}
