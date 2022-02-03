@@ -1,6 +1,21 @@
 .App {
   text-align: center;
+  overflow: hidden;
+  background-color: white;
   /* border: 2px solid hotpink; */
+}
+#root {
+  overflow: hidden;
+  background-color: white;
+}
+
+html {
+  background-color: white;
+}
+
+body {
+  overflow: hidden;
+  background-color: white;
 }
 
 .App-logo {
@@ -26,15 +41,25 @@
 }
 
 .grocery-list {
+  overscroll-behavior: none;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  height: 100vh;
+  overflow: hidden;
+  padding-top: 50px;
   /*
   border: 1px solid #9d9d9d;
   margin: 0 40%;
   */
+}
+
+.inner-list {
+  position: relative;
+  overflow: scroll;
+  height: 100vh;
 }
 
 .item-list {
@@ -71,7 +96,7 @@
   left: 0;
   z-index: 100;
 }
- 
+
 .box {
   position: relative;
   width: 70%;
@@ -83,11 +108,11 @@
   border-radius: 4px;
   padding: 20px;
   border: 1px solid #999;
-  overflow: auto;
+  overflow: hidden;
 }
- 
+
 .close-icon {
-  content: 'x';
+  content: "x";
   cursor: pointer;
   position: fixed;
   right: calc(15% - 30px);
@@ -103,7 +128,7 @@
 }
 
 .item-name {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .edit-note {

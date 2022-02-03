@@ -20,8 +20,7 @@ const App = () => {
 
   return (
     <div className="App">
-      x
-      <div style={{ height: "36px" }}>
+      <div>
         <ButtonAppBar />
       </div>
       <div className="grocery-list">
@@ -30,7 +29,16 @@ const App = () => {
           users={groceryList.users}
           navValue={navValue}
         />
-        <div style={{ position: "sticky", bottom: "50px", width: "100%" }}>
+        <div
+          style={{
+            position: "sticky",
+            bottom: "120px",
+            width: "90%",
+            display: "flex",
+            justifyContent: "right",
+            maxWidth: "600px",
+          }}
+        >
           {
             navValue === 0 ? (
               <AddNewItem />
