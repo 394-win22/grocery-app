@@ -2,6 +2,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 
@@ -28,6 +29,10 @@ export default function SimpleBottomNavigation({ value, setValue }) {
         {/* Shop button */}
         <BottomNavigationAction
           label="Shop"
+          icon={<ShoppingCartIcon />}
+        />
+        <BottomNavigationAction
+          label="Checkout"
           icon={<ShoppingCartCheckoutIcon />}
         />
       </BottomNavigation>
