@@ -17,7 +17,7 @@ const App = () => {
 
   if (error) return <h1>{error}</h1>;
   if (loading) return <h1>Loading the grocery list...</h1>;
-  console.log(navValue)
+
   return (
     <div className="App">
       <div>
@@ -43,8 +43,8 @@ const App = () => {
             navValue === 0 ? (
               <AddNewItem />
             ) : (
-              <></>
-            ) /*<CheckoutButton items={groceryList.items}></CheckoutButton>*/
+			  <CheckoutButton items={groceryList.items}></CheckoutButton>
+            ) 
           }
         </div>
 
