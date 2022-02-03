@@ -4,11 +4,11 @@ import { setData, useUserState } from "../utilities/firebase";
 import AddIcon from "@mui/icons-material/Add";
 import "../App.css";
 
-const AddNewItem = () => {
+const AddNewItem = ({user}) => {
   const [itemName, setItemName] = useState("");
   const [itemNote, setItemNote] = useState("");
   const [expandedView, setExpandedView] = useState(false);
-  const [user] = useUserState();
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     if (itemName && user) {
@@ -23,9 +23,7 @@ const AddNewItem = () => {
     event.preventDefault();
     setExpandedView(true);
   };
-  return !user ? (
-    <p className="sign-in-remind">Please sign in first</p>
-  ) : !expandedView ? (
+  return !expandedView ? (
     <IconButton
       style={{
         display: "flex",

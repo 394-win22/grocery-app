@@ -42,6 +42,7 @@ const storeUserInfo = (user) => {
     email: user.email,
     display_name: user.displayName,
     photo_url: user.photoURL,
+    group_id: null
   };
 
   setData(`users/${user.uid}`, userInfo);
@@ -53,6 +54,7 @@ export const useUserState = () => {
   useEffect(() => {
     onIdTokenChanged(getAuth(firebase), (user) => {
       setUser(user);
+      if (user.uid !== null){}
       wait(100).then((r) => storeUserInfo(user));
     });
   }, []);
