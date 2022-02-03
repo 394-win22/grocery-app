@@ -34,28 +34,13 @@ const firebaseSignOut = () => signOut(getAuth(firebase));
 
 export { firebaseSignOut as signOut };
 
-const storeUserInfo = (user) => {
-  if (!user) {
-    return;
-  }
-  const userInfo = {
-    email: user.email,
-    display_name: user.displayName,
-    photo_url: user.photoURL,
-    group_id: null
-  };
-
-  setData(`users/${user.uid}`, userInfo);
-};
-
 export const useUserState = () => {
   const [user, setUser] = useState();
 
   useEffect(() => {
     onIdTokenChanged(getAuth(firebase), (user) => {
       setUser(user);
-      if (user.uid !== null){}
-      wait(100).then((r) => storeUserInfo(user));
+      // wait(100).then((r) => storeUserInfo(user));
     });
   }, []);
   return [user];
@@ -77,14 +62,14 @@ export const useData = (path, transform) => {
     const devMode =
       !process.env.NODE_ENV || process.env.NODE_ENV === "development";
     if (devMode) {
-      console.log(`loading ${path}`);
+      // console.log(`loading ${path}`);
     }
     return onValue(
       dbRef,
       (snapshot) => {
         const val = snapshot.val();
         if (devMode) {
-          console.log(val);
+          // console.log(val);
         }
         setData(transform ? transform(val) : val);
         setLoading(false);

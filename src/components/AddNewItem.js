@@ -16,7 +16,7 @@ const AddNewItem = ({user}) => {
       setItemName("");
       setItemNote("");
       setExpandedView(false);
-      console.log(expandedView);
+      // console.log(expandedView);
     }
   };
   const handleExpand = (event) => {

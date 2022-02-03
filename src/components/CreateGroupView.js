@@ -8,6 +8,7 @@ import {
   ListItemButton,
   ListItemText,
   FormGroup,
+  Button,
 } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { setData } from "../utilities/firebase";
@@ -21,5 +22,6 @@ import { sumDict } from "../utilities/helperFunctions.js";
 
 
 export default function CreateGroupView ({userList, currentUser}) {
-    
+    // console.log(currentUser.uid);
+    return <Button>Create a group</Button>
 }

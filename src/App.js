@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import { useData , useUserState} from "./utilities/firebase.js";
 import GroceryList from "./components/GroceryList.js";
@@ -15,10 +15,13 @@ const App = () => {
   const [user] = useUserState();
   // Nav bar value passed into SimpleBottomNavigation & GroceryList
   const [navValue, setNavValue] = React.useState(0);
+  useEffect(() => {
+    if (database && user && !database.users[user.uid])
+        storeUserInfo(user);
+  }, [database, user]);
 
   if (error) return <h1>{error}</h1>;
   if (loading) return <h1>Loading the grocery list...</h1>;
-
   return (
     <div className="App">
       <div>
@@ -26,8 +29,8 @@ const App = () => {
       </div>
       {!user ? 
     <p className="sign-in-remind">Please sign in first</p>
-    : <><CreateGroupView user = {database.users}></CreateGroupView>
-
+    : !database.users[user.uid].group_id ? <CreateGroupView userList = {database.users} currentUser={user}></CreateGroupView>
+      :
       <div className="grocery-list">
         <GroceryList
           items={database.items}
@@ -60,9 +63,24 @@ const App = () => {
         {/* Botton nav component */}
         <SimpleBottomNavigation value={navValue} setValue={setNavValue} />
       </div>
-      </>}
+    }
     </div>
   );
+};
+
+const storeUserInfo = (user) => {
+  // console.log("storeinfo");
+  if (!user) {
+    return;
+  }
+  const userInfo = {
+    email: user.email,
+    display_name: user.displayName,
+    photo_url: user.photoURL,
+    group_id: null
+  };
+
+  setData(`users/${user.uid}`, userInfo);
 };
 
 export default App;
