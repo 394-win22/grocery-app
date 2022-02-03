@@ -70,7 +70,14 @@ const App = () => {
                     groupId={database.users[user.uid].group_id}
                   />
                 ) : (
-                  <></>
+                  <>
+                    <CheckoutButton
+                      items={
+                        database.groups[database.users[user.uid].group_id].items
+                      }
+                      groupId={database.users[user.uid].group_id}
+                    ></CheckoutButton>
+                  </>
                 ) /*<CheckoutButton items={groceryList.items}></CheckoutButton>*/
               }
             </div>
