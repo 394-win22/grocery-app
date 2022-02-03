@@ -40,8 +40,11 @@ export const useUserState = () => {
 
   useEffect(() => {
     onIdTokenChanged(getAuth(firebase), (user) =>{
-      setUser(user);
-      wait(100).then(r => storeUserInfo(user, users));
+      wait(100).then(r => {
+        storeUserInfo(user, users);
+        setUser(user);
+      });
+
     });
   }, [users]);
 
