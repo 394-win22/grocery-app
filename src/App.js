@@ -22,19 +22,16 @@ const App = () => {
 
   return (
     <div className="App">
+      <div>
+        <ButtonAppBar joinCode="Shared Groceries App" />
+      </div>
       {!user ? (
         <>
-          <div>
-            <ButtonAppBar joinCode="Shared Groceries App" />
-          </div>
           <p className="sign-in-remind">Please sign in first</p>
         </>
       ) : database.users[user.uid] &&
         database.users[user.uid].group_id == "unassigned" ? (
         <>
-          <div>
-            <ButtonAppBar joinCode="Shared Groceries App" />
-          </div>
           <CreateGroupView
             userList={database.users}
             groupList={database.groups}
@@ -43,9 +40,6 @@ const App = () => {
         </>
       ) : (
         <>
-          <div>
-            <ButtonAppBar joinCode={database.users[user.uid].group_id} />
-          </div>
           <div className="grocery-list">
             <GroceryList
               items={database.groups[database.users[user.uid].group_id].items}
