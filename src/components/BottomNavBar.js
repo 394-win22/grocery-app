@@ -4,6 +4,7 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
+import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
 
 export default function SimpleBottomNavigation({ value, setValue }) {
   return (
@@ -29,6 +30,11 @@ export default function SimpleBottomNavigation({ value, setValue }) {
         <BottomNavigationAction
           label="Shop"
           icon={<ShoppingCartCheckoutIcon />}
+        />
+        {/* Summary button */}
+        <BottomNavigationAction
+          label="Summary"
+          icon={<SummarizeOutlinedIcon />}
         />
       </BottomNavigation>
     </Box>

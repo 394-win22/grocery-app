@@ -4,7 +4,13 @@ import { useData, useUserState, setData } from "./utilities/firebase.js";
 import GroceryList from "./components/GroceryList.js";
 import UserGroceryList from "./components/UserGroceryList.js";
 import ButtonAppBar from "./components/AppBar.js";
-import { Button } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  MenuItem,
+  Select,
+  InputLabel,
+} from "@mui/material";
 import AddNewItem from "./components/AddNewItem";
 import SimpleBottomNavigation from "./components/BottomNavBar";
 import CheckoutButton from "./components/CheckoutButton";
@@ -16,6 +22,7 @@ const App = () => {
   const [user] = useUserState();
   // Nav bar value passed into SimpleBottomNavigation & GroceryList
   const [navValue, setNavValue] = React.useState(0);
+  //TODO: add selected user hook, pass it to grocerylist for rendering
 
   if (error) return <h1>{error}</h1>;
   if (loading) return <h1>Loading the grocery list...</h1>;
@@ -74,6 +81,27 @@ const App = () => {
                     user={user}
                     groupId={database.users[user.uid].group_id}
                   />
+                ) : navValue === 2 ? (
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value="1"
+                      label="Age"
+                      // onChange={handleChange}
+                    >
+                      {Object.values(database.users)
+                        .filter(
+                          (u) => u.group_id == database.users[user.uid].group_id
+                        )
+                        .map((u) => (
+                          <MenuItem value={u.display_name}>
+                            {u.display_name}
+                          </MenuItem>
+                        ))}
+                    </Select>
+                  </FormControl>
                 ) : (
                   <>
                     <CheckoutButton
