@@ -34,29 +34,33 @@ const firebaseSignOut = () => signOut(getAuth(firebase));
 
 export { firebaseSignOut as signOut };
 
-const storeUserInfo = (user) => {
-  if (!user) {
-    return;
-  }
-  const userInfo = {
-    email: user.email,
-    display_name: user.displayName,
-    photo_url: user.photoURL,
-  };
-
-  setData(`users/${user.uid}`, userInfo);
-};
-
 export const useUserState = () => {
+  const [users, loading, error] = useData("/users");
   const [user, setUser] = useState();
 
   useEffect(() => {
-    onIdTokenChanged(getAuth(firebase), (user) => {
-      setUser(user);
-      wait(100).then((r) => storeUserInfo(user));
+    onIdTokenChanged(getAuth(firebase), (user) =>{
+      wait(100).then(r => {
+        storeUserInfo(user, users);
+        setUser(user);
+      });
+
     });
-  }, []);
+  }, [users]);
+
   return [user];
+};
+
+const storeUserInfo = (user, users) => {
+  if (user && !users[user.uid]) {
+    const userInfo = {
+      group_id: "unassigned",
+      email: user.email,
+      display_name: user.displayName,
+      photo_url: user.photoURL,
+    };
+    setData(`users/${user.uid}`, userInfo);
+  }
 };
 
 // Initialize Firebase
@@ -75,14 +79,14 @@ export const useData = (path, transform) => {
     const devMode =
       !process.env.NODE_ENV || process.env.NODE_ENV === "development";
     if (devMode) {
-      console.log(`loading ${path}`);
+      // console.log(`loading ${path}`);
     }
     return onValue(
       dbRef,
       (snapshot) => {
         const val = snapshot.val();
         if (devMode) {
-          console.log(val);
+          // console.log(val);
         }
         setData(transform ? transform(val) : val);
         setLoading(false);

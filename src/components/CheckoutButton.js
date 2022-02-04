@@ -1,21 +1,24 @@
 import React, { useState } from "react";
-import {Button} from "@mui/material";
+import { Button } from "@mui/material";
 import { setData } from "../utilities/firebase";
 
-export default function CheckoutButton({items}) {
-    const handleClick = () => {
-      var filtered_items = Object.keys(items).filter(key => items[key].purchased === true)
-      
-      for (let i = 0; i < filtered_items.length; i++) {
-        setData(`/items/${filtered_items[i]}`, null);
-      }
+export default function CheckoutButton({ items, groupId }) {
+  const handleClick = () => {
+    var filtered_items = Object.keys(items).filter(
+      (key) => items[key].purchased === true
+    );
+
+    for (let i = 0; i < filtered_items.length; i++) {
+      setData(`groups/${groupId}/items/${filtered_items[i]}`, null);
     }
+  };
   return (
-      <Button variant="contained"
+    <Button
+      variant="contained"
       style={{
         display: "flex",
         justifySelf: "left",
-        
+
         height: "50px",
         width: "50px",
         backgroundColor: "#1976d2",
@@ -26,6 +29,8 @@ export default function CheckoutButton({items}) {
       onClick={() => {
         handleClick();
       }}
-      >CheckOut</Button>
+    >
+      CheckOut
+    </Button>
   );
 }

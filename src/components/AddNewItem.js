@@ -4,28 +4,26 @@ import { setData, useUserState } from "../utilities/firebase";
 import AddIcon from "@mui/icons-material/Add";
 import "../App.css";
 
-const AddNewItem = () => {
+const AddNewItem = ({ user, groupId }) => {
   const [itemName, setItemName] = useState("");
   const [itemNote, setItemNote] = useState("");
   const [expandedView, setExpandedView] = useState(false);
-  const [user] = useUserState();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if (itemName && user) {
-      addItem(itemName, user.uid, itemNote);
+      addItem(itemName, user.uid, itemNote, groupId);
       setItemName("");
       setItemNote("");
       setExpandedView(false);
-      console.log(expandedView);
+      // console.log(expandedView);
     }
   };
   const handleExpand = (event) => {
     event.preventDefault();
     setExpandedView(true);
   };
-  return !user ? (
-    <p className="sign-in-remind">Please sign in first</p>
-  ) : !expandedView ? (
+  return !expandedView ? (
     <IconButton
       style={{
         display: "flex",
@@ -83,7 +81,7 @@ const AddNewItem = () => {
   );
 };
 
-const addItem = (itemName, uid, note) => {
+const addItem = (itemName, uid, note, groupId) => {
   const newItem = {
     name: itemName,
     quantity: {},
@@ -92,7 +90,7 @@ const addItem = (itemName, uid, note) => {
     notes: note,
   };
   newItem["quantity"][uid] = 1;
-  setData(`/items/${itemName}`, newItem);
+  setData(`groups/${groupId}/items/${itemName}`, newItem);
 };
 
 export default AddNewItem;

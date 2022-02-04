@@ -19,7 +19,7 @@ import AddSubtractButtons from "./focusView/AddSubtractButtons";
 import GroceryListItemText from "./groceryList/GroceryListItemText";
 import { sumDict } from "../utilities/helperFunctions.js";
 
-export default function GroceryList({ items, users, navValue }) {
+export default function GroceryList({ items, users, navValue, groupId }) {
   if (!items) {
     items = {};
   }
@@ -33,9 +33,9 @@ export default function GroceryList({ items, users, navValue }) {
 
   const handleToggle = (key) => () => {
     if (items[key].purchased == false) {
-      setData(`/items/${key}/purchased`, true);
+      setData(`/groups/${groupId}/items/${key}/purchased`, true);
     } else {
-      setData(`/items/${key}/purchased`, false);
+      setData(`/groups/${groupId}/items/${key}/purchased`, false);
     }
   };
 
@@ -131,6 +131,7 @@ export default function GroceryList({ items, users, navValue }) {
                         item={items[key]}
                         user={user}
                         usersInfo={users}
+                        groupId={groupId}
                         isSharedList={true}
                       />
                     </Accordion>
@@ -146,7 +147,11 @@ export default function GroceryList({ items, users, navValue }) {
                       }}
                     >
                       {navValue === 0 ? (
-                        <AddSubtractButtons user={user} item={items[key]} />
+                        <AddSubtractButtons
+                          user={user}
+                          item={items[key]}
+                          groupId={groupId}
+                        />
                       ) : (
                         <div>
                           {sumDict(items[key].quantity)}

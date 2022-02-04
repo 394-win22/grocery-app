@@ -17,7 +17,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { TextField } from "@mui/material";
 import { ConfirmDialog } from "./ConfirmDialog";
 
-const FocusView = ({ item, user, usersInfo }) => {
+const FocusView = ({ item, user, usersInfo, groupId }) => {
   const dialogRef = useRef();
 
   const openDialog = () => {
@@ -28,7 +28,7 @@ const FocusView = ({ item, user, usersInfo }) => {
     const [newNote, setNewNote] = React.useState(item.notes);
     const handleSubmit = (event) => {
       event.preventDefault();
-      setData(`/items/${item.name}/notes/`, newNote);
+      setData(`/groups/${groupId}/items/${item.name}/notes/`, newNote);
       setNewNote("");
       setEditMode(false);
     };
@@ -92,7 +92,7 @@ const FocusView = ({ item, user, usersInfo }) => {
           "If you delete this item, other friends will not be able to purchase it."
         }
         func={() => {
-          setData(`/items/${item.name}`, null);
+          setData(`/groups/${groupId}/items/${item.name}`, null);
           // delete item;
         }}
         props={dialogRef}

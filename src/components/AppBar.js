@@ -7,12 +7,13 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+
 import {
   signInWithGoogle,
   useUserState,
   signOut,
+  setData,
 } from "../utilities/firebase.js";
-import { setData } from "../utilities/firebase";
 
 const SignInButton = () => (
   <Button
@@ -34,13 +35,8 @@ const SignOutButton = () => (
   </Button>
 );
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar({ joinCode, userId, groupExists }) {
   const [user] = useUserState();
-  React.useEffect(() => {
-    if (user) {
-      storeUserInfo(user);
-    }
-  }, [user]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -60,24 +56,24 @@ export default function ButtonAppBar() {
           </IconButton>  */}
 
           {/* Remove ml later */}
-
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Shared List
+            {joinCode}
           </Typography>
-          {/* <Button color="inherit">Login</Button> */}
+          {groupExists ? (
+            <Button
+              color="inherit"
+              onClick={() => {
+                setData(`users/${userId}/group_id`, "unassigned");
+              }}
+            >
+              Leave Group
+            </Button>
+          ) : (
+            <></>
+          )}
           {user ? <SignOutButton /> : <SignInButton />}
         </Toolbar>
       </AppBar>
     </Box>
   );
 }
-
-const storeUserInfo = (user) => {
-  const userInfo = {
-    email: user.email,
-    display_name: user.displayName,
-    photo_url: user.photoURL,
-  };
-
-  setData(`users/${user.uid}`, userInfo);
-};
