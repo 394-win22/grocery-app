@@ -20,10 +20,21 @@ const App = () => {
   if (error) return <h1>{error}</h1>;
   if (loading) return <h1>Loading the grocery list...</h1>;
 
+  let joinCode = "Shared Groceries App";
+  let uid = "0";
+  if (user && database.users[user.uid].group_id !== "unassigned") {
+    joinCode = database.users[user.uid].group_id;
+    uid = user.uid;
+  }
+
   return (
     <div className="App">
       <div>
-        <ButtonAppBar joinCode="Shared Groceries App" />
+        <ButtonAppBar
+          joinCode={joinCode}
+          userId={uid}
+          groupExists={joinCode !== "Shared Groceries App"}
+        />
       </div>
       {!user ? (
         <>

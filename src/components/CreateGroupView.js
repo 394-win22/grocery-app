@@ -26,7 +26,7 @@ export default function CreateGroupView({ userList, groupList, currentUser }) {
   const handleCreate = (event) => {
     event.preventDefault();
     if (currentUser) {
-      createGroup(currentUser.uid);
+      createGroup(currentUser.uid, groupList);
     }
   };
   const handleJoin = (event) => {
@@ -74,8 +74,13 @@ export default function CreateGroupView({ userList, groupList, currentUser }) {
   );
 }
 
-const createGroup = (userId) => {
-  const groupId = Math.random().toString(36).substr(2, 10);
+const createGroup = (userId, groupList) => {
+  let hri = require("human-readable-ids").hri;
+  // const groupId = Math.random().toString(36).substr(2, 10);
+  let groupId = hri.random();
+  while (groupId in groupList) {
+    groupId = hri.random();
+  }
   console.log(userId);
   setData(`users/${userId}/group_id`, groupId);
   const newGroup = {
