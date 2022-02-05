@@ -24,8 +24,7 @@ import GroceryListItemText from "./groceryList/GroceryListItemText";
 import { sumDict } from "../utilities/helperFunctions.js";
 
 //TODO:
-//disable accordion (something left)
-//disable checkbox when in summary state
+//disable accordion (need to fix: for plan it is disabled)
 //render only the number of items the individual purchased in summary state
 //disable strikethrough when in summary state
 
@@ -79,7 +78,7 @@ export default function GroceryList({
             if (a == b) return 0;
             return a < b ? -1 : 1;
           })
-      : navValue === 1
+      : !filtered || navValue === 1
       ? Object.keys(items).sort(function (a, b) {
           a = a.toLowerCase();
           b = b.toLowerCase();
@@ -138,7 +137,8 @@ export default function GroceryList({
                           bgcolor: "rgba(255, 0, 0, 0);",
                         },
                       }}
-                      style={{ width: "200px" }}
+                      disabled={true}
+                      style={{ width: "200px", background: "rgb(255, 255, 255)" }}
                     >
                       <AccordionSummary sx={{ padding: "0" }}>
                         <div>
@@ -184,12 +184,13 @@ export default function GroceryList({
                       ) : (
                         <div>
                           {sumDict(items[key].quantity)}
+                          { navValue === 2 ? <></> : (
                           <Checkbox
                             edge="end"
                             onChange={handleToggle(key)}
                             checked={checked.indexOf(index) !== -1}
                             inputProps={{ "aria-labelledby": labelId }}
-                          />
+                          />)}
                         </div>
                       )}
                     </div>
