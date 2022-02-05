@@ -17,7 +17,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { TextField } from "@mui/material";
 import { ConfirmDialog } from "./ConfirmDialog";
 
-const FocusView = ({ item, user, usersInfo, groupId }) => {
+const FocusView = ({ item, user, usersInfo, groupId, navValue }) => {
   const dialogRef = useRef();
 
   const openDialog = () => {
@@ -59,6 +59,8 @@ const FocusView = ({ item, user, usersInfo, groupId }) => {
     );
   };
   return (
+    navValue === 2?
+      <></>:
     <AccordionDetails style={{ width: "298px", padding: "0" }}>
       {/* //notes */}
       {editMode ? (

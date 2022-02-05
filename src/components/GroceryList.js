@@ -24,7 +24,7 @@ import GroceryListItemText from "./groceryList/GroceryListItemText";
 import { sumDict } from "../utilities/helperFunctions.js";
 
 //TODO:
-//disable accordion
+//disable accordion (something left)
 //disable checkbox when in summary state
 //render only the number of items the individual purchased in summary state
 //disable strikethrough when in summary state
@@ -161,6 +161,7 @@ export default function GroceryList({
                         usersInfo={users}
                         groupId={groupId}
                         isSharedList={true}
+                        navValue = {navValue}
                       />
                     </Accordion>
                     <div
