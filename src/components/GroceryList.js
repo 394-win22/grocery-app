@@ -23,7 +23,19 @@ import AddSubtractButtons from "./focusView/AddSubtractButtons";
 import GroceryListItemText from "./groceryList/GroceryListItemText";
 import { sumDict } from "../utilities/helperFunctions.js";
 
-export default function GroceryList({ items, users, navValue, groupId }) {
+//TODO:
+//disable accordion
+//disable checkbox when in summary state
+//render only the number of items the individual purchased in summary state
+//disable strikethrough when in summary state
+
+export default function GroceryList({
+  items,
+  users,
+  navValue,
+  groupId,
+  summaryUser,
+}) {
   if (!items) {
     items = {};
   }
@@ -67,12 +79,24 @@ export default function GroceryList({ items, users, navValue, groupId }) {
             if (a == b) return 0;
             return a < b ? -1 : 1;
           })
-      : Object.keys(items).sort(function (a, b) {
+      : navValue === 1
+      ? Object.keys(items).sort(function (a, b) {
           a = a.toLowerCase();
           b = b.toLowerCase();
           if (a == b) return 0;
           return a < b ? -1 : 1;
-        });
+        })
+      : Object.keys(items)
+          .filter(
+            (key) =>
+              items[key].quantity[summaryUser] >= 0 && items[key].purchased
+          )
+          .sort(function (a, b) {
+            a = a.toLowerCase();
+            b = b.toLowerCase();
+            if (a == b) return 0;
+            return a < b ? -1 : 1;
+          });
 
   return !user ? (
     <></>

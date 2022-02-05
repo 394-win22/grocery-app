@@ -22,7 +22,7 @@ const App = () => {
   const [user] = useUserState();
   // Nav bar value passed into SimpleBottomNavigation & GroceryList
   const [navValue, setNavValue] = React.useState(0);
-  //TODO: add selected user hook, pass it to grocerylist for rendering
+  const [summaryUser, setSummaryUser] = React.useState();
 
   if (error) return <h1>{error}</h1>;
   if (loading) return <h1>Loading the grocery list...</h1>;
@@ -33,6 +33,10 @@ const App = () => {
     joinCode = database.users[user.uid].group_id;
     uid = user.uid;
   }
+
+  const handleChangeForSummaryUser = (event) => {
+    setSummaryUser(event.target.value);
+  };
 
   return (
     <div className="App">
@@ -64,6 +68,7 @@ const App = () => {
               users={database.users}
               navValue={navValue}
               groupId={database.users[user.uid].group_id}
+              summaryUser={summaryUser}
             />
             <div
               style={{
@@ -83,21 +88,23 @@ const App = () => {
                   />
                 ) : navValue === 2 ? (
                   <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Age</InputLabel>
+                    <InputLabel id="demo-simple-select-label">Name</InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      value="1"
+                      value={summaryUser}
                       label="Age"
-                      // onChange={handleChange}
+                      onChange={handleChangeForSummaryUser}
                     >
-                      {Object.values(database.users)
+                      {Object.keys(database.users)
                         .filter(
-                          (u) => u.group_id == database.users[user.uid].group_id
+                          (uid2) =>
+                            database.users[uid2].group_id ==
+                            database.users[user.uid].group_id
                         )
-                        .map((u) => (
-                          <MenuItem value={u.display_name}>
-                            {u.display_name}
+                        .map((uid) => (
+                          <MenuItem value={uid}>
+                            {database.users[uid].display_name}
                           </MenuItem>
                         ))}
                     </Select>
