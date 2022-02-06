@@ -15,10 +15,14 @@ const AddNewItem = ({ user, groupId }) => {
       addItem(itemName, user.uid, itemNote, groupId);
       setItemName("");
       setItemNote("");
-      setExpandedView(false);
+      handleClose();
       // console.log(expandedView);
     }
   };
+
+  const handleClose = (event) => {
+    setExpandedView(false);
+  }
   const handleExpand = (event) => {
     event.preventDefault();
     setExpandedView(true);
@@ -77,6 +81,7 @@ const AddNewItem = ({ user, groupId }) => {
       <Button type="submit" variant="contained">
         Add
       </Button>
+      <Button variant="outlined" onClick={handleClose}>Cancel</Button>
     </form>
   );
 };

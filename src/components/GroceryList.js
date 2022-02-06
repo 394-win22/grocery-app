@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
   Accordion,
   AccordionSummary,
@@ -8,6 +8,10 @@ import {
   ListItemButton,
   ListItemText,
   FormGroup,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { setData } from "../utilities/firebase";
@@ -19,7 +23,18 @@ import AddSubtractButtons from "./focusView/AddSubtractButtons";
 import GroceryListItemText from "./groceryList/GroceryListItemText";
 import { sumDict } from "../utilities/helperFunctions.js";
 
-export default function GroceryList({ items, users, navValue, groupId }) {
+//TODO:
+//disable accordion (need to fix: for plan it is disabled)
+//render only the number of items the individual purchased in summary state
+//disable strikethrough when in summary state
+
+export default function GroceryList({
+  items,
+  users,
+  navValue,
+  groupId,
+  summaryUser,
+}) {
   if (!items) {
     items = {};
   }
@@ -39,6 +54,14 @@ export default function GroceryList({ items, users, navValue, groupId }) {
     }
   };
 
+  useEffect(() => {
+    closeAllAccordion();
+  }, [navValue])
+
+  const closeAllAccordion = () =>{
+    setExpanded("");
+  }
+
   const handleFilterToggle = () => () => {
     if (filtered === false) {
       setFiltered(true);
@@ -51,24 +74,31 @@ export default function GroceryList({ items, users, navValue, groupId }) {
     setExpanded(isExpanded ? panel : false);
   };
 
+  const myComparator = (a, b) => {
+    a = a.toLowerCase();
+    b = b.toLowerCase();
+    if (a == b) return 0;
+    return a < b ? -1 : 1;
+  }
   //Conditional for whether user is in shop view. If so, never filter
-
-  var filtered_items =
-    filtered && navValue === 0
-      ? Object.keys(items)
-          .filter((key) => items[key].quantity[user["uid"]] >= 0)
-          .sort(function (a, b) {
-            a = a.toLowerCase();
-            b = b.toLowerCase();
-            if (a == b) return 0;
-            return a < b ? -1 : 1;
-          })
-      : Object.keys(items).sort(function (a, b) {
-          a = a.toLowerCase();
-          b = b.toLowerCase();
-          if (a == b) return 0;
-          return a < b ? -1 : 1;
-        });
+  var filtered_items = Object.keys(items).sort(myComparator);
+  if (navValue === 0) {
+    if (filtered) {
+      filtered_items = Object.keys(items)
+      .filter((key) => items[key].quantity[user["uid"]] >= 0)
+      .sort(myComparator)
+    } 
+  } 
+  if (navValue === 1) {
+    filtered_items = Object.keys(items).sort(myComparator);
+  }
+  if (navValue === 2) {
+    filtered_items = Object.keys(items).filter(
+      (key) =>
+        items[key].quantity[summaryUser] >= 0 && items[key].purchased
+    )
+    .sort(myComparator);
+  }
 
   return !user ? (
     <></>
@@ -81,6 +111,18 @@ export default function GroceryList({ items, users, navValue, groupId }) {
         width: "100%",
       }}
     >
+      {navValue === 0 ? (
+        <FormGroup style={{ alignItems: "center" }}>
+          <FormControlLabel
+            control={
+              <Checkbox onChange={handleFilterToggle()} checked={filtered} />
+            }
+            label="Show my items only"
+          />
+        </FormGroup>
+      ) : (
+        <></>
+      )}
       <List
         dense
         sx={{ width: "100%", bgcolor: "background.paper", overflow: "hidden" }}
@@ -100,6 +142,7 @@ export default function GroceryList({ items, users, navValue, groupId }) {
               <div style={{ width: "100%" }}>
                 <div>
                   <ListItemButton sx={{ justifyContent: "center" }}>
+                     
                     <Accordion
                       expanded={expanded === index}
                       onChange={handleAccordionChange(index)}
@@ -110,7 +153,7 @@ export default function GroceryList({ items, users, navValue, groupId }) {
                           bgcolor: "rgba(255, 0, 0, 0);",
                         },
                       }}
-                      style={{ width: "200px" }}
+                      style={ navValue !== 0 ? { width: "200px", background: "none", pointerEvents: "none"} : { width: "200px", background: "none"}}
                     >
                       <AccordionSummary sx={{ padding: "0" }}>
                         <div>
@@ -119,6 +162,7 @@ export default function GroceryList({ items, users, navValue, groupId }) {
                             labelId={labelId}
                             purchased={items[key].purchased}
                             style={{ width: "100%" }}
+                            navValue={navValue}
                           />
                           <ListItemText
                             style={{ color: "grey", align: "left" }}
@@ -133,9 +177,10 @@ export default function GroceryList({ items, users, navValue, groupId }) {
                         usersInfo={users}
                         groupId={groupId}
                         isSharedList={true}
+                        navValue = {navValue}
                       />
                     </Accordion>
-                    <div
+                    <div 
                       style={{
                         display: "flex",
                         flexDirection: "row",
@@ -155,12 +200,13 @@ export default function GroceryList({ items, users, navValue, groupId }) {
                       ) : (
                         <div>
                           {sumDict(items[key].quantity)}
+                          { navValue === 2 ? <></> : (
                           <Checkbox
                             edge="end"
                             onChange={handleToggle(key)}
                             checked={checked.indexOf(index) !== -1}
                             inputProps={{ "aria-labelledby": labelId }}
-                          />
+                          />)}
                         </div>
                       )}
                     </div>
@@ -179,18 +225,7 @@ export default function GroceryList({ items, users, navValue, groupId }) {
         })}
       </List>
 
-      {navValue === 0 ? (
-        <FormGroup style={{ alignItems: "center" }}>
-          <FormControlLabel
-            control={
-              <Checkbox onChange={handleFilterToggle()} checked={filtered} />
-            }
-            label="Filter by user items"
-          />
-        </FormGroup>
-      ) : (
-        <></>
-      )}
+
     </div>
   );
 }
