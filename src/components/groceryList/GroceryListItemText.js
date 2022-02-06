@@ -1,7 +1,7 @@
 import React from "react";
 import { ListItemText, Typography } from "@mui/material";
 
-const GroceryListItemText = ({ text, labelId, purchased }) => (
+const GroceryListItemText = ({ text, labelId, purchased, navValue }) => (
   <ListItemText
     disableTypography
     id={labelId}
@@ -9,7 +9,7 @@ const GroceryListItemText = ({ text, labelId, purchased }) => (
       <Typography
         type="body1"
         style={
-          purchased
+          purchased&&navValue===1
             ? {
                 textDecoration: "line-through",
                 color: "lightgray",

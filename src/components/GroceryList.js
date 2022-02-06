@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
   Accordion,
   AccordionSummary,
@@ -54,6 +54,14 @@ export default function GroceryList({
     }
   };
 
+  useEffect(() => {
+    closeAllAccordion();
+  }, [navValue])
+
+  const closeAllAccordion = () =>{
+    setExpanded("");
+  }
+
   const handleFilterToggle = () => () => {
     if (filtered === false) {
       setFiltered(true);
@@ -103,6 +111,18 @@ export default function GroceryList({
         width: "100%",
       }}
     >
+      {navValue === 0 ? (
+        <FormGroup style={{ alignItems: "center" }}>
+          <FormControlLabel
+            control={
+              <Checkbox onChange={handleFilterToggle()} checked={filtered} />
+            }
+            label="Show my items only"
+          />
+        </FormGroup>
+      ) : (
+        <></>
+      )}
       <List
         dense
         sx={{ width: "100%", bgcolor: "background.paper", overflow: "hidden" }}
@@ -133,8 +153,7 @@ export default function GroceryList({
                           bgcolor: "rgba(255, 0, 0, 0);",
                         },
                       }}
-                      
-                      style={{ width: "200px", background: "none"}}
+                      style={ navValue !== 0 ? { width: "200px", background: "none", pointerEvents: "none"} : { width: "200px", background: "none"}}
                     >
                       <AccordionSummary sx={{ padding: "0" }}>
                         <div>
@@ -143,6 +162,7 @@ export default function GroceryList({
                             labelId={labelId}
                             purchased={items[key].purchased}
                             style={{ width: "100%" }}
+                            navValue={navValue}
                           />
                           <ListItemText
                             style={{ color: "grey", align: "left" }}
@@ -205,18 +225,7 @@ export default function GroceryList({
         })}
       </List>
 
-      {navValue === 0 ? (
-        <FormGroup style={{ alignItems: "center" }}>
-          <FormControlLabel
-            control={
-              <Checkbox onChange={handleFilterToggle()} checked={filtered} />
-            }
-            label="Filter by user items"
-          />
-        </FormGroup>
-      ) : (
-        <></>
-      )}
+
     </div>
   );
 }

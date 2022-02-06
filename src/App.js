@@ -23,6 +23,11 @@ const App = () => {
   // Nav bar value passed into SimpleBottomNavigation & GroceryList
   const [navValue, setNavValue] = React.useState(0);
   const [summaryUser, setSummaryUser] = React.useState();
+  useEffect(()=>{
+    if (user != null) {
+      setSummaryUser(user.uid)
+    }
+  },[user])
 
   if (error) return <h1>{error}</h1>;
   if (loading) return <h1>Loading the grocery list...</h1>;
@@ -93,7 +98,7 @@ const App = () => {
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
                       value={summaryUser}
-                      label="Age"
+                      label="User"
                       onChange={handleChangeForSummaryUser}
                     >
                       {Object.keys(database.users)
