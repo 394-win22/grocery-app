@@ -127,6 +127,7 @@ export default function GroceryList({
               <div style={{ width: "100%" }}>
                 <div>
                   <ListItemButton sx={{ justifyContent: "center" }}>
+                     
                     <Accordion
                       expanded={expanded === index}
                       onChange={handleAccordionChange(index)}
@@ -137,8 +138,8 @@ export default function GroceryList({
                           bgcolor: "rgba(255, 0, 0, 0);",
                         },
                       }}
-                      disabled={true}
-                      style={{ width: "200px", background: "rgb(255, 255, 255)" }}
+                      
+                      style={{ width: "200px", background: "none"}}
                     >
                       <AccordionSummary sx={{ padding: "0" }}>
                         <div>
@@ -164,7 +165,7 @@ export default function GroceryList({
                         navValue = {navValue}
                       />
                     </Accordion>
-                    <div
+                    <div 
                       style={{
                         display: "flex",
                         flexDirection: "row",
