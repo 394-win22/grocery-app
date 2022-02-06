@@ -66,36 +66,31 @@ export default function GroceryList({
     setExpanded(isExpanded ? panel : false);
   };
 
+  const myComparator = (a, b) => {
+    a = a.toLowerCase();
+    b = b.toLowerCase();
+    if (a == b) return 0;
+    return a < b ? -1 : 1;
+  }
   //Conditional for whether user is in shop view. If so, never filter
-
-  var filtered_items =
-    filtered && navValue === 0
-      ? Object.keys(items)
-          .filter((key) => items[key].quantity[user["uid"]] >= 0)
-          .sort(function (a, b) {
-            a = a.toLowerCase();
-            b = b.toLowerCase();
-            if (a == b) return 0;
-            return a < b ? -1 : 1;
-          })
-      : !filtered || navValue === 1
-      ? Object.keys(items).sort(function (a, b) {
-          a = a.toLowerCase();
-          b = b.toLowerCase();
-          if (a == b) return 0;
-          return a < b ? -1 : 1;
-        })
-      : Object.keys(items)
-          .filter(
-            (key) =>
-              items[key].quantity[summaryUser] >= 0 && items[key].purchased
-          )
-          .sort(function (a, b) {
-            a = a.toLowerCase();
-            b = b.toLowerCase();
-            if (a == b) return 0;
-            return a < b ? -1 : 1;
-          });
+  var filtered_items = Object.keys(items).sort(myComparator);
+  if (navValue === 0) {
+    if (filtered) {
+      filtered_items = Object.keys(items)
+      .filter((key) => items[key].quantity[user["uid"]] >= 0)
+      .sort(myComparator)
+    } 
+  } 
+  if (navValue === 1) {
+    filtered_items = Object.keys(items).sort(myComparator);
+  }
+  if (navValue === 2) {
+    filtered_items = Object.keys(items).filter(
+      (key) =>
+        items[key].quantity[summaryUser] >= 0 && items[key].purchased
+    )
+    .sort(myComparator);
+  }
 
   return !user ? (
     <></>
