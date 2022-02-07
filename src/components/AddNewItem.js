@@ -8,7 +8,13 @@ import "../App.css";
 const AddNewItem = ({ user, groupId }) => {
   const [itemName, setItemName] = useState("");
   const [itemNote, setItemNote] = useState("");
-  const [expandedView, setExpandedView] = useState(false);
+  const [drawerState, setDrawerState] = React.useState(false);
+  const toggleDrawer = (open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setDrawerState(open);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -16,25 +22,8 @@ const AddNewItem = ({ user, groupId }) => {
       addItem(itemName, user.uid, itemNote, groupId);
       setItemName("");
       setItemNote("");
-      handleClose();
-      // console.log(expandedView);
+      toggleDrawer(false);
     }
-  };
-
-  const handleClose = (event) => {
-    setExpandedView(false);
-  }
-  const handleExpand = (event) => {
-    event.preventDefault();
-    setExpandedView(true);
-  };
-
-  const [drawerState, setDrawerState] = React.useState(false);
-  const toggleDrawer = (open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-    setDrawerState(open);
   };
 
   const addForm = () => (
@@ -73,10 +62,9 @@ const AddNewItem = ({ user, groupId }) => {
         inputProps={{ maxLength: 40 }}
       />
     </div>
-    <Button type="submit" variant="contained">
+    <Button type="submit" variant="contained" onClick={toggleDrawer(false)}>
       Add
     </Button>
-    <Button variant="outlined" onClick={handleClose}>Cancel</Button>
    </form>
   )
   return  (
