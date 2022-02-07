@@ -92,7 +92,7 @@ const App = () => {
                     groupId={database.users[user.uid].group_id}
                   />
                 ) : navValue === 2 ? (
-                  <FormControl fullWidth>
+                  <FormControl fullWidth style={{paddingBottom: 20}}>
                     <InputLabel id="demo-simple-select-label">Name</InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
@@ -132,7 +132,7 @@ const App = () => {
             {/* </div> */}
 
             {/* Botton nav component */}
-            <SimpleBottomNavigation value={navValue} setValue={setNavValue} />
+            <SimpleBottomNavigation value={navValue} setValue={setNavValue} style={{paddingBottom:20 }} />
           </div>
         </>
       )}

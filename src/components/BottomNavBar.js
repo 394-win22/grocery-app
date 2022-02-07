@@ -13,8 +13,9 @@ export default function SimpleBottomNavigation({ value, setValue }) {
         position: "fixed",
         bottom: 0,
         top: "auto",
-        width: 500,
+        //width: 500,
         height: "80px",
+        background:"none"
       }}
     >
       <BottomNavigation
