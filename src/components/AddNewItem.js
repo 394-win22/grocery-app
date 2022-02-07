@@ -77,7 +77,6 @@ const AddNewItem = ({ user, groupId }) => {
         height: "50px",
         width: "50px",
         backgroundColor: "#1976d2",
-        marginRight: "20px",
         marginBottom: "20px",
       }}
       onClick={toggleDrawer(true)}
