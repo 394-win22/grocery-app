@@ -52,7 +52,7 @@ export const useUserState = () => {
 };
 
 const storeUserInfo = (user, users) => {
-  if (user && !users[user.uid]) {
+  if (user && users && !users[user.uid]) {
     const userInfo = {
       group_id: "unassigned",
       email: user.email,

@@ -108,7 +108,7 @@ const App = () => {
                             database.users[user.uid].group_id
                         )
                         .map((uid) => (
-                          <MenuItem value={uid}>
+                          <MenuItem key={uid} value={uid}>
                             {database.users[uid].display_name}
                           </MenuItem>
                         ))}
