@@ -57,8 +57,8 @@ export default function ButtonAppBar({ joinCode, userId, groupExists }) {
 
           {/* Remove ml later */}
           
-          <Typography variant="h6" component="div" align="left" sx={{ flexGrow: 1, pl: "3%"}}>
-            {joinCode}'s grocery list
+          <Typography variant="h6" component="div" align="left" sx={{ flexGrow: 1}}>
+            {joinCode}
           </Typography>
           {groupExists ? (
             <Button
