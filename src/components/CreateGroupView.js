@@ -42,6 +42,7 @@ export default function CreateGroupView({ userList, groupList, currentUser }) {
       <Button onClick={handleCreate} style={{ paddingTop: "100px" }}>
         Create a group
       </Button>
+      
       <form
         className="join_group"
         onSubmit={handleJoin}
@@ -53,6 +54,7 @@ export default function CreateGroupView({ userList, groupList, currentUser }) {
           margin: "auto",
         }}
       >
+        
         <div style={{ width: "60%" }}>
           <TextField
             size="small"
@@ -69,6 +71,7 @@ export default function CreateGroupView({ userList, groupList, currentUser }) {
         <Button type="submit" variant="contained">
           Join Group
         </Button>
+       
       </form>
     </>
   );
