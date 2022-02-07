@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
-import { sumDict } from "../../utilities/helperFunctions.js";
-import { setData } from "../../utilities/firebase";
-import { Button, ButtonGroup } from "@mui/material";
-import { ConfirmDialog } from "../ConfirmDialog";
+import React, {useRef} from "react";
+import {sumDict} from "../../utilities/helperFunctions.js";
+import {setData} from "../../utilities/firebase";
+import {Button, ButtonGroup} from "@mui/material";
+import {ConfirmDialog} from "../ConfirmDialog";
 
-const AddSubtractButtons = ({ user, item, groupId }) => {
+const AddSubtractButtons = ({user, item, groupId}) => {
   const dialogRef = useRef();
 
   const openDialog = () => {
@@ -27,37 +27,34 @@ const AddSubtractButtons = ({ user, item, groupId }) => {
             !user
               ? null
               : () => {
-                  const itemName = item.name;
-
-                  // initialize quantity to zero for new user
-                  if (!item.quantity[user.uid]) {
-                    item.quantity[user.uid] = 0;
-                  }
-
-                  // either remove one quantity from user
-                  if (item.quantity[user.uid] > 1) {
-                    item.quantity[user.uid] -= 1;
-                  } else {
-                    delete item.quantity[user.uid];
-                  }
-                  // check if quantity dictionay is empty, i.e. nobody wants the item
-                  if (Object.keys(item.quantity).length > 0) {
-                    // update quantity
-                    setData(
-                      `/groups/${groupId}/items/${itemName}/quantity/`,
-                      item.quantity
-                    );
-                  } else {
-                    // remove item
-                    openDialog();
-                  }
+                const itemName = item.name;
+                // initialize quantity to zero for new user
+                if (!item.quantity[user.uid]) {
+                  return;
                 }
+                // If it has only one owner confirm before deleting the item
+                if (Object.keys(item.quantity).length === 1 && item.quantity[user.uid] === 1) {
+                  openDialog();
+                  return;
+                }
+                //remove one quantity from user
+                if (item.quantity[user.uid] > 1) {
+                  item.quantity[user.uid] -= 1;
+                } else {
+                  delete item.quantity[user.uid];
+                }
+                // update quantity
+                setData(
+                  `/groups/${groupId}/items/${itemName}/quantity/`,
+                  item.quantity
+                );
+              }
           }
         >
           {" "}
           -{" "}
         </Button>
-        <Button disabled={item.purchased} style={{ border: "0px" }}>
+        <Button disabled={item.purchased} style={{border: "0px"}}>
           {" "}
           {sumDict(item.quantity)}{" "}
         </Button>
@@ -74,16 +71,16 @@ const AddSubtractButtons = ({ user, item, groupId }) => {
             !user
               ? null
               : () => {
-                  const itemName = item.name;
-                  if (!item.quantity[user.uid]) {
-                    item.quantity[user.uid] = 0;
-                  }
-                  item.quantity[user.uid] += 1;
-                  setData(
-                    `/groups/${groupId}/items/${itemName}/quantity/${user.uid}`,
-                    item.quantity[user.uid]
-                  );
+                const itemName = item.name;
+                if (!item.quantity[user.uid]) {
+                  item.quantity[user.uid] = 0;
                 }
+                item.quantity[user.uid] += 1;
+                setData(
+                  `/groups/${groupId}/items/${itemName}/quantity/${user.uid}`,
+                  item.quantity[user.uid]
+                );
+              }
           }
         >
           {" "}
@@ -94,8 +91,8 @@ const AddSubtractButtons = ({ user, item, groupId }) => {
         title={"Subtract to zero?"}
         content={"If you do that, this item will be deleted."}
         func={() => {
-          setData(`/groups/${groupId}/items/${item.name}`, null);
           // delete item;
+          setData(`/groups/${groupId}/items/${item.name}`, null);
         }}
         props={dialogRef}
       />
