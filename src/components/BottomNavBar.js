@@ -14,8 +14,8 @@ export default function SimpleBottomNavigation({ value, setValue }) {
         bottom: 0,
         top: "auto",
         width: "90%",
-        height: "55px",
-        background:"none"
+        height: "60px",
+        background:"white"
       }}
     >
       <BottomNavigation
@@ -24,6 +24,7 @@ export default function SimpleBottomNavigation({ value, setValue }) {
         onChange={(event, newValue) => {
           setValue(newValue);
         }}
+        style={{ height: "60px"}}
       >
         {/* Plan button */}
         <BottomNavigationAction label="Planner" icon={<AddShoppingCartIcon />} />
