@@ -24,11 +24,11 @@ const App = () => {
   // Nav bar value passed into SimpleBottomNavigation & GroceryList
   const [navValue, setNavValue] = React.useState(0);
   const [summaryUser, setSummaryUser] = React.useState();
-  useEffect(()=>{
+  useEffect(() => {
     if (user != null) {
-      setSummaryUser(user.uid)
+      setSummaryUser(user.uid);
     }
-  },[user])
+  }, [user]);
 
   if (error) return <h1>{error}</h1>;
   if (loading) return <h1>Loading the grocery list...</h1>;
@@ -90,9 +90,13 @@ const App = () => {
                   <AddNewItem
                     user={user}
                     groupId={database.users[user.uid].group_id}
+                    items={
+                      database.groups[database.users[user.uid].group_id].items
+                    }
+                    uid = {uid}
                   />
                 ) : navValue === 2 ? (
-                  <FormControl fullWidth style={{paddingBottom: 20}}>
+                  <FormControl fullWidth style={{ paddingBottom: 20 }}>
                     <InputLabel id="demo-simple-select-label">Name</InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
@@ -132,7 +136,13 @@ const App = () => {
             {/* </div> */}
 
             {/* Botton nav component */}
-            <SimpleBottomNavigation value={navValue} setValue={setNavValue} style={{width: "100%" }} />
+
+            <SimpleBottomNavigation
+              value={navValue}
+              setValue={setNavValue}
+              style={{ paddingBottom: 20 }}
+            />
+
           </div>
         </>
       )}
