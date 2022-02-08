@@ -43,12 +43,12 @@ body {
 .grocery-list {
   /*overscroll-behavior: none;*/
   position: relative;
-  top: 60px;
+  
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 90vh;
+  height: 100vh;
   overflow: hidden;
   
   
@@ -60,7 +60,8 @@ body {
 .inner-list {
   position: relative;
   overflow: scroll;
-  height: 90vh;
+  top: 60px;
+  height: 100vh;
 }
 
 .item-list {
