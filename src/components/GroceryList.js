@@ -106,9 +106,9 @@ export default function GroceryList({
     <div
       className="inner-list"
       style={{
-        marginBottom: "50px",
-        marginTop: "70px",
+        top: "70px",
         width: "100%",
+        position: "fixed"
       }}
     >
       {navValue === 0 ? (
