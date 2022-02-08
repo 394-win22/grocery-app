@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { IconButton, Button, TextField } from "@mui/material";
 import { setData, useUserState } from "../utilities/firebase";
 import AddIcon from "@mui/icons-material/Add";
 import Drawer from '@mui/material/Drawer';
 import "../App.css";
+import {ConfirmDialog} from "./ConfirmDialog.js";
 
 const AddNewItem = ({ user, groupId, items }) => {
   const [itemName, setItemName] = useState("");
@@ -15,13 +16,36 @@ const AddNewItem = ({ user, groupId, items }) => {
     }
     setDrawerState(open);
   };
+  const dialogRef = useRef();
+
+  const openDialog = () => {
+    dialogRef.current.handleClickOpen();
+  };
+
+  const addItem = (itemName, uid, note, groupId, items) => {
+    if (Object.keys(items).includes(itemName)) {
+      openDialog();
+    } else {
+      const newItem = {
+        name: itemName,
+        quantity: {},
+        total_quantity: 1,
+        purchased: false,
+        notes: note,
+      };
+      newItem["quantity"][uid] = 1;
+      setData(`groups/${groupId}/items/${itemName}`, newItem);
+      setItemName("");
+      setItemNote("");
+    }
+  };
+
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (itemName && user) {
       addItem(itemName, user.uid, itemNote, groupId, items);
-      setItemName("");
-      setItemNote("");
       toggleDrawer(false);
     }
   };
@@ -68,6 +92,7 @@ const AddNewItem = ({ user, groupId, items }) => {
     </Button>
    </form>
   )
+
   return  (
   <React.Fragment key={"bottom"}> 
     <IconButton
@@ -85,41 +110,38 @@ const AddNewItem = ({ user, groupId, items }) => {
       <AddIcon style={{ color: "white" }} />
 
     </IconButton> 
+    <ConfirmDialog
+        title={"Adding item that already exists?"}
+        content={"If you do that, this item's quantity will plus 1"}
+        func={() => {
+          let newQuantity = 1;
+        if (user.uid in items[itemName].quantity) {
+          newQuantity = items[itemName].quantity[user.uid] + 1;
+        }
+        setData(
+          `groups/${groupId}/items/${itemName}/quantity/${user.uid}/`,
+          newQuantity
+        );
+        setData(
+          `groups/${groupId}/items/${itemName}/total_quantity`,
+          items[itemName].total_quantity + 1
+        );
+        setItemName("");
+        setItemNote("");
+        }}
+        props={dialogRef}
+      />
     <Drawer
       anchor={"bottom"}
       open={drawerState}
       onClose={toggleDrawer(false)}>
       {addForm()}
     </Drawer>
+    
   </React.Fragment>
   )
 };
 
-const addItem = (itemName, uid, note, groupId, items) => {
-  if (Object.keys(items).includes(itemName)) {
-    let newQuantity = 1;
-    if (uid in items[itemName].quantity) {
-      newQuantity = items[itemName].quantity[uid] + 1;
-    }
-    setData(
-      `groups/${groupId}/items/${itemName}/quantity/${uid}/`,
-      newQuantity
-    );
-    setData(
-      `groups/${groupId}/items/${itemName}/total_quantity`,
-      items[itemName].total_quantity + 1
-    );
-  } else {
-    const newItem = {
-      name: itemName,
-      quantity: {},
-      total_quantity: 1,
-      purchased: false,
-      notes: note,
-    };
-    newItem["quantity"][uid] = 1;
-    setData(`groups/${groupId}/items/${itemName}`, newItem);
-  }
-};
+
 
 export default AddNewItem;

@@ -93,6 +93,7 @@ const App = () => {
                     items={
                       database.groups[database.users[user.uid].group_id].items
                     }
+                    uid = {uid}
                   />
                 ) : navValue === 2 ? (
                   <FormControl fullWidth style={{ paddingBottom: 20 }}>
