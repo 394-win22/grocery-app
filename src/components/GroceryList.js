@@ -107,12 +107,12 @@ export default function GroceryList({
       className="inner-list"
       style={{
         marginBottom: "50px",
-        marginTop: "8px",
+        marginTop: "70px",
         width: "100%",
       }}
     >
       {navValue === 0 ? (
-        <FormGroup style={{ alignItems: "center" , paddingTop: 20}}>
+        <FormGroup style={{ alignItems: "center"}}>
           <FormControlLabel
             control={
               <Checkbox onChange={handleFilterToggle()} checked={filtered} />
@@ -202,7 +202,7 @@ export default function GroceryList({
                       ) : (
                         <div style={{"alignItems": "center", "display": "flex", "justifyContent": "center"}}>
                           <span style={{"minWidth": "25px", "display": "block"}}>
-                          {sumDict(items[key].quantity)}
+                          {navValue === 2 ? items[key].quantity[user["uid"]] : sumDict(items[key].quantity)}
                           </span>
                           { navValue === 2 ? <></> : (
                           <Checkbox
