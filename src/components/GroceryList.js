@@ -107,7 +107,7 @@ export default function GroceryList({
       className="inner-list"
       style={{
         marginBottom: "50px",
-        marginTop: "8px",
+        marginTop: "70px",
         width: "100%",
       }}
     >
