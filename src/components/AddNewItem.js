@@ -60,6 +60,7 @@ const AddNewItem = ({ user, groupId, items }) => {
       justifyContent: "space-around",
       // backgroundColor: "#F0F0F0",
       padding: "10px",
+      paddingBottom: "30px",
       margin: "auto",
       height: "50%",
     }}
@@ -67,7 +68,7 @@ const AddNewItem = ({ user, groupId, items }) => {
     <div style={{ width: "60%" }}>
       <TextField
         size="small"
-        style={{ padding: "1", width: "100%" }}
+        style={{ width: "100%", padding: "6px" }}
         id="item-name-input"
         variant="outlined"
         onInput={(e) => setItemName(e.target.value)}
@@ -78,7 +79,7 @@ const AddNewItem = ({ user, groupId, items }) => {
       />
       <TextField
         size="small"
-        style={{ padding: "1", width: "100%" }}
+        style={{ padding: "6px", width: "100%" }}
         id="item-note-input"
         variant="standard"
         placeholder="Notes (optional)"
