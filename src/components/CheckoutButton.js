@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Button } from "@mui/material";
+import { IconButton } from "@mui/material";
+import RemoveIcon from '@mui/icons-material/Remove';
 import { setData } from "../utilities/firebase";
 
 export default function CheckoutButton({ items, groupId }) {
@@ -13,7 +14,7 @@ export default function CheckoutButton({ items, groupId }) {
     }
   };
   return (
-    <Button
+    <IconButton
       variant="contained"
       style={{
         display: "flex",
@@ -22,15 +23,14 @@ export default function CheckoutButton({ items, groupId }) {
         height: "50px",
         width: "50px",
         backgroundColor: "#1976d2",
-        marginRight: "20px",
-        marginBottom: "20px",
         fontSize: 11,
+        marginBottom: "20px",
       }}
       onClick={() => {
         handleClick();
       }}
     >
-      CheckOut
-    </Button>
+    <RemoveIcon style={{ color: "white" }} />
+    </IconButton>
   );
 }
