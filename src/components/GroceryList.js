@@ -125,7 +125,7 @@ export default function GroceryList({
       )}
       <List
         dense
-        sx={{ width: "100%", bgcolor: "background.paper", overflow: "hidden" }}
+        sx={{ width: "100%", bgcolor: "background.paper", overflow: "hidden", paddingBottom: "100px" }}
       >
         {filtered_items.map((key, index) => {
           const labelId = `checkbox-list-secondary-label-${items[key].name}`;
@@ -198,8 +198,10 @@ export default function GroceryList({
                           groupId={groupId}
                         />
                       ) : (
-                        <div>
+                        <div style={{"alignItems": "center", "display": "flex", "justifyContent": "center"}}>
+                          <span style={{"minWidth": "25px", "display": "block"}}>
                           {sumDict(items[key].quantity)}
+                          </span>
                           { navValue === 2 ? <></> : (
                           <Checkbox
                             edge="end"

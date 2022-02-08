@@ -15,24 +15,11 @@ export default function UserGroceryList({ items, users }) {
   }
 
   const [user] = useUserState();
-  const [expanded, setExpanded] = React.useState(false);
   const checked = Object.keys(items)
     .map((key, index) => (items[key].purchased ? index : -1))
     .filter((index) => index != -1);
-
-  const handleToggle = (key) => () => {
-    if (items[key].purchased == false) {
-      setData(`/items/${key}/purchased`, true);
-    } else {
-      setData(`/items/${key}/purchased`, false);
-    }
-  };
   
   var filtered_items = user ? Object.keys(items).filter(key => items[key].quantity[user['uid']] > 0) : Object.keys(items) ;
-
-  const handleAccordionChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
 
   return !user ? (
     <></>

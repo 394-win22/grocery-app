@@ -24,8 +24,9 @@ const FocusView = ({ item, user, usersInfo, groupId, navValue }) => {
     dialogRef.current.handleClickOpen();
   };
   const [editMode, setEditMode] = React.useState(false);
+  const [newNote, setNewNote] = React.useState(item.notes);
   const EditNote = () => {
-    const [newNote, setNewNote] = React.useState(item.notes);
+    
     const handleSubmit = (event) => {
       event.preventDefault();
       setData(`/groups/${groupId}/items/${item.name}/notes/`, newNote);
@@ -34,7 +35,7 @@ const FocusView = ({ item, user, usersInfo, groupId, navValue }) => {
     };
     return (
       <form className="edit-note" onSubmit={handleSubmit}>
-        <TextField
+        <TextField autoFocus
           style={{
             display: "block",
             margin: "0px",

@@ -2,12 +2,19 @@ import React, { useState } from "react";
 import { IconButton, Button, TextField } from "@mui/material";
 import { setData, useUserState } from "../utilities/firebase";
 import AddIcon from "@mui/icons-material/Add";
+import Drawer from '@mui/material/Drawer';
 import "../App.css";
 
 const AddNewItem = ({ user, groupId, items }) => {
   const [itemName, setItemName] = useState("");
   const [itemNote, setItemNote] = useState("");
-  const [expandedView, setExpandedView] = useState(false);
+  const [drawerState, setDrawerState] = React.useState(false);
+  const toggleDrawer = (open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setDrawerState(open);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -15,19 +22,54 @@ const AddNewItem = ({ user, groupId, items }) => {
       addItem(itemName, user.uid, itemNote, groupId, items);
       setItemName("");
       setItemNote("");
-      handleClose();
-      // console.log(expandedView);
+      toggleDrawer(false);
     }
   };
 
-  const handleClose = (event) => {
-    setExpandedView(false);
-  };
-  const handleExpand = (event) => {
-    event.preventDefault();
-    setExpandedView(true);
-  };
-  return !expandedView ? (
+
+  const addForm = () => (
+    <form
+    className="new-item"
+    onSubmit={handleSubmit}
+    style={{
+      display: "flex",
+      justifyContent: "space-around",
+      // backgroundColor: "#F0F0F0",
+      padding: "10px",
+      margin: "auto",
+      height: "50%",
+    }}
+  >
+    <div style={{ width: "60%" }}>
+      <TextField
+        size="small"
+        style={{ padding: "1", width: "100%" }}
+        id="item-name-input"
+        variant="outlined"
+        onInput={(e) => setItemName(e.target.value)}
+        value={itemName}
+        placeholder="Item"
+        inputProps={{ maxLength: 20 }}
+        variant="standard"
+      />
+      <TextField
+        size="small"
+        style={{ padding: "1", width: "100%" }}
+        id="item-note-input"
+        variant="standard"
+        placeholder="Notes (optional)"
+        onInput={(e) => setItemNote(e.target.value)}
+        value={itemNote}
+        inputProps={{ maxLength: 40 }}
+      />
+    </div>
+    <Button type="submit" variant="contained" onClick={toggleDrawer(false)}>
+      Add
+    </Button>
+   </form>
+  )
+  return  (
+  <React.Fragment key={"bottom"}> 
     <IconButton
       style={{
         display: "flex",
@@ -36,56 +78,21 @@ const AddNewItem = ({ user, groupId, items }) => {
         height: "50px",
         width: "50px",
         backgroundColor: "#1976d2",
-        marginRight: "20px",
         marginBottom: "20px",
       }}
-      onClick={handleExpand}
+      onClick={toggleDrawer(true)}
     >
       <AddIcon style={{ color: "white" }} />
-    </IconButton>
-  ) : (
-    <form
-      className="new-item"
-      onSubmit={handleSubmit}
-      style={{
-        display: "flex",
-        justifyContent: "space-around",
-        // backgroundColor: "#F0F0F0",
-        padding: "10px",
-        margin: "auto",
-      }}
-    >
-      <div style={{ width: "60%" }}>
-        <TextField
-          size="small"
-          style={{ padding: "1", width: "100%" }}
-          id="item-name-input"
-          variant="outlined"
-          onInput={(e) => setItemName(e.target.value)}
-          value={itemName}
-          placeholder="Item"
-          inputProps={{ maxLength: 20 }}
-          variant="standard"
-        />
-        <TextField
-          size="small"
-          style={{ padding: "1", width: "100%" }}
-          id="item-note-input"
-          variant="standard"
-          placeholder="Notes (optional)"
-          onInput={(e) => setItemNote(e.target.value)}
-          value={itemNote}
-          inputProps={{ maxLength: 40 }}
-        />
-      </div>
-      <Button type="submit" variant="contained">
-        Add
-      </Button>
-      <Button variant="outlined" onClick={handleClose}>
-        Cancel
-      </Button>
-    </form>
-  );
+
+    </IconButton> 
+    <Drawer
+      anchor={"bottom"}
+      open={drawerState}
+      onClose={toggleDrawer(false)}>
+      {addForm()}
+    </Drawer>
+  </React.Fragment>
+  )
 };
 
 const addItem = (itemName, uid, note, groupId, items) => {
