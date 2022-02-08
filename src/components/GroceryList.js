@@ -42,12 +42,6 @@ export default function GroceryList({
   const [user] = useUserState();
   const [expanded, setExpanded] = React.useState(false);
   const [filtered, setFiltered] = React.useState(false);
-  const checked = Object.keys(items)
-    .map((key, index) => (items[key].purchased ? index : -1))
-    .filter((index) => index != -1);
-
-  const [editMode, setEditMode] = React.useState(false);
-  const [newNote, setNewNote] = React.useState();
 
   const handleToggle = (key) => () => {
     if (items[key].purchased == false) {
@@ -102,6 +96,9 @@ export default function GroceryList({
     )
     .sort(myComparator);
   }
+
+  const checked = filtered_items.map((key, index) => (items[key].purchased ? index : -1))
+  .filter((index) => index != -1);
 
   return !user ? (
     <></>
