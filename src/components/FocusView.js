@@ -17,7 +17,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { TextField } from "@mui/material";
 import { ConfirmDialog } from "./ConfirmDialog";
 
-const FocusView = ({ item, user, usersInfo, groupId, navValue }) => {
+const FocusView = ({ item, user, usersInfo, groupId, navValue}) => {
   const dialogRef = useRef();
 
   const openDialog = () => {

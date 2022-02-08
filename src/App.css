@@ -41,7 +41,7 @@ body {
 }
 
 .grocery-list {
-  overscroll-behavior: none;
+  /*overscroll-behavior: none;*/
   position: relative;
   display: flex;
   flex-direction: column;

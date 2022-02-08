@@ -23,6 +23,7 @@ const App = () => {
   const [user] = useUserState();
   // Nav bar value passed into SimpleBottomNavigation & GroceryList
   const [navValue, setNavValue] = React.useState(0);
+
   const [summaryUser, setSummaryUser] = React.useState();
   useEffect(() => {
     if (user != null) {

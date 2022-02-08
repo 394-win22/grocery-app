@@ -1,10 +1,13 @@
 import React, { useState, useRef } from "react";
 import { IconButton, Button, TextField } from "@mui/material";
-import { setData, useUserState } from "../utilities/firebase";
+import { getDatabase } from "@firebase/database";
+import { setData, useUserState} from "../utilities/firebase";
+import { ConfirmDialog } from "./ConfirmDialog";
 import AddIcon from "@mui/icons-material/Add";
 import Drawer from '@mui/material/Drawer';
 import "../App.css";
 import {ConfirmDialog} from "./ConfirmDialog.js";
+
 
 const AddNewItem = ({ user, groupId, items }) => {
   const [itemName, setItemName] = useState("");
@@ -88,12 +91,14 @@ const AddNewItem = ({ user, groupId, items }) => {
       />
     </div>
     <Button type="submit" variant="contained" onClick={toggleDrawer(false)}>
+      {console.log("clicked")}
       Add
     </Button>
    </form>
   )
 
   return  (
+    <div>
   <React.Fragment key={"bottom"}> 
     <IconButton
       style={{
@@ -140,6 +145,16 @@ const AddNewItem = ({ user, groupId, items }) => {
     </Drawer>
     
   </React.Fragment>
+  <ConfirmDialog
+        title={"Subtract to zero?"}
+        content={"If you do that, this item will be deleted."}
+        func={() => {
+          // delete item;
+          setData(`/groups/${groupId}/items/${item.name}`, null);
+        }}
+        props={dialogRef}
+      />
+      </div>
   )
 };
 

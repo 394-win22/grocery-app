@@ -4,7 +4,7 @@ import {setData} from "../../utilities/firebase";
 import {Button, ButtonGroup} from "@mui/material";
 import {ConfirmDialog} from "../ConfirmDialog";
 
-const AddSubtractButtons = ({user, item, groupId}) => {
+const AddSubtractButtons = ({user, item, groupId, filtered}) => {
   const dialogRef = useRef();
 
   const openDialog = () => {
@@ -56,7 +56,9 @@ const AddSubtractButtons = ({user, item, groupId}) => {
         </Button>
         <Button disabled={item.purchased} style={{border: "0px"}}>
           {" "}
-          {sumDict(item.quantity)}{" "}
+          {/* Checks if filter is on. If so, show only my quantity */}
+          {filtered ? item.quantity[user["uid"]] : sumDict(item.quantity)} 
+          {" "}
         </Button>
         <Button
           variant="contained"

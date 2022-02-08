@@ -14,7 +14,9 @@ export const ConfirmDialog = ({title, content, func, props}) =>{
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
+    
     setOpen(true);
+    
   };
 
   const handleClose = () => {
