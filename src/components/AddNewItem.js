@@ -112,7 +112,7 @@ const AddNewItem = ({ user, groupId, items }) => {
     </IconButton> 
     <ConfirmDialog
         title={"Adding item that already exists?"}
-        content={"If you do that, this item's quantity will plus 1"}
+        content={"If you do that, this item's quantity will plus 1 and note will be overwritten"}
         func={() => {
           let newQuantity = 1;
         if (user.uid in items[itemName].quantity) {
@@ -126,6 +126,7 @@ const AddNewItem = ({ user, groupId, items }) => {
           `groups/${groupId}/items/${itemName}/total_quantity`,
           items[itemName].total_quantity + 1
         );
+        setData(`groups/${groupId}/items/${itemName}/notes`, itemNote);
         setItemName("");
         setItemNote("");
         }}
