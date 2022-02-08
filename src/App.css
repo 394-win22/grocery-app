@@ -43,13 +43,14 @@ body {
 .grocery-list {
   /*overscroll-behavior: none;*/
   position: relative;
+  top: 60px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   overflow: hidden;
-  padding-top: 70px;
+  
   
   border: 1px solid #9d9d9d;
   /* margin: 0 40%; */
