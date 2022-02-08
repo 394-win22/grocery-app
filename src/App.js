@@ -78,8 +78,8 @@ const App = () => {
             />
             <div
               style={{
-                position: "sticky",
-                bottom: "110px",
+                position: "fixed",
+                bottom: "50px",
                 display: "flex",
                 justifyContent: "right",
                 // marginLeft:"18.5px"
@@ -132,7 +132,7 @@ const App = () => {
             {/* </div> */}
 
             {/* Botton nav component */}
-            <SimpleBottomNavigation value={navValue} setValue={setNavValue} style={{paddingBottom:20, width: "100%" }} />
+            <SimpleBottomNavigation value={navValue} setValue={setNavValue} style={{width: "100%" }} />
           </div>
         </>
       )}

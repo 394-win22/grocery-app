@@ -14,7 +14,7 @@ export default function SimpleBottomNavigation({ value, setValue }) {
         bottom: 0,
         top: "auto",
         width: "90%",
-        height: "60px",
+        height: "55px",
         background:"none"
       }}
     >
