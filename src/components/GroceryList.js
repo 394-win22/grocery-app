@@ -181,10 +181,7 @@ export default function GroceryList({
                         groupId={groupId}
                         isSharedList={true}
                         navValue = {navValue}
-                        editMode = {editMode}
-                        setEditMode = {setEditMode}
-                        newNote = {newNote}
-                        setNewNote = {setNewNote}
+                        
                       />
                     </Accordion>
                     <div 

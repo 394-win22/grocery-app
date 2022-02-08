@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IconButton, Button, TextField } from "@mui/material";
 import { setData, useUserState } from "../utilities/firebase";
-import { ConfirmDialog } from "../ConfirmDialog";
+import { ConfirmDialog } from "./ConfirmDialog";
 import AddIcon from "@mui/icons-material/Add";
 import "../App.css";
 

@@ -17,16 +17,16 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { TextField } from "@mui/material";
 import { ConfirmDialog } from "./ConfirmDialog";
 
-const FocusView = ({ item, user, usersInfo, groupId, navValue, editMode, setEditMode, newNote, setNewNote }) => {
+const FocusView = ({ item, user, usersInfo, groupId, navValue}) => {
   const dialogRef = useRef();
 
   const openDialog = () => {
     dialogRef.current.handleClickOpen();
   };
-  //const [editMode, setEditMode] = React.useState(false);
+  const [editMode, setEditMode] = React.useState(false);
+  const [newNote, setNewNote] = React.useState(item.notes);
   const EditNote = () => {
-    //const [newNote, setNewNote] = React.useState(item.notes);
-    //setNewNote(item.notes);
+    
     const handleSubmit = (event) => {
       event.preventDefault();
       setData(`/groups/${groupId}/items/${item.name}/notes/`, newNote);
