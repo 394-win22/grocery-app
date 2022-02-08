@@ -2,9 +2,9 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
-import SummarizeOutlinedIcon from "@mui/icons-material/SummarizeOutlined";
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import LibraryAddCheckIcon from '@mui/icons-material/LibraryAddCheck';
+import PriceCheckIcon from '@mui/icons-material/PriceCheck';
 
 export default function SimpleBottomNavigation({ value, setValue }) {
   return (
@@ -26,16 +26,16 @@ export default function SimpleBottomNavigation({ value, setValue }) {
         }}
       >
         {/* Plan button */}
-        <BottomNavigationAction label="Plan" icon={<PlaylistAddIcon />} />
+        <BottomNavigationAction label="Planner" icon={<AddShoppingCartIcon />} />
         {/* Shop button */}
         <BottomNavigationAction
-          label="Shop"
-          icon={<ShoppingCartCheckoutIcon />}
+          label="Checklist"
+          icon={<LibraryAddCheckIcon />}
         />
         {/* Summary button */}
         <BottomNavigationAction
-          label="Summary"
-          icon={<SummarizeOutlinedIcon />}
+          label="Purchased"
+          icon={<PriceCheckIcon />}
         />
       </BottomNavigation>
     </Box>

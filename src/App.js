@@ -23,7 +23,7 @@ const App = () => {
   const [user] = useUserState();
   // Nav bar value passed into SimpleBottomNavigation & GroceryList
   const [navValue, setNavValue] = React.useState(0);
-  const [summaryUser, setSummaryUser] = React.useState();
+  const [summaryUser, setSummaryUser] = React.useState(user != null ? user.uid: null);
   useEffect(() => {
     if (user != null) {
       setSummaryUser(user.uid);
@@ -95,6 +95,7 @@ const App = () => {
                     }
                   />
                 ) : navValue === 2 ? (
+                  
                   <FormControl fullWidth style={{ paddingBottom: 20 }}>
                     <InputLabel id="demo-simple-select-label">Name</InputLabel>
                     <Select
