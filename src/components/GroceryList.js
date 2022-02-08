@@ -46,6 +46,9 @@ export default function GroceryList({
     .map((key, index) => (items[key].purchased ? index : -1))
     .filter((index) => index != -1);
 
+  const [editMode, setEditMode] = React.useState(false);
+  const [newNote, setNewNote] = React.useState();
+
   const handleToggle = (key) => () => {
     if (items[key].purchased == false) {
       setData(`/groups/${groupId}/items/${key}/purchased`, true);
@@ -178,6 +181,10 @@ export default function GroceryList({
                         groupId={groupId}
                         isSharedList={true}
                         navValue = {navValue}
+                        editMode = {editMode}
+                        setEditMode = {setEditMode}
+                        newNote = {newNote}
+                        setNewNote = {setNewNote}
                       />
                     </Accordion>
                     <div 

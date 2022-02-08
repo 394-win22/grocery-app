@@ -132,7 +132,7 @@ const App = () => {
             {/* </div> */}
 
             {/* Botton nav component */}
-            <SimpleBottomNavigation value={navValue} setValue={setNavValue} style={{paddingBottom:20 }} />
+            <SimpleBottomNavigation value={navValue} setValue={setNavValue} style={{paddingBottom:10}} />
           </div>
         </>
       )}
