@@ -23,7 +23,7 @@ const AddNewItem = ({ user, groupId, items }) => {
   };
 
   const addItem = (itemName, uid, note, groupId, items) => {
-    if (Object.keys(items).includes(itemName)) {
+    if (items && Object.keys(items).includes(itemName)) {
       openDialog();
     } else {
       const newItem = {
