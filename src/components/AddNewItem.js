@@ -1,11 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { IconButton, Button, TextField } from "@mui/material";
-import { setData, useUserState } from "../utilities/firebase";
+import { getDatabase } from "@firebase/database";
+import { setData, useUserState} from "../utilities/firebase";
 import { ConfirmDialog } from "./ConfirmDialog";
 import AddIcon from "@mui/icons-material/Add";
 import "../App.css";
 
-const AddNewItem = ({ user, groupId }) => {
+
+
+const AddNewItem = ({ user, groupId, items }) => {
+  
+  const dialogRef = useRef();
+
+  const openDialog = () => {
+    
+    dialogRef.current.handleClickOpen();
+    
+  };
+
   const [itemName, setItemName] = useState("");
   const [itemNote, setItemNote] = useState("");
   const [expandedView, setExpandedView] = useState(false);
@@ -13,7 +25,7 @@ const AddNewItem = ({ user, groupId }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (itemName && user) {
-      addItem(itemName, user.uid, itemNote, groupId);
+      addItem(itemName, user.uid, itemNote, groupId, items);
       setItemName("");
       setItemNote("");
       handleClose();
@@ -28,6 +40,35 @@ const AddNewItem = ({ user, groupId }) => {
     event.preventDefault();
     setExpandedView(true);
   };
+  const addItem = (itemName, uid, note, groupId, items) => {
+  
+    if (Object.keys(items).includes(itemName)) {
+      let newQuantity = 1;
+      
+      if (uid in items[itemName].quantity) {
+        openDialog();
+      }
+      setData(
+        `groups/${groupId}/items/${itemName}/quantity/${uid}/`,
+        newQuantity
+      );
+      setData(
+        `groups/${groupId}/items/${itemName}/total_quantity`,
+        items[itemName].total_quantity + 1
+      );
+    } else {
+      const newItem = {
+        name: itemName,
+        quantity: {},
+        total_quantity: 1,
+        purchased: false,
+        notes: note,
+      };
+      newItem["quantity"][uid] = 1;
+      setData(`groups/${groupId}/items/${itemName}`, newItem);
+    }
+  };
+
   return !expandedView ? (
     <IconButton
       style={{
@@ -45,7 +86,7 @@ const AddNewItem = ({ user, groupId }) => {
       <AddIcon style={{ color: "white" }} />
     </IconButton>
   ) : (
-    <form
+    <><form
       className="new-item"
       onSubmit={handleSubmit}
       style={{
@@ -83,20 +124,21 @@ const AddNewItem = ({ user, groupId }) => {
         Add
       </Button>
       <Button variant="outlined" onClick={handleClose}>Cancel</Button>
+      <ConfirmDialog
+    title={"Item already in list"}
+    content={"Confirm to add 1 to existing item in list."}
+    func={() => {
+      setData(items[itemName].quantity[uid] + 1);
+      // delete item;
+    }}
+    props={dialogRef}
+  />
     </form>
+    </>
   );
 };
 
-const addItem = (itemName, uid, note, groupId) => {
-  const newItem = {
-    name: itemName,
-    quantity: {},
-    total_quantity: 1,
-    purchased: false,
-    notes: note,
-  };
-  newItem["quantity"][uid] = 1;
-  setData(`groups/${groupId}/items/${itemName}`, newItem);
-};
+
+
 
 export default AddNewItem;
