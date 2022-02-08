@@ -76,6 +76,7 @@ const AddNewItem = ({ user, groupId, items }) => {
       />
     </div>
     <Button type="submit" variant="contained" onClick={toggleDrawer(false)}>
+      {console.log("clicked")}
       Add
     </Button>
    </form>
@@ -118,7 +119,7 @@ const AddNewItem = ({ user, groupId, items }) => {
 };
 
 const addItem = (itemName, uid, note, groupId, items) => {
-  if (Object.keys(items).includes(itemName)) {
+  if (items && Object.keys(items).includes(itemName)) {
     let newQuantity = 1;
     if (uid in items[itemName].quantity) {
       newQuantity = items[itemName].quantity[uid] + 1;
