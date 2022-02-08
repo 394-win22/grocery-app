@@ -202,7 +202,7 @@ export default function GroceryList({
                       ) : (
                         <div style={{"alignItems": "center", "display": "flex", "justifyContent": "center"}}>
                           <span style={{"minWidth": "25px", "display": "block"}}>
-                          {sumDict(items[key].quantity)}
+                          {navValue === 2 ? items[key].quantity[user["uid"]] : sumDict(items[key].quantity)}
                           </span>
                           { navValue === 2 ? <></> : (
                           <Checkbox
