@@ -59,7 +59,7 @@ body {
 .inner-list {
   position: relative;
   overflow: scroll;
-  height: 100vh;
+  height: 90%;
 }
 
 .item-list {
