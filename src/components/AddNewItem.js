@@ -4,6 +4,7 @@ import { getDatabase } from "@firebase/database";
 import { setData, useUserState} from "../utilities/firebase";
 import { ConfirmDialog } from "./ConfirmDialog";
 import AddIcon from "@mui/icons-material/Add";
+import Drawer from '@mui/material/Drawer';
 import "../App.css";
 
 
@@ -20,7 +21,13 @@ const AddNewItem = ({ user, groupId, items }) => {
 
   const [itemName, setItemName] = useState("");
   const [itemNote, setItemNote] = useState("");
-  const [expandedView, setExpandedView] = useState(false);
+  const [drawerState, setDrawerState] = React.useState(false);
+  const toggleDrawer = (open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setDrawerState(open);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -28,48 +35,54 @@ const AddNewItem = ({ user, groupId, items }) => {
       addItem(itemName, user.uid, itemNote, groupId, items);
       setItemName("");
       setItemNote("");
-      handleClose();
-      // console.log(expandedView);
+      toggleDrawer(false);
     }
   };
 
-  const handleClose = (event) => {
-    setExpandedView(false);
-  }
-  const handleExpand = (event) => {
-    event.preventDefault();
-    setExpandedView(true);
-  };
-  const addItem = (itemName, uid, note, groupId, items) => {
-  
-    if (Object.keys(items).includes(itemName)) {
-      let newQuantity = 1;
-      
-      if (uid in items[itemName].quantity) {
-        openDialog();
-      }
-      setData(
-        `groups/${groupId}/items/${itemName}/quantity/${uid}/`,
-        newQuantity
-      );
-      setData(
-        `groups/${groupId}/items/${itemName}/total_quantity`,
-        items[itemName].total_quantity + 1
-      );
-    } else {
-      const newItem = {
-        name: itemName,
-        quantity: {},
-        total_quantity: 1,
-        purchased: false,
-        notes: note,
-      };
-      newItem["quantity"][uid] = 1;
-      setData(`groups/${groupId}/items/${itemName}`, newItem);
-    }
-  };
-
-  return !expandedView ? (
+  const addForm = () => (
+    <form
+    className="new-item"
+    onSubmit={handleSubmit}
+    style={{
+      display: "flex",
+      justifyContent: "space-around",
+      // backgroundColor: "#F0F0F0",
+      padding: "10px",
+      margin: "auto",
+      height: "50%",
+    }}
+  >
+    <div style={{ width: "60%" }}>
+      <TextField
+        size="small"
+        style={{ padding: "1", width: "100%" }}
+        id="item-name-input"
+        variant="outlined"
+        onInput={(e) => setItemName(e.target.value)}
+        value={itemName}
+        placeholder="Item"
+        inputProps={{ maxLength: 20 }}
+        variant="standard"
+      />
+      <TextField
+        size="small"
+        style={{ padding: "1", width: "100%" }}
+        id="item-note-input"
+        variant="standard"
+        placeholder="Notes (optional)"
+        onInput={(e) => setItemNote(e.target.value)}
+        value={itemNote}
+        inputProps={{ maxLength: 40 }}
+      />
+    </div>
+    <Button type="submit" variant="contained" onClick={toggleDrawer(false)}>
+      Add
+    </Button>
+   </form>
+  )
+  return  (
+    <div>
+  <React.Fragment key={"bottom"}> 
     <IconButton
       style={{
         display: "flex",
@@ -78,66 +91,58 @@ const AddNewItem = ({ user, groupId, items }) => {
         height: "50px",
         width: "50px",
         backgroundColor: "#1976d2",
-        marginRight: "20px",
         marginBottom: "20px",
       }}
-      onClick={handleExpand}
+      onClick={toggleDrawer(true)}
     >
       <AddIcon style={{ color: "white" }} />
-    </IconButton>
-  ) : (
-    <><form
-      className="new-item"
-      onSubmit={handleSubmit}
-      style={{
-        display: "flex",
-        justifyContent: "space-around",
-        // backgroundColor: "#F0F0F0",
-        padding: "10px",
-        margin: "auto",
-      }}
-    >
-      <div style={{ width: "60%" }}>
-        <TextField
-          size="small"
-          style={{ padding: "1", width: "100%" }}
-          id="item-name-input"
-          variant="outlined"
-          onInput={(e) => setItemName(e.target.value)}
-          value={itemName}
-          placeholder="Item"
-          inputProps={{ maxLength: 20 }}
-          variant="standard"
-        />
-        <TextField
-          size="small"
-          style={{ padding: "1", width: "100%" }}
-          id="item-note-input"
-          variant="standard"
-          placeholder="Notes (optional)"
-          onInput={(e) => setItemNote(e.target.value)}
-          value={itemNote}
-          inputProps={{ maxLength: 40 }}
-        />
+    </IconButton> 
+    <Drawer
+      anchor={"bottom"}
+      open={drawerState}
+      onClose={toggleDrawer(false)}>
+      {addForm()}
+    </Drawer>
+  </React.Fragment>
+  <ConfirmDialog
+        title={"Subtract to zero?"}
+        content={"If you do that, this item will be deleted."}
+        func={() => {
+          // delete item;
+          setData(`/groups/${groupId}/items/${item.name}`, null);
+        }}
+        props={dialogRef}
+      />
       </div>
-      <Button type="submit" variant="contained">
-        Add
-      </Button>
-      <Button variant="outlined" onClick={handleClose}>Cancel</Button>
-      <ConfirmDialog
-    title={"Item already in list"}
-    content={"Confirm to add 1 to existing item in list."}
-    func={() => {
-      setData(items[itemName].quantity[uid] + 1);
-      // delete item;
-    }}
-    props={dialogRef}
-  />
-    </form>
-    </>
-  );
+  )
 };
 
+const addItem = (itemName, uid, note, groupId, items) => {
+  if (Object.keys(items).includes(itemName)) {
+    let newQuantity = 1;
+    if (uid in items[itemName].quantity) {
+      newQuantity = items[itemName].quantity[uid] + 1;
+    }
+    setData(
+      `groups/${groupId}/items/${itemName}/quantity/${uid}/`,
+      newQuantity
+    );
+    setData(
+      `groups/${groupId}/items/${itemName}/total_quantity`,
+      items[itemName].total_quantity + 1
+    );
+  } else {
+    const newItem = {
+      name: itemName,
+      quantity: {},
+      total_quantity: 1,
+      purchased: false,
+      notes: note,
+    };
+    newItem["quantity"][uid] = 1;
+    setData(`groups/${groupId}/items/${itemName}`, newItem);
+  }
+}
 
 
 

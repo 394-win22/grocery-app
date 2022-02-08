@@ -16,6 +16,7 @@ import SimpleBottomNavigation from "./components/BottomNavBar";
 import CheckoutButton from "./components/CheckoutButton";
 import CreateGroupView from "./components/CreateGroupView";
 import { wait } from "@testing-library/user-event/dist/utils";
+import { ForkLeft } from "@mui/icons-material";
 
 const App = () => {
   const [database, loading, error] = useData("/");
@@ -77,12 +78,11 @@ const App = () => {
             />
             <div
               style={{
-                position: "sticky",
-                bottom: "120px",
-                width: "90%",
+                position: "fixed",
+                bottom: "50px",
                 display: "flex",
                 justifyContent: "right",
-                maxWidth: "600px",
+                // marginLeft:"18.5px"
               }}
             >
               {
@@ -135,11 +135,7 @@ const App = () => {
             {/* </div> */}
 
             {/* Botton nav component */}
-            <SimpleBottomNavigation
-              value={navValue}
-              setValue={setNavValue}
-              style={{ paddingBottom: 20 }}
-            />
+            <SimpleBottomNavigation value={navValue} setValue={setNavValue} style={{width: "100%" }} />
           </div>
         </>
       )}
