@@ -141,7 +141,7 @@ const App = () => {
             <SimpleBottomNavigation
               value={navValue}
               setValue={setNavValue}
-              style={{ paddingBottom: 20 }}
+              style={{ paddingBottom: 20}}
             />
 
           </div>

@@ -137,6 +137,7 @@ const AddNewItem = ({ user, groupId, items }) => {
       open={drawerState}
       onClose={toggleDrawer(false)}>
       {addForm()}
+      
     </Drawer>
     
   </React.Fragment>

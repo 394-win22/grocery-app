@@ -115,7 +115,7 @@ export default function GroceryList({
       }}
     >
       {navValue === 0 ? (
-        <FormGroup style={{ alignItems: "center" , paddingTop: 20}}>
+        <FormGroup style={{ alignItems: "center"}}>
           <FormControlLabel
             control={
               <Checkbox onChange={handleFilterToggle()} checked={filtered} />
