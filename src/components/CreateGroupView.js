@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {
   Accordion,
   AccordionSummary,
@@ -9,19 +9,19 @@ import {
   ListItemText,
   FormGroup,
   Button,
-  TextField,
+  TextField, Grid,
 } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import { setData } from "../utilities/firebase";
+import {setData} from "../utilities/firebase";
 import "../utilities/helperFunctions";
 import "../App.css";
-import { useUserState } from "../utilities/firebase.js";
+import {useUserState} from "../utilities/firebase.js";
 import FocusView from "./FocusView";
 import AddSubtractButtons from "./focusView/AddSubtractButtons";
 import GroceryListItemText from "./groceryList/GroceryListItemText";
-import { sumDict } from "../utilities/helperFunctions.js";
+import {sumDict} from "../utilities/helperFunctions.js";
 
-export default function CreateGroupView({ userList, groupList, currentUser }) {
+export default function CreateGroupView({userList, groupList, currentUser}) {
   const [joinCode, setjoinCode] = useState("");
   const handleCreate = (event) => {
     event.preventDefault();
@@ -39,39 +39,48 @@ export default function CreateGroupView({ userList, groupList, currentUser }) {
   // console.log(currentUser.uid);
   return (
     <>
-      <Button onClick={handleCreate} style={{ paddingTop: "100px" }}>
-        Create a group
-      </Button>
-      
+      <div style={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        margin: "100px 10% 0px 10%"
+      }}>
+        <p style={{fontWeight: "bold"}}>Don't have a group?</p>
+        <Button variant="contained" onClick={handleCreate} style={{minWidth: "160px", maxWidth: "160px"}}>
+          Create a group
+        </Button>
+      </div>
+      <h5>OR</h5>
       <form
         className="join_group"
         onSubmit={handleJoin}
         style={{
           display: "flex",
-          justifyContent: "space-around",
-          // backgroundColor: "#F0F0F0",
-          padding: "10px",
-          margin: "auto",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          margin: "0 10% 0px 10%"
         }}
       >
-        
-        <div style={{ width: "60%" }}>
+
+        <div style={{textAlign: "left", width: "60%"}}>
           <TextField
             size="small"
-            style={{ padding: "1", width: "100%" }}
+            style={{width: "80%"}}
             id="item-name-input"
             variant="outlined"
             onInput={(e) => setjoinCode(e.target.value)}
             value={joinCode}
             placeholder="Join Code"
-            inputProps={{ maxLength: 20 }}
+            inputProps={{maxLength: 20}}
             variant="standard"
           />
         </div>
-        <Button type="submit" variant="contained">
+        <Button type="submit" variant="contained" style={{minWidth: "160px"}}>
           Join Group
         </Button>
-       
+
       </form>
     </>
   );
