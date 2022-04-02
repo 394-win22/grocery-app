@@ -74,7 +74,7 @@ const AddNewItem = ({ user, groupId, items }) => {
         onInput={(e) => setItemName(e.target.value)}
         value={itemName}
         placeholder="Item"
-        inputProps={{ maxLength: 20 }}
+        inputProps={{ maxLength: 50 }}
         variant="standard"
       />
       <TextField
@@ -85,7 +85,7 @@ const AddNewItem = ({ user, groupId, items }) => {
         placeholder="Notes (optional)"
         onInput={(e) => setItemNote(e.target.value)}
         value={itemNote}
-        inputProps={{ maxLength: 40 }}
+        inputProps={{ maxLength: 100 }}
       />
     </div>
     <Button type="submit" variant="contained" onClick={toggleDrawer(false)}>
